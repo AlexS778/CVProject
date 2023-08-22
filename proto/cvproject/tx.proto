@@ -1,13 +1,49 @@
 syntax = "proto3";
 package alexs778.cvproject.cvproject;
 
+import "cvproject/cv.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+      rpc CreateCV(MsgCreateCV) returns (MsgCreateCVResponse);
+  rpc UpdateCV(MsgUpdateCV) returns (MsgUpdateCVResponse);
+  rpc DeleteCV(MsgDeleteCV) returns (MsgDeleteCVResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
 }
+
+message MsgCreateCV {
+  string creator = 1;
+  string index = 2;
+
+  string name = 3;
+  string education = 4;
+  string summary = 5;
+  string skills = 6;
+  string experience = 7;
+  repeated string companies = 8;
+}
+message MsgCreateCVResponse {}
+
+message MsgUpdateCV {
+  string creator = 1;
+  string index = 2;
+
+  string name = 3;
+  string education = 4;
+  string summary = 5;
+  string skills = 6;
+  string experience = 7;
+  repeated string companies = 8;
+}
+message MsgUpdateCVResponse {}
+
+message MsgDeleteCV {
+  string creator = 1;
+  string index = 2;
+}
+message MsgDeleteCVResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

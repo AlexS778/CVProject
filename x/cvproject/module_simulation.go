@@ -24,7 +24,19 @@ var (
 )
 
 const (
-// this line is used by starport scaffolding # simapp/module/const
+	opWeightMsgCreateCV = "op_weight_msg_cv"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateCV int = 100
+
+	opWeightMsgUpdateCV = "op_weight_msg_cv"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateCV int = 100
+
+	opWeightMsgDeleteCV = "op_weight_msg_cv"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgDeleteCV int = 100
+
+	// this line is used by starport scaffolding # simapp/module/const
 )
 
 // GenerateGenesisState creates a randomized GenState of the module
@@ -35,6 +47,16 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 	}
 	cvprojectGenesis := types.GenesisState{
 		Params: types.DefaultParams(),
+		CVList: []types.CV{
+			{
+				Creator: sample.AccAddress(),
+				Index:   "0",
+			},
+			{
+				Creator: sample.AccAddress(),
+				Index:   "1",
+			},
+		},
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&cvprojectGenesis)
@@ -57,6 +79,39 @@ func (am AppModule) RegisterStoreDecoder(_ sdk.StoreDecoderRegistry) {}
 // WeightedOperations returns the all the gov module operations with their respective weights.
 func (am AppModule) WeightedOperations(simState module.SimulationState) []simtypes.WeightedOperation {
 	operations := make([]simtypes.WeightedOperation, 0)
+
+	var weightMsgCreateCV int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateCV, &weightMsgCreateCV, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateCV = defaultWeightMsgCreateCV
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateCV,
+		cvprojectsimulation.SimulateMsgCreateCV(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateCV int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateCV, &weightMsgUpdateCV, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateCV = defaultWeightMsgUpdateCV
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateCV,
+		cvprojectsimulation.SimulateMsgUpdateCV(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgDeleteCV int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgDeleteCV, &weightMsgDeleteCV, nil,
+		func(_ *rand.Rand) {
+			weightMsgDeleteCV = defaultWeightMsgDeleteCV
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgDeleteCV,
+		cvprojectsimulation.SimulateMsgDeleteCV(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
 
 	// this line is used by starport scaffolding # simapp/module/operation
 

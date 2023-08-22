@@ -1,0 +1,12 @@
+syntax = "proto3";
+package alexs778.cvproject.cvproject;
+
+import "gogoproto/gogo.proto";
+
+option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
+
+// Params defines the parameters for the module.
+message Params {
+  option (gogoproto.goproto_stringer) = false;
+  
+}

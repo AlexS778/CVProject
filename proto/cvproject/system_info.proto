@@ -1,0 +1,9 @@
+syntax = "proto3";
+package alexs778.cvproject.cvproject;
+
+option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
+
+message SystemInfo {
+  uint64 nextId = 1; 
+  
+}

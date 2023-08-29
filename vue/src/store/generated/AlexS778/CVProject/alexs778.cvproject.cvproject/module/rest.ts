@@ -14,12 +14,21 @@
  */
 export type CvprojectParams = object;
 
+export interface CvprojectQueryGetSystemInfoResponse {
+  SystemInfo?: CvprojectSystemInfo;
+}
+
 /**
  * QueryParamsResponse is response type for the Query/Params RPC method.
  */
 export interface CvprojectQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: CvprojectParams;
+}
+
+export interface CvprojectSystemInfo {
+  /** @format uint64 */
+  nextId?: string;
 }
 
 export interface ProtobufAny {
@@ -240,6 +249,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<CvprojectQueryParamsResponse, RpcStatus>({
       path: `/AlexS778/CVProject/cvproject/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QuerySystemInfo
+   * @summary Queries a SystemInfo by index.
+   * @request GET:/AlexS778/CVProject/cvproject/system_info
+   */
+  querySystemInfo = (params: RequestParams = {}) =>
+    this.request<CvprojectQueryGetSystemInfoResponse, RpcStatus>({
+      path: `/AlexS778/CVProject/cvproject/system_info`,
       method: "GET",
       format: "json",
       ...params,

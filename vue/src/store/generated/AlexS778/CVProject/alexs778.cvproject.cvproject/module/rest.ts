@@ -9,45 +9,13 @@
  * ---------------------------------------------------------------
  */
 
-export interface CvprojectCV {
-  index?: string;
-  name?: string;
-  education?: string;
-  summary?: string;
-  skills?: string;
-  experience?: string;
-  companies?: string[];
-  creator?: string;
-}
-
-export type CvprojectMsgCreateCVResponse = object;
-
-export type CvprojectMsgDeleteCVResponse = object;
-
-export type CvprojectMsgUpdateCVResponse = object;
-
 /**
  * Params defines the parameters for the module.
  */
 export type CvprojectParams = object;
 
-export interface CvprojectQueryAllCVResponse {
-  cV?: CvprojectCV[];
-
-  /**
-   * PageResponse is to be embedded in gRPC response messages where the
-   * corresponding request message has used PageRequest.
-   *
-   *  message SomeResponse {
-   *          repeated Bar results = 1;
-   *          PageResponse page = 2;
-   *  }
-   */
-  pagination?: V1Beta1PageResponse;
-}
-
-export interface CvprojectQueryGetCVResponse {
-  cV?: CvprojectCV;
+export interface CvprojectQueryGetSystemInfoResponse {
+  SystemInfo?: CvprojectSystemInfo;
 }
 
 /**
@@ -56,6 +24,11 @@ export interface CvprojectQueryGetCVResponse {
 export interface CvprojectQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: CvprojectParams;
+}
+
+export interface CvprojectSystemInfo {
+  /** @format uint64 */
+  nextId?: string;
 }
 
 export interface ProtobufAny {
@@ -67,69 +40,6 @@ export interface RpcStatus {
   code?: number;
   message?: string;
   details?: ProtobufAny[];
-}
-
-/**
-* message SomeRequest {
-         Foo some_parameter = 1;
-         PageRequest pagination = 2;
- }
-*/
-export interface V1Beta1PageRequest {
-  /**
-   * key is a value returned in PageResponse.next_key to begin
-   * querying the next page most efficiently. Only one of offset or key
-   * should be set.
-   * @format byte
-   */
-  key?: string;
-
-  /**
-   * offset is a numeric offset that can be used when key is unavailable.
-   * It is less efficient than using key. Only one of offset or key should
-   * be set.
-   * @format uint64
-   */
-  offset?: string;
-
-  /**
-   * limit is the total number of results to be returned in the result page.
-   * If left empty it will default to a value to be set by each app.
-   * @format uint64
-   */
-  limit?: string;
-
-  /**
-   * count_total is set to true  to indicate that the result set should include
-   * a count of the total number of items available for pagination in UIs.
-   * count_total is only respected when offset is used. It is ignored when key
-   * is set.
-   */
-  count_total?: boolean;
-
-  /**
-   * reverse is set to true if results are to be returned in the descending order.
-   *
-   * Since: cosmos-sdk 0.43
-   */
-  reverse?: boolean;
-}
-
-/**
-* PageResponse is to be embedded in gRPC response messages where the
-corresponding request message has used PageRequest.
-
- message SomeResponse {
-         repeated Bar results = 1;
-         PageResponse page = 2;
- }
-*/
-export interface V1Beta1PageResponse {
-  /** @format byte */
-  next_key?: string;
-
-  /** @format uint64 */
-  total?: string;
 }
 
 export type QueryParamsType = Record<string | number, any>;
@@ -324,52 +234,10 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title cvproject/cv.proto
+ * @title cvproject/genesis.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
-  /**
-   * No description
-   *
-   * @tags Query
-   * @name QueryCvAll
-   * @summary Queries a list of CV items.
-   * @request GET:/AlexS778/CVProject/cvproject/cv
-   */
-  queryCvAll = (
-    query?: {
-      "pagination.key"?: string;
-      "pagination.offset"?: string;
-      "pagination.limit"?: string;
-      "pagination.count_total"?: boolean;
-      "pagination.reverse"?: boolean;
-    },
-    params: RequestParams = {},
-  ) =>
-    this.request<CvprojectQueryAllCVResponse, RpcStatus>({
-      path: `/AlexS778/CVProject/cvproject/cv`,
-      method: "GET",
-      query: query,
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
-   * @name QueryCv
-   * @summary Queries a CV by index.
-   * @request GET:/AlexS778/CVProject/cvproject/cv/{index}
-   */
-  queryCv = (index: string, params: RequestParams = {}) =>
-    this.request<CvprojectQueryGetCVResponse, RpcStatus>({
-      path: `/AlexS778/CVProject/cvproject/cv/${index}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
   /**
    * No description
    *
@@ -381,6 +249,22 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<CvprojectQueryParamsResponse, RpcStatus>({
       path: `/AlexS778/CVProject/cvproject/params`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QuerySystemInfo
+   * @summary Queries a SystemInfo by index.
+   * @request GET:/AlexS778/CVProject/cvproject/system_info
+   */
+  querySystemInfo = (params: RequestParams = {}) =>
+    this.request<CvprojectQueryGetSystemInfoResponse, RpcStatus>({
+      path: `/AlexS778/CVProject/cvproject/system_info`,
       method: "GET",
       format: "json",
       ...params,

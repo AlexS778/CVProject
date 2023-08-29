@@ -14,13 +14,8 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
-		CVList: []types.CV{
-			{
-				Index: "0",
-			},
-			{
-				Index: "1",
-			},
+		SystemInfo: &types.SystemInfo{
+			NextId: 80,
 		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
@@ -33,6 +28,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
-	require.ElementsMatch(t, genesisState.CVList, got.CVList)
+	require.Equal(t, genesisState.SystemInfo, got.SystemInfo)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

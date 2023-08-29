@@ -6,7 +6,7 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	query "github.com/cosmos/cosmos-sdk/types/query"
+	_ "github.com/cosmos/cosmos-sdk/types/query"
 	_ "github.com/gogo/protobuf/gogoproto"
 	grpc1 "github.com/gogo/protobuf/grpc"
 	proto "github.com/gogo/protobuf/proto"
@@ -113,22 +113,21 @@ func (m *QueryParamsResponse) GetParams() Params {
 	return Params{}
 }
 
-type QueryGetCVRequest struct {
-	Index string `protobuf:"bytes,1,opt,name=index,proto3" json:"index,omitempty"`
+type QueryGetSystemInfoRequest struct {
 }
 
-func (m *QueryGetCVRequest) Reset()         { *m = QueryGetCVRequest{} }
-func (m *QueryGetCVRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryGetCVRequest) ProtoMessage()    {}
-func (*QueryGetCVRequest) Descriptor() ([]byte, []int) {
+func (m *QueryGetSystemInfoRequest) Reset()         { *m = QueryGetSystemInfoRequest{} }
+func (m *QueryGetSystemInfoRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetSystemInfoRequest) ProtoMessage()    {}
+func (*QueryGetSystemInfoRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_18d3bdc55bbb8c80, []int{2}
 }
-func (m *QueryGetCVRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryGetSystemInfoRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetCVRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryGetSystemInfoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetCVRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryGetSystemInfoRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -138,41 +137,34 @@ func (m *QueryGetCVRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, e
 		return b[:n], nil
 	}
 }
-func (m *QueryGetCVRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetCVRequest.Merge(m, src)
+func (m *QueryGetSystemInfoRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetSystemInfoRequest.Merge(m, src)
 }
-func (m *QueryGetCVRequest) XXX_Size() int {
+func (m *QueryGetSystemInfoRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetCVRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetCVRequest.DiscardUnknown(m)
+func (m *QueryGetSystemInfoRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetSystemInfoRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetCVRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryGetSystemInfoRequest proto.InternalMessageInfo
 
-func (m *QueryGetCVRequest) GetIndex() string {
-	if m != nil {
-		return m.Index
-	}
-	return ""
+type QueryGetSystemInfoResponse struct {
+	SystemInfo SystemInfo `protobuf:"bytes,1,opt,name=SystemInfo,proto3" json:"SystemInfo"`
 }
 
-type QueryGetCVResponse struct {
-	CV CV `protobuf:"bytes,1,opt,name=cV,proto3" json:"cV"`
-}
-
-func (m *QueryGetCVResponse) Reset()         { *m = QueryGetCVResponse{} }
-func (m *QueryGetCVResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryGetCVResponse) ProtoMessage()    {}
-func (*QueryGetCVResponse) Descriptor() ([]byte, []int) {
+func (m *QueryGetSystemInfoResponse) Reset()         { *m = QueryGetSystemInfoResponse{} }
+func (m *QueryGetSystemInfoResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetSystemInfoResponse) ProtoMessage()    {}
+func (*QueryGetSystemInfoResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_18d3bdc55bbb8c80, []int{3}
 }
-func (m *QueryGetCVResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryGetSystemInfoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetCVResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryGetSystemInfoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetCVResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryGetSystemInfoResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -182,166 +174,62 @@ func (m *QueryGetCVResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, 
 		return b[:n], nil
 	}
 }
-func (m *QueryGetCVResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetCVResponse.Merge(m, src)
+func (m *QueryGetSystemInfoResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetSystemInfoResponse.Merge(m, src)
 }
-func (m *QueryGetCVResponse) XXX_Size() int {
+func (m *QueryGetSystemInfoResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetCVResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetCVResponse.DiscardUnknown(m)
+func (m *QueryGetSystemInfoResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetSystemInfoResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetCVResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryGetSystemInfoResponse proto.InternalMessageInfo
 
-func (m *QueryGetCVResponse) GetCV() CV {
+func (m *QueryGetSystemInfoResponse) GetSystemInfo() SystemInfo {
 	if m != nil {
-		return m.CV
+		return m.SystemInfo
 	}
-	return CV{}
-}
-
-type QueryAllCVRequest struct {
-	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
-}
-
-func (m *QueryAllCVRequest) Reset()         { *m = QueryAllCVRequest{} }
-func (m *QueryAllCVRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryAllCVRequest) ProtoMessage()    {}
-func (*QueryAllCVRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{4}
-}
-func (m *QueryAllCVRequest) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *QueryAllCVRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_QueryAllCVRequest.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *QueryAllCVRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllCVRequest.Merge(m, src)
-}
-func (m *QueryAllCVRequest) XXX_Size() int {
-	return m.Size()
-}
-func (m *QueryAllCVRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllCVRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QueryAllCVRequest proto.InternalMessageInfo
-
-func (m *QueryAllCVRequest) GetPagination() *query.PageRequest {
-	if m != nil {
-		return m.Pagination
-	}
-	return nil
-}
-
-type QueryAllCVResponse struct {
-	CV         []CV                `protobuf:"bytes,1,rep,name=cV,proto3" json:"cV"`
-	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
-}
-
-func (m *QueryAllCVResponse) Reset()         { *m = QueryAllCVResponse{} }
-func (m *QueryAllCVResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryAllCVResponse) ProtoMessage()    {}
-func (*QueryAllCVResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{5}
-}
-func (m *QueryAllCVResponse) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *QueryAllCVResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_QueryAllCVResponse.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *QueryAllCVResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryAllCVResponse.Merge(m, src)
-}
-func (m *QueryAllCVResponse) XXX_Size() int {
-	return m.Size()
-}
-func (m *QueryAllCVResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryAllCVResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QueryAllCVResponse proto.InternalMessageInfo
-
-func (m *QueryAllCVResponse) GetCV() []CV {
-	if m != nil {
-		return m.CV
-	}
-	return nil
-}
-
-func (m *QueryAllCVResponse) GetPagination() *query.PageResponse {
-	if m != nil {
-		return m.Pagination
-	}
-	return nil
+	return SystemInfo{}
 }
 
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "alexs778.cvproject.cvproject.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "alexs778.cvproject.cvproject.QueryParamsResponse")
-	proto.RegisterType((*QueryGetCVRequest)(nil), "alexs778.cvproject.cvproject.QueryGetCVRequest")
-	proto.RegisterType((*QueryGetCVResponse)(nil), "alexs778.cvproject.cvproject.QueryGetCVResponse")
-	proto.RegisterType((*QueryAllCVRequest)(nil), "alexs778.cvproject.cvproject.QueryAllCVRequest")
-	proto.RegisterType((*QueryAllCVResponse)(nil), "alexs778.cvproject.cvproject.QueryAllCVResponse")
+	proto.RegisterType((*QueryGetSystemInfoRequest)(nil), "alexs778.cvproject.cvproject.QueryGetSystemInfoRequest")
+	proto.RegisterType((*QueryGetSystemInfoResponse)(nil), "alexs778.cvproject.cvproject.QueryGetSystemInfoResponse")
 }
 
 func init() { proto.RegisterFile("cvproject/query.proto", fileDescriptor_18d3bdc55bbb8c80) }
 
 var fileDescriptor_18d3bdc55bbb8c80 = []byte{
-	// 497 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x94, 0x94, 0x41, 0x6b, 0x13, 0x41,
-	0x1c, 0xc5, 0x33, 0x5b, 0x13, 0x70, 0x3c, 0x39, 0x46, 0x91, 0x50, 0xd6, 0x30, 0x94, 0x1a, 0x8b,
-	0xcc, 0x24, 0x15, 0x4c, 0xaf, 0xc9, 0x82, 0x45, 0xf0, 0x10, 0x23, 0x2c, 0xa8, 0xa7, 0xc9, 0x38,
-	0xac, 0x2b, 0x9b, 0x9d, 0x6d, 0x66, 0x12, 0x52, 0xc4, 0x8b, 0x9f, 0x40, 0x50, 0x0f, 0xe2, 0x17,
-	0xea, 0xb1, 0xe0, 0xa5, 0x27, 0x91, 0xc4, 0x0f, 0x22, 0x99, 0x19, 0xbb, 0x1b, 0x2d, 0xe9, 0xf6,
-	0xb6, 0x99, 0xfd, 0xbf, 0xf7, 0x7e, 0xf9, 0xcf, 0x63, 0xe1, 0x6d, 0x3e, 0xcb, 0x26, 0xf2, 0x9d,
-	0xe0, 0x9a, 0x1e, 0x4d, 0xc5, 0xe4, 0x98, 0x64, 0x13, 0xa9, 0x25, 0xda, 0x66, 0x89, 0x98, 0xab,
-	0x6e, 0xf7, 0x80, 0x9c, 0xbf, 0xcf, 0x9f, 0x1a, 0xf5, 0x48, 0x46, 0xd2, 0x0c, 0xd2, 0xd5, 0x93,
-	0xd5, 0x34, 0xb6, 0x23, 0x29, 0xa3, 0x44, 0x50, 0x96, 0xc5, 0x94, 0xa5, 0xa9, 0xd4, 0x4c, 0xc7,
-	0x32, 0x55, 0xee, 0xed, 0x1e, 0x97, 0x6a, 0x2c, 0x15, 0x1d, 0x31, 0x25, 0x6c, 0x14, 0x9d, 0x75,
-	0x46, 0x42, 0xb3, 0x0e, 0xcd, 0x58, 0x14, 0xa7, 0x66, 0xd8, 0xcd, 0xde, 0xc9, 0xa1, 0x32, 0x36,
-	0x61, 0xe3, 0xbf, 0x1e, 0x28, 0x3f, 0xe7, 0x33, 0x7b, 0x86, 0xeb, 0x10, 0x3d, 0x5f, 0xb9, 0x0d,
-	0xcc, 0xe0, 0x50, 0x1c, 0x4d, 0x85, 0xd2, 0xf8, 0x25, 0xbc, 0xb5, 0x76, 0xaa, 0x32, 0x99, 0x2a,
-	0x81, 0xfa, 0xb0, 0x66, 0x0d, 0xef, 0x82, 0x26, 0x68, 0xdd, 0xd8, 0xdf, 0x21, 0x9b, 0xfe, 0x27,
-	0xb1, 0xea, 0xfe, 0xb5, 0x93, 0x9f, 0xf7, 0x2a, 0x43, 0xa7, 0xc4, 0x0f, 0xe0, 0x4d, 0x63, 0x7d,
-	0x28, 0x74, 0x10, 0xba, 0x3c, 0x54, 0x87, 0xd5, 0x38, 0x7d, 0x23, 0xe6, 0xc6, 0xf7, 0xfa, 0xd0,
-	0xfe, 0xc0, 0xcf, 0x1c, 0x9b, 0x1b, 0x75, 0x10, 0x8f, 0xa1, 0xc7, 0x43, 0x07, 0xd0, 0xdc, 0x0c,
-	0x10, 0x84, 0x2e, 0xdc, 0xe3, 0x21, 0x7e, 0xed, 0x82, 0x7b, 0x49, 0x92, 0x07, 0x3f, 0x81, 0x30,
-	0x5f, 0x9f, 0x33, 0xdd, 0x25, 0x76, 0xd7, 0x64, 0xb5, 0x6b, 0x62, 0xaf, 0xd5, 0xed, 0x9a, 0x0c,
-	0x58, 0x24, 0x9c, 0x76, 0x58, 0x50, 0xe2, 0xaf, 0xc0, 0xb1, 0x3a, 0xf7, 0x7f, 0x58, 0xb7, 0xae,
-	0xc6, 0x8a, 0x0e, 0xd7, 0xb0, 0x3c, 0x83, 0x75, 0xff, 0x52, 0x2c, 0x1b, 0x5a, 0xe4, 0xda, 0x3f,
-	0xdb, 0x82, 0x55, 0xc3, 0x85, 0xbe, 0x03, 0x58, 0xb3, 0x17, 0x82, 0xda, 0x9b, 0x49, 0xfe, 0xef,
-	0x43, 0xa3, 0x73, 0x05, 0x85, 0xa5, 0xc0, 0x0f, 0x3f, 0xfe, 0xf8, 0xfd, 0xd9, 0xdb, 0x45, 0x3b,
-	0xb4, 0x97, 0x88, 0xf9, 0x8b, 0x6e, 0xf7, 0x80, 0x06, 0xe1, 0xe0, 0xbc, 0x7e, 0xeb, 0x05, 0x45,
-	0xdf, 0x00, 0xf4, 0x82, 0x10, 0xd1, 0x12, 0x39, 0xc5, 0xe2, 0x34, 0xda, 0xe5, 0x05, 0x8e, 0xab,
-	0x6d, 0xb8, 0xf6, 0x50, 0x6b, 0x33, 0x17, 0x9f, 0xd1, 0xf7, 0xa6, 0x85, 0x1f, 0xd0, 0x17, 0x00,
-	0xab, 0x41, 0xd8, 0x4b, 0x92, 0x52, 0x78, 0xc5, 0x7a, 0x95, 0xc2, 0x5b, 0x6b, 0x0c, 0x6e, 0x19,
-	0x3c, 0x8c, 0x9a, 0x97, 0xe1, 0xf5, 0x9f, 0x9e, 0x2c, 0x7c, 0x70, 0xba, 0xf0, 0xc1, 0xaf, 0x85,
-	0x0f, 0x3e, 0x2d, 0xfd, 0xca, 0xe9, 0xd2, 0xaf, 0x9c, 0x2d, 0xfd, 0xca, 0x2b, 0x1a, 0xc5, 0xfa,
-	0xed, 0x74, 0x44, 0xb8, 0x1c, 0x5f, 0xe4, 0x32, 0x2f, 0xf8, 0xe8, 0xe3, 0x4c, 0xa8, 0x51, 0xcd,
-	0x7c, 0x0b, 0x1e, 0xfd, 0x09, 0x00, 0x00, 0xff, 0xff, 0x2b, 0x5b, 0x53, 0x07, 0xce, 0x04, 0x00,
-	0x00,
+	// 402 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4d, 0x2e, 0x2b, 0x28,
+	0xca, 0xcf, 0x4a, 0x4d, 0x2e, 0xd1, 0x2f, 0x2c, 0x4d, 0x2d, 0xaa, 0xd4, 0x2b, 0x28, 0xca, 0x2f,
+	0xc9, 0x17, 0x92, 0x49, 0xcc, 0x49, 0xad, 0x28, 0x36, 0x37, 0xb7, 0xd0, 0x83, 0xcb, 0x23, 0x58,
+	0x52, 0x22, 0xe9, 0xf9, 0xe9, 0xf9, 0x60, 0x85, 0xfa, 0x20, 0x16, 0x44, 0x8f, 0x94, 0x4c, 0x7a,
+	0x7e, 0x7e, 0x7a, 0x4e, 0xaa, 0x7e, 0x62, 0x41, 0xa6, 0x7e, 0x62, 0x5e, 0x5e, 0x7e, 0x49, 0x62,
+	0x49, 0x66, 0x7e, 0x5e, 0x31, 0x54, 0x56, 0x2b, 0x39, 0xbf, 0x38, 0x37, 0xbf, 0x58, 0x3f, 0x29,
+	0xb1, 0x38, 0x15, 0x62, 0x95, 0x7e, 0x99, 0x61, 0x52, 0x6a, 0x49, 0xa2, 0xa1, 0x7e, 0x41, 0x62,
+	0x7a, 0x66, 0x1e, 0x58, 0x31, 0x54, 0xad, 0x18, 0xc2, 0x51, 0x05, 0x89, 0x45, 0x89, 0xb9, 0x30,
+	0x33, 0xa4, 0x11, 0xe2, 0xc5, 0x95, 0xc5, 0x25, 0xa9, 0xb9, 0xf1, 0x99, 0x79, 0x69, 0x50, 0xeb,
+	0x95, 0x44, 0xb8, 0x84, 0x02, 0x41, 0xc6, 0x06, 0x80, 0x75, 0x04, 0xa5, 0x16, 0x96, 0xa6, 0x16,
+	0x97, 0x28, 0x45, 0x72, 0x09, 0xa3, 0x88, 0x16, 0x17, 0xe4, 0xe7, 0x15, 0xa7, 0x0a, 0x39, 0x71,
+	0xb1, 0x41, 0x4c, 0x96, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x36, 0x52, 0xd1, 0xc3, 0xe7, 0x61, 0x3d,
+	0x88, 0x6e, 0x27, 0x96, 0x13, 0xf7, 0xe4, 0x19, 0x82, 0xa0, 0x3a, 0x95, 0xa4, 0xb9, 0x24, 0xc1,
+	0x46, 0xbb, 0xa7, 0x96, 0x04, 0x83, 0x5d, 0xe3, 0x99, 0x97, 0x96, 0x0f, 0xb3, 0x37, 0x87, 0x4b,
+	0x0a, 0x9b, 0x24, 0xd4, 0x7a, 0x3f, 0x2e, 0x2e, 0x84, 0x28, 0xd4, 0x09, 0x1a, 0xf8, 0x9d, 0x80,
+	0x50, 0x0f, 0x75, 0x06, 0x92, 0x09, 0x46, 0xb7, 0x98, 0xb8, 0x58, 0xc1, 0xd6, 0x09, 0xcd, 0x66,
+	0xe4, 0x62, 0x83, 0xb8, 0x56, 0xc8, 0x00, 0xbf, 0x81, 0x98, 0x81, 0x25, 0x65, 0x48, 0x82, 0x0e,
+	0x88, 0x4f, 0x94, 0x74, 0x9a, 0x2e, 0x3f, 0x99, 0xcc, 0xa4, 0x26, 0xa4, 0xa2, 0xef, 0x98, 0x93,
+	0x5a, 0x11, 0x6c, 0x6e, 0x6e, 0xa1, 0xef, 0x1c, 0x16, 0x00, 0x8d, 0x24, 0xf4, 0x68, 0x14, 0xda,
+	0xc4, 0x88, 0xec, 0x71, 0x21, 0x73, 0x22, 0xec, 0xc3, 0x16, 0xba, 0x52, 0x16, 0xa4, 0x6b, 0x84,
+	0xba, 0xd7, 0x10, 0xec, 0x5e, 0x6d, 0x21, 0x4d, 0xfc, 0xee, 0x45, 0x4a, 0x5e, 0x4e, 0x9e, 0x27,
+	0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84, 0xc7, 0x72, 0x0c,
+	0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0xa5, 0x9f, 0x9e, 0x59, 0x92, 0x51, 0x9a,
+	0xa4, 0x97, 0x9c, 0x9f, 0x8b, 0xcd, 0xb8, 0x0a, 0x24, 0x03, 0x4b, 0x2a, 0x0b, 0x52, 0x8b, 0x93,
+	0xd8, 0xc0, 0x49, 0xd5, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0x34, 0xba, 0x4d, 0xef, 0x76, 0x03,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -358,10 +246,8 @@ const _ = grpc.SupportPackageIsVersion4
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
-	// Queries a CV by index.
-	CV(ctx context.Context, in *QueryGetCVRequest, opts ...grpc.CallOption) (*QueryGetCVResponse, error)
-	// Queries a list of CV items.
-	CVAll(ctx context.Context, in *QueryAllCVRequest, opts ...grpc.CallOption) (*QueryAllCVResponse, error)
+	// Queries a SystemInfo by index.
+	SystemInfo(ctx context.Context, in *QueryGetSystemInfoRequest, opts ...grpc.CallOption) (*QueryGetSystemInfoResponse, error)
 }
 
 type queryClient struct {
@@ -381,18 +267,9 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
-func (c *queryClient) CV(ctx context.Context, in *QueryGetCVRequest, opts ...grpc.CallOption) (*QueryGetCVResponse, error) {
-	out := new(QueryGetCVResponse)
-	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/CV", in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *queryClient) CVAll(ctx context.Context, in *QueryAllCVRequest, opts ...grpc.CallOption) (*QueryAllCVResponse, error) {
-	out := new(QueryAllCVResponse)
-	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/CVAll", in, out, opts...)
+func (c *queryClient) SystemInfo(ctx context.Context, in *QueryGetSystemInfoRequest, opts ...grpc.CallOption) (*QueryGetSystemInfoResponse, error) {
+	out := new(QueryGetSystemInfoResponse)
+	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/SystemInfo", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -403,10 +280,8 @@ func (c *queryClient) CVAll(ctx context.Context, in *QueryAllCVRequest, opts ...
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
-	// Queries a CV by index.
-	CV(context.Context, *QueryGetCVRequest) (*QueryGetCVResponse, error)
-	// Queries a list of CV items.
-	CVAll(context.Context, *QueryAllCVRequest) (*QueryAllCVResponse, error)
+	// Queries a SystemInfo by index.
+	SystemInfo(context.Context, *QueryGetSystemInfoRequest) (*QueryGetSystemInfoResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -416,11 +291,8 @@ type UnimplementedQueryServer struct {
 func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
 }
-func (*UnimplementedQueryServer) CV(ctx context.Context, req *QueryGetCVRequest) (*QueryGetCVResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CV not implemented")
-}
-func (*UnimplementedQueryServer) CVAll(ctx context.Context, req *QueryAllCVRequest) (*QueryAllCVResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CVAll not implemented")
+func (*UnimplementedQueryServer) SystemInfo(ctx context.Context, req *QueryGetSystemInfoRequest) (*QueryGetSystemInfoResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method SystemInfo not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -445,38 +317,20 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_CV_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryGetCVRequest)
+func _Query_SystemInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetSystemInfoRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).CV(ctx, in)
+		return srv.(QueryServer).SystemInfo(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/alexs778.cvproject.cvproject.Query/CV",
+		FullMethod: "/alexs778.cvproject.cvproject.Query/SystemInfo",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).CV(ctx, req.(*QueryGetCVRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _Query_CVAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryAllCVRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(QueryServer).CVAll(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/alexs778.cvproject.cvproject.Query/CVAll",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).CVAll(ctx, req.(*QueryAllCVRequest))
+		return srv.(QueryServer).SystemInfo(ctx, req.(*QueryGetSystemInfoRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -490,12 +344,8 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_Params_Handler,
 		},
 		{
-			MethodName: "CV",
-			Handler:    _Query_CV_Handler,
-		},
-		{
-			MethodName: "CVAll",
-			Handler:    _Query_CVAll_Handler,
+			MethodName: "SystemInfo",
+			Handler:    _Query_SystemInfo_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -558,7 +408,7 @@ func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetCVRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryGetSystemInfoRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -568,27 +418,20 @@ func (m *QueryGetCVRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetCVRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryGetSystemInfoRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetCVRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryGetSystemInfoRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
-	if len(m.Index) > 0 {
-		i -= len(m.Index)
-		copy(dAtA[i:], m.Index)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.Index)))
-		i--
-		dAtA[i] = 0xa
-	}
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetCVResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryGetSystemInfoResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -598,18 +441,18 @@ func (m *QueryGetCVResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetCVResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryGetSystemInfoResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetCVResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryGetSystemInfoResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
 	{
-		size, err := m.CV.MarshalToSizedBuffer(dAtA[:i])
+		size, err := m.SystemInfo.MarshalToSizedBuffer(dAtA[:i])
 		if err != nil {
 			return 0, err
 		}
@@ -618,90 +461,6 @@ func (m *QueryGetCVResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	}
 	i--
 	dAtA[i] = 0xa
-	return len(dAtA) - i, nil
-}
-
-func (m *QueryAllCVRequest) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *QueryAllCVRequest) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *QueryAllCVRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.Pagination != nil {
-		{
-			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintQuery(dAtA, i, uint64(size))
-		}
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *QueryAllCVResponse) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *QueryAllCVResponse) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *QueryAllCVResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.Pagination != nil {
-		{
-			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintQuery(dAtA, i, uint64(size))
-		}
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.CV) > 0 {
-		for iNdEx := len(m.CV) - 1; iNdEx >= 0; iNdEx-- {
-			{
-				size, err := m.CV[iNdEx].MarshalToSizedBuffer(dAtA[:i])
-				if err != nil {
-					return 0, err
-				}
-				i -= size
-				i = encodeVarintQuery(dAtA, i, uint64(size))
-			}
-			i--
-			dAtA[i] = 0xa
-		}
-	}
 	return len(dAtA) - i, nil
 }
 
@@ -736,59 +495,23 @@ func (m *QueryParamsResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryGetCVRequest) Size() (n int) {
+func (m *QueryGetSystemInfoRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.Index)
-	if l > 0 {
-		n += 1 + l + sovQuery(uint64(l))
-	}
 	return n
 }
 
-func (m *QueryGetCVResponse) Size() (n int) {
+func (m *QueryGetSystemInfoResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = m.CV.Size()
+	l = m.SystemInfo.Size()
 	n += 1 + l + sovQuery(uint64(l))
-	return n
-}
-
-func (m *QueryAllCVRequest) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if m.Pagination != nil {
-		l = m.Pagination.Size()
-		n += 1 + l + sovQuery(uint64(l))
-	}
-	return n
-}
-
-func (m *QueryAllCVResponse) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if len(m.CV) > 0 {
-		for _, e := range m.CV {
-			l = e.Size()
-			n += 1 + l + sovQuery(uint64(l))
-		}
-	}
-	if m.Pagination != nil {
-		l = m.Pagination.Size()
-		n += 1 + l + sovQuery(uint64(l))
-	}
 	return n
 }
 
@@ -931,7 +654,7 @@ func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryGetCVRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryGetSystemInfoRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -954,44 +677,12 @@ func (m *QueryGetCVRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetCVRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryGetSystemInfoRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetCVRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryGetSystemInfoRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Index", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Index = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
 		default:
 			iNdEx = preIndex
 			skippy, err := skipQuery(dAtA[iNdEx:])
@@ -1013,7 +704,7 @@ func (m *QueryGetCVRequest) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryGetCVResponse) Unmarshal(dAtA []byte) error {
+func (m *QueryGetSystemInfoResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1036,15 +727,15 @@ func (m *QueryGetCVResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetCVResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryGetSystemInfoResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetCVResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryGetSystemInfoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CV", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field SystemInfo", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -1071,213 +762,7 @@ func (m *QueryGetCVResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if err := m.CV.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *QueryAllCVRequest) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllCVRequest: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllCVRequest: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Pagination == nil {
-				m.Pagination = &query.PageRequest{}
-			}
-			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *QueryAllCVResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: QueryAllCVResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryAllCVResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CV", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.CV = append(m.CV, CV{})
-			if err := m.CV[len(m.CV)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		case 2:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.Pagination == nil {
-				m.Pagination = &query.PageResponse{}
-			}
-			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if err := m.SystemInfo.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

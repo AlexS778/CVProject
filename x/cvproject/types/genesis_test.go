@@ -22,31 +22,12 @@ func TestGenesisState_Validate(t *testing.T) {
 			desc: "valid genesis state",
 			genState: &types.GenesisState{
 
-				CVList: []types.CV{
-					{
-						Index: "0",
-					},
-					{
-						Index: "1",
-					},
+				SystemInfo: &types.SystemInfo{
+					NextId: 61,
 				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
-		},
-		{
-			desc: "duplicated cV",
-			genState: &types.GenesisState{
-				CVList: []types.CV{
-					{
-						Index: "0",
-					},
-					{
-						Index: "0",
-					},
-				},
-			},
-			valid: false,
 		},
 		// this line is used by starport scaffolding # types/genesis/testcase
 	} {

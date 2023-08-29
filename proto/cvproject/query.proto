@@ -5,7 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cvproject/params.proto";
-import "cvproject/cv.proto";
+import "cvproject/system_info.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
@@ -16,16 +16,10 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/AlexS778/CVProject/cvproject/params";
   }
-  // Queries a CV by index.
-	rpc CV(QueryGetCVRequest) returns (QueryGetCVResponse) {
-		option (google.api.http).get = "/AlexS778/CVProject/cvproject/cv/{index}";
+  // Queries a SystemInfo by index.
+	rpc SystemInfo(QueryGetSystemInfoRequest) returns (QueryGetSystemInfoResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/system_info";
 	}
-
-	// Queries a list of CV items.
-	rpc CVAll(QueryAllCVRequest) returns (QueryAllCVResponse) {
-		option (google.api.http).get = "/AlexS778/CVProject/cvproject/cv";
-	}
-
 // this line is used by starport scaffolding # 2
 }
 
@@ -38,22 +32,9 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryGetCVRequest {
-	  string index = 1;
+message QueryGetSystemInfoRequest {}
 
+message QueryGetSystemInfoResponse {
+	SystemInfo SystemInfo = 1 [(gogoproto.nullable) = false];
 }
-
-message QueryGetCVResponse {
-	CV cV = 1 [(gogoproto.nullable) = false];
-}
-
-message QueryAllCVRequest {
-	cosmos.base.query.v1beta1.PageRequest pagination = 1;
-}
-
-message QueryAllCVResponse {
-	repeated CV cV = 1 [(gogoproto.nullable) = false];
-	cosmos.base.query.v1beta1.PageResponse pagination = 2;
-}
-
 // this line is used by starport scaffolding # 3

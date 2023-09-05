@@ -39,7 +39,7 @@ service Query {
 }
 
 message QueryCvByCosmosAddressRequest{
-	string cosmos_address = 1 [(gogoproto.nullable) = false];
+	string cosmos_address = 1;
 }
 
 message QueryCvByCosmosAddressResponse{

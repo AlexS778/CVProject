@@ -17,13 +17,13 @@ func (k msgServer) CreateCV(goCtx context.Context, msg *types.MsgCreateCV) (*typ
 
 	index := systemInfo.NextId
 	cv := types.CV{
-		Index:         index,
-		Name:          msg.Name,
-		Education:     msg.Education,
-		Summary:       msg.Summary,
-		Skills:        msg.Skills,
-		Experience:    msg.Experience,
-		CosmosAddress: msg.Creator,
+		Index:      index,
+		Name:       msg.Name,
+		Education:  msg.Education,
+		Summary:    msg.Summary,
+		Skills:     msg.Skills,
+		Experience: msg.Experience,
+		Creator:    msg.Creator,
 	}
 
 	for i := 0; i < len(msg.Companies); i += 5 {

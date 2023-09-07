@@ -32,7 +32,6 @@ func GetTxCmd() *cobra.Command {
 
 	cmd.AddCommand(CmdCreateCV())
 	cmd.AddCommand(CmdUpdateCV())
-	cmd.AddCommand(CmdGetCVByCosmosAdress())
 	cmd.AddCommand(CmdConfirmCV())
 	// this line is used by starport scaffolding # 1
 

@@ -23,9 +23,6 @@ func NewHandler(k keeper.Keeper) sdk.Handler {
 		case *types.MsgUpdateCV:
 			res, err := msgServer.UpdateCV(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)
-		case *types.MsgGetCVByCosmosAdress:
-			res, err := msgServer.GetCVByCosmosAdress(sdk.WrapSDKContext(ctx), msg)
-			return sdk.WrapServiceResult(ctx, res, err)
 		case *types.MsgConfirmCV:
 			res, err := msgServer.ConfirmCV(sdk.WrapSDKContext(ctx), msg)
 			return sdk.WrapServiceResult(ctx, res, err)

@@ -102,10 +102,6 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 			weightMsgGetCVByCosmosAdress = defaultWeightMsgGetCVByCosmosAdress
 		},
 	)
-	operations = append(operations, simulation.NewWeightedOperation(
-		weightMsgGetCVByCosmosAdress,
-		cvprojectsimulation.SimulateMsgGetCVByCosmosAdress(am.accountKeeper, am.bankKeeper, am.keeper),
-	))
 
 	var weightMsgConfirmCV int
 	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgConfirmCV, &weightMsgConfirmCV, nil,

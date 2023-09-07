@@ -47,7 +47,7 @@ func (k Keeper) CV(c context.Context, req *types.QueryGetCVRequest) (*types.Quer
 
 	val, found := k.GetCV(
 		ctx,
-		req.Index,
+		req.String(),
 	)
 	if !found {
 		return nil, status.Error(codes.NotFound, "not found")

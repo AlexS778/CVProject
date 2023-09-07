@@ -24,7 +24,7 @@ func (gs GenesisState) Validate() error {
 	cVIndexMap := make(map[string]struct{})
 
 	for _, elem := range gs.CVList {
-		index := string(CVKey(elem.Index))
+		index := string(CVKey(elem.Creator))
 		if _, ok := cVIndexMap[index]; ok {
 			return fmt.Errorf("duplicated index for cV")
 		}

@@ -30,7 +30,7 @@ func TestCVGet(t *testing.T) {
 	items := createNCV(keeper, ctx, 10)
 	for _, item := range items {
 		rst, found := keeper.GetCV(ctx,
-			item.Index,
+			item.Creator,
 		)
 		require.True(t, found)
 		require.Equal(t,
@@ -44,10 +44,10 @@ func TestCVRemove(t *testing.T) {
 	items := createNCV(keeper, ctx, 10)
 	for _, item := range items {
 		keeper.RemoveCV(ctx,
-			item.Index,
+			item.Creator,
 		)
 		_, found := keeper.GetCV(ctx,
-			item.Index,
+			item.Creator,
 		)
 		require.False(t, found)
 	}

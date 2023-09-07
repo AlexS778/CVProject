@@ -11,12 +11,11 @@ const (
 
 // CVKey returns the store key to retrieve a CV from the index fields
 func CVKey(
-	index uint64,
+	index string,
 ) []byte {
 	var key []byte
 
-	indexBytes := make([]byte, 8)
-	binary.BigEndian.PutUint64(indexBytes, index)
+	indexBytes := []byte(index)
 	key = append(key, indexBytes...)
 	key = append(key, []byte("/")...)
 

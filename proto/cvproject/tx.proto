@@ -12,7 +12,6 @@ option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
 service Msg {
       rpc CreateCV(MsgCreateCV) returns (MsgCreateCVResponse);
   rpc UpdateCV(MsgUpdateCV) returns (MsgUpdateCVResponse);
-  rpc GetCVByCosmosAdress(MsgGetCVByCosmosAdress) returns (MsgGetCVByCosmosAdressResponse);
   rpc ConfirmCV(MsgConfirmCV) returns (MsgConfirmCVResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
@@ -42,15 +41,6 @@ message MsgUpdateCV {
 }
 
 message MsgUpdateCVResponse {
-}
-
-message MsgGetCVByCosmosAdress {
-  string creator = 1;
-  string cosmosAddress = 2;
-}
-
-message MsgGetCVByCosmosAdressResponse {
-  cvproject.CV cvResponse = 1;
 }
 
 message MsgConfirmCV {

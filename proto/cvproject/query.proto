@@ -5,7 +5,6 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cvproject/params.proto";
-import "cvproject/system_info.proto";
 import "cvproject/cv.proto";
 // this line is used by starport scaffolding # 1
 
@@ -17,10 +16,6 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/AlexS778/CVProject/cvproject/params";
   }
-  // Queries a SystemInfo by index.
-	rpc SystemInfo(QueryGetSystemInfoRequest) returns (QueryGetSystemInfoResponse) {
-		option (google.api.http).get = "/AlexS778/CVProject/cvproject/system_info";
-	}
 // Queries a CV by index.
 	rpc CV(QueryGetCVRequest) returns (QueryGetCVResponse) {
 		option (google.api.http).get = "/AlexS778/CVProject/cvproject/cv/{index}";
@@ -48,11 +43,6 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryGetSystemInfoRequest {}
-
-message QueryGetSystemInfoResponse {
-	SystemInfo SystemInfo = 1 [(gogoproto.nullable) = false];
-}
 message QueryGetCVRequest {
 	  uint64 index = 1;
 

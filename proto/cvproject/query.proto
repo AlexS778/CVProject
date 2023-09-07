@@ -31,19 +31,12 @@ service Query {
 		option (google.api.http).get = "/AlexS778/CVProject/cvproject/cv";
 	}
 
-	rpc CvByCosmosAddress(QueryCvByCosmosAddressRequest) returns (QueryCvByCosmosAddressResponse) {
-		option (google.api.http).get = "/AlexS778/CVProject/cvproject/cv_by_cosmos_address";
+// Queries a list of GetCvByCosmosAddress items.
+	rpc GetCvByCosmosAddress(QueryGetCvByCosmosAddressRequest) returns (QueryGetCvByCosmosAddressResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/get_cv_by_cosmos_address/{cosmosAddress}";
 	}
 
 // this line is used by starport scaffolding # 2
-}
-
-message QueryCvByCosmosAddressRequest{
-	string cosmos_address = 1;
-}
-
-message QueryCvByCosmosAddressResponse{
-	CV cV = 1;
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -76,6 +69,14 @@ message QueryAllCVRequest {
 message QueryAllCVResponse {
 	repeated CV cV = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCvByCosmosAddressRequest {
+  string cosmosAddress = 1;
+}
+
+message QueryGetCvByCosmosAddressResponse {
+	CV cV = 1;
 }
 
 // this line is used by starport scaffolding # 3

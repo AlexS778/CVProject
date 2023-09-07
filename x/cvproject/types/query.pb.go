@@ -30,94 +30,6 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-type QueryCvByCosmosAddressRequest struct {
-	CosmosAddress string `protobuf:"bytes,1,opt,name=cosmos_address,json=cosmosAddress,proto3" json:"cosmos_address,omitempty"`
-}
-
-func (m *QueryCvByCosmosAddressRequest) Reset()         { *m = QueryCvByCosmosAddressRequest{} }
-func (m *QueryCvByCosmosAddressRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryCvByCosmosAddressRequest) ProtoMessage()    {}
-func (*QueryCvByCosmosAddressRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{0}
-}
-func (m *QueryCvByCosmosAddressRequest) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *QueryCvByCosmosAddressRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_QueryCvByCosmosAddressRequest.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *QueryCvByCosmosAddressRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryCvByCosmosAddressRequest.Merge(m, src)
-}
-func (m *QueryCvByCosmosAddressRequest) XXX_Size() int {
-	return m.Size()
-}
-func (m *QueryCvByCosmosAddressRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryCvByCosmosAddressRequest.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QueryCvByCosmosAddressRequest proto.InternalMessageInfo
-
-func (m *QueryCvByCosmosAddressRequest) GetCosmosAddress() string {
-	if m != nil {
-		return m.CosmosAddress
-	}
-	return ""
-}
-
-type QueryCvByCosmosAddressResponse struct {
-	CV *CV `protobuf:"bytes,1,opt,name=cV,proto3" json:"cV,omitempty"`
-}
-
-func (m *QueryCvByCosmosAddressResponse) Reset()         { *m = QueryCvByCosmosAddressResponse{} }
-func (m *QueryCvByCosmosAddressResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryCvByCosmosAddressResponse) ProtoMessage()    {}
-func (*QueryCvByCosmosAddressResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{1}
-}
-func (m *QueryCvByCosmosAddressResponse) XXX_Unmarshal(b []byte) error {
-	return m.Unmarshal(b)
-}
-func (m *QueryCvByCosmosAddressResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	if deterministic {
-		return xxx_messageInfo_QueryCvByCosmosAddressResponse.Marshal(b, m, deterministic)
-	} else {
-		b = b[:cap(b)]
-		n, err := m.MarshalToSizedBuffer(b)
-		if err != nil {
-			return nil, err
-		}
-		return b[:n], nil
-	}
-}
-func (m *QueryCvByCosmosAddressResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryCvByCosmosAddressResponse.Merge(m, src)
-}
-func (m *QueryCvByCosmosAddressResponse) XXX_Size() int {
-	return m.Size()
-}
-func (m *QueryCvByCosmosAddressResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryCvByCosmosAddressResponse.DiscardUnknown(m)
-}
-
-var xxx_messageInfo_QueryCvByCosmosAddressResponse proto.InternalMessageInfo
-
-func (m *QueryCvByCosmosAddressResponse) GetCV() *CV {
-	if m != nil {
-		return m.CV
-	}
-	return nil
-}
-
 // QueryParamsRequest is request type for the Query/Params RPC method.
 type QueryParamsRequest struct {
 }
@@ -126,7 +38,7 @@ func (m *QueryParamsRequest) Reset()         { *m = QueryParamsRequest{} }
 func (m *QueryParamsRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryParamsRequest) ProtoMessage()    {}
 func (*QueryParamsRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{2}
+	return fileDescriptor_18d3bdc55bbb8c80, []int{0}
 }
 func (m *QueryParamsRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -165,7 +77,7 @@ func (m *QueryParamsResponse) Reset()         { *m = QueryParamsResponse{} }
 func (m *QueryParamsResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryParamsResponse) ProtoMessage()    {}
 func (*QueryParamsResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{3}
+	return fileDescriptor_18d3bdc55bbb8c80, []int{1}
 }
 func (m *QueryParamsResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -208,7 +120,7 @@ func (m *QueryGetSystemInfoRequest) Reset()         { *m = QueryGetSystemInfoReq
 func (m *QueryGetSystemInfoRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetSystemInfoRequest) ProtoMessage()    {}
 func (*QueryGetSystemInfoRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{4}
+	return fileDescriptor_18d3bdc55bbb8c80, []int{2}
 }
 func (m *QueryGetSystemInfoRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -245,7 +157,7 @@ func (m *QueryGetSystemInfoResponse) Reset()         { *m = QueryGetSystemInfoRe
 func (m *QueryGetSystemInfoResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetSystemInfoResponse) ProtoMessage()    {}
 func (*QueryGetSystemInfoResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{5}
+	return fileDescriptor_18d3bdc55bbb8c80, []int{3}
 }
 func (m *QueryGetSystemInfoResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -289,7 +201,7 @@ func (m *QueryGetCVRequest) Reset()         { *m = QueryGetCVRequest{} }
 func (m *QueryGetCVRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryGetCVRequest) ProtoMessage()    {}
 func (*QueryGetCVRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{6}
+	return fileDescriptor_18d3bdc55bbb8c80, []int{4}
 }
 func (m *QueryGetCVRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -333,7 +245,7 @@ func (m *QueryGetCVResponse) Reset()         { *m = QueryGetCVResponse{} }
 func (m *QueryGetCVResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryGetCVResponse) ProtoMessage()    {}
 func (*QueryGetCVResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{7}
+	return fileDescriptor_18d3bdc55bbb8c80, []int{5}
 }
 func (m *QueryGetCVResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -377,7 +289,7 @@ func (m *QueryAllCVRequest) Reset()         { *m = QueryAllCVRequest{} }
 func (m *QueryAllCVRequest) String() string { return proto.CompactTextString(m) }
 func (*QueryAllCVRequest) ProtoMessage()    {}
 func (*QueryAllCVRequest) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{8}
+	return fileDescriptor_18d3bdc55bbb8c80, []int{6}
 }
 func (m *QueryAllCVRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -422,7 +334,7 @@ func (m *QueryAllCVResponse) Reset()         { *m = QueryAllCVResponse{} }
 func (m *QueryAllCVResponse) String() string { return proto.CompactTextString(m) }
 func (*QueryAllCVResponse) ProtoMessage()    {}
 func (*QueryAllCVResponse) Descriptor() ([]byte, []int) {
-	return fileDescriptor_18d3bdc55bbb8c80, []int{9}
+	return fileDescriptor_18d3bdc55bbb8c80, []int{7}
 }
 func (m *QueryAllCVResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
@@ -465,9 +377,95 @@ func (m *QueryAllCVResponse) GetPagination() *query.PageResponse {
 	return nil
 }
 
+type QueryGetCvByCosmosAddressRequest struct {
+	CosmosAddress string `protobuf:"bytes,1,opt,name=cosmosAddress,proto3" json:"cosmosAddress,omitempty"`
+}
+
+func (m *QueryGetCvByCosmosAddressRequest) Reset()         { *m = QueryGetCvByCosmosAddressRequest{} }
+func (m *QueryGetCvByCosmosAddressRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetCvByCosmosAddressRequest) ProtoMessage()    {}
+func (*QueryGetCvByCosmosAddressRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{8}
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetCvByCosmosAddressRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetCvByCosmosAddressRequest.Merge(m, src)
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetCvByCosmosAddressRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetCvByCosmosAddressRequest proto.InternalMessageInfo
+
+func (m *QueryGetCvByCosmosAddressRequest) GetCosmosAddress() string {
+	if m != nil {
+		return m.CosmosAddress
+	}
+	return ""
+}
+
+type QueryGetCvByCosmosAddressResponse struct {
+	CV *CV `protobuf:"bytes,1,opt,name=cV,proto3" json:"cV,omitempty"`
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) Reset()         { *m = QueryGetCvByCosmosAddressResponse{} }
+func (m *QueryGetCvByCosmosAddressResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetCvByCosmosAddressResponse) ProtoMessage()    {}
+func (*QueryGetCvByCosmosAddressResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{9}
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetCvByCosmosAddressResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetCvByCosmosAddressResponse.Merge(m, src)
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetCvByCosmosAddressResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetCvByCosmosAddressResponse proto.InternalMessageInfo
+
+func (m *QueryGetCvByCosmosAddressResponse) GetCV() *CV {
+	if m != nil {
+		return m.CV
+	}
+	return nil
+}
+
 func init() {
-	proto.RegisterType((*QueryCvByCosmosAddressRequest)(nil), "alexs778.cvproject.cvproject.QueryCvByCosmosAddressRequest")
-	proto.RegisterType((*QueryCvByCosmosAddressResponse)(nil), "alexs778.cvproject.cvproject.QueryCvByCosmosAddressResponse")
 	proto.RegisterType((*QueryParamsRequest)(nil), "alexs778.cvproject.cvproject.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "alexs778.cvproject.cvproject.QueryParamsResponse")
 	proto.RegisterType((*QueryGetSystemInfoRequest)(nil), "alexs778.cvproject.cvproject.QueryGetSystemInfoRequest")
@@ -476,54 +474,57 @@ func init() {
 	proto.RegisterType((*QueryGetCVResponse)(nil), "alexs778.cvproject.cvproject.QueryGetCVResponse")
 	proto.RegisterType((*QueryAllCVRequest)(nil), "alexs778.cvproject.cvproject.QueryAllCVRequest")
 	proto.RegisterType((*QueryAllCVResponse)(nil), "alexs778.cvproject.cvproject.QueryAllCVResponse")
+	proto.RegisterType((*QueryGetCvByCosmosAddressRequest)(nil), "alexs778.cvproject.cvproject.QueryGetCvByCosmosAddressRequest")
+	proto.RegisterType((*QueryGetCvByCosmosAddressResponse)(nil), "alexs778.cvproject.cvproject.QueryGetCvByCosmosAddressResponse")
 }
 
 func init() { proto.RegisterFile("cvproject/query.proto", fileDescriptor_18d3bdc55bbb8c80) }
 
 var fileDescriptor_18d3bdc55bbb8c80 = []byte{
-	// 664 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x95, 0xd1, 0x6b, 0xd3, 0x40,
-	0x1c, 0xc7, 0x9b, 0xba, 0x15, 0x3c, 0x51, 0xd8, 0x39, 0x45, 0xb3, 0x19, 0x47, 0x98, 0xb3, 0x9b,
-	0x92, 0x6b, 0xa7, 0xd8, 0xa1, 0xbe, 0xb4, 0x81, 0x8d, 0x81, 0x48, 0xcd, 0x20, 0xa0, 0x3e, 0x94,
-	0x34, 0xbd, 0xc5, 0x48, 0x9a, 0xcb, 0x7a, 0x69, 0x69, 0x11, 0x5f, 0xfc, 0x0b, 0x04, 0xf5, 0x41,
-	0xfc, 0x2f, 0xfc, 0x2b, 0x86, 0x4f, 0x03, 0x5f, 0xc4, 0x07, 0x91, 0xd6, 0x3f, 0x44, 0x7a, 0x77,
-	0x6d, 0x52, 0xd7, 0xa5, 0xa9, 0x6f, 0xe9, 0xdd, 0xef, 0xf7, 0xfd, 0x7e, 0xfa, 0xcb, 0xf7, 0x2e,
-	0xe0, 0x8a, 0xdd, 0x09, 0x5a, 0xe4, 0x35, 0xb6, 0x43, 0x74, 0xd4, 0xc6, 0xad, 0x9e, 0x16, 0xb4,
-	0x48, 0x48, 0xe0, 0xaa, 0xe5, 0xe1, 0x2e, 0x2d, 0x95, 0x76, 0xb4, 0xf1, 0x7e, 0xf4, 0x24, 0x2f,
-	0x3b, 0xc4, 0x21, 0xac, 0x10, 0x0d, 0x9f, 0x78, 0x8f, 0xbc, 0xea, 0x10, 0xe2, 0x78, 0x18, 0x59,
-	0x81, 0x8b, 0x2c, 0xdf, 0x27, 0xa1, 0x15, 0xba, 0xc4, 0xa7, 0x62, 0x77, 0xcb, 0x26, 0xb4, 0x49,
-	0x28, 0xaa, 0x5b, 0x14, 0x73, 0x2b, 0xd4, 0x29, 0xd6, 0x71, 0x68, 0x15, 0x51, 0x60, 0x39, 0xae,
-	0xcf, 0x8a, 0x45, 0xed, 0xd5, 0x08, 0x2a, 0xb0, 0x5a, 0x56, 0x73, 0xa4, 0xb1, 0x12, 0xad, 0xd3,
-	0x1e, 0x0d, 0x71, 0xb3, 0xe6, 0xfa, 0x87, 0x23, 0x7b, 0x18, 0x6d, 0xda, 0x1d, 0xbe, 0xa6, 0xee,
-	0x82, 0x1b, 0xcf, 0x86, 0x56, 0x7a, 0xa7, 0xd2, 0xd3, 0x99, 0x7f, 0xb9, 0xd1, 0x68, 0x61, 0x4a,
-	0x0d, 0x7c, 0xd4, 0xc6, 0x34, 0x84, 0xb7, 0xc0, 0x25, 0xce, 0x55, 0xb3, 0xf8, 0xc6, 0x35, 0x69,
-	0x4d, 0xca, 0x9f, 0x37, 0x2e, 0xda, 0xf1, 0x6a, 0xd5, 0x00, 0xca, 0x59, 0x3a, 0x34, 0x20, 0x3e,
-	0xc5, 0xb0, 0x00, 0xb2, 0xb6, 0xc9, 0x9a, 0x2f, 0x6c, 0xaf, 0x69, 0x49, 0xd3, 0xd3, 0x74, 0xd3,
-	0xc8, 0xda, 0xa6, 0xba, 0x0c, 0x20, 0xd3, 0xac, 0xb2, 0x7f, 0x28, 0x80, 0xd4, 0xe7, 0xe0, 0xf2,
-	0xc4, 0xaa, 0x90, 0xaf, 0x80, 0x1c, 0x9f, 0x84, 0xb0, 0x58, 0x4f, 0xb6, 0xe0, 0xdd, 0x95, 0x85,
-	0xe3, 0x5f, 0x37, 0x33, 0x86, 0xe8, 0x54, 0x57, 0xc0, 0x75, 0x26, 0xbd, 0x87, 0xc3, 0x03, 0x36,
-	0xbd, 0x7d, 0xff, 0x90, 0x8c, 0x7c, 0x3d, 0x20, 0x4f, 0xdb, 0x14, 0xf6, 0x4f, 0x01, 0x88, 0x56,
-	0x05, 0x42, 0x3e, 0x19, 0x21, 0xaa, 0x17, 0x18, 0x31, 0x05, 0x75, 0x13, 0x2c, 0x8d, 0xdc, 0x74,
-	0x73, 0xf4, 0x2e, 0x96, 0xc1, 0xa2, 0xeb, 0x37, 0x70, 0x97, 0xe9, 0x2f, 0x18, 0xfc, 0x87, 0xfa,
-	0x44, 0x8c, 0x49, 0x94, 0x0a, 0xa0, 0x07, 0xf3, 0x8c, 0x5b, 0x00, 0x0c, 0x87, 0xfe, 0x52, 0x18,
-	0x97, 0x3d, 0x2f, 0x32, 0xde, 0x05, 0x20, 0x8a, 0xa0, 0x10, 0xdd, 0xd0, 0x78, 0x02, 0xb4, 0x61,
-	0x5e, 0x35, 0x7e, 0x34, 0x44, 0x5e, 0xb5, 0xaa, 0xe5, 0x60, 0xd1, 0x6b, 0xc4, 0x3a, 0xd5, 0x4f,
-	0x92, 0x60, 0x15, 0xea, 0xff, 0xb0, 0x9e, 0x9b, 0x8f, 0x15, 0xee, 0x4d, 0x60, 0x65, 0x19, 0xd6,
-	0xed, 0x99, 0x58, 0xdc, 0x34, 0xce, 0xb5, 0xfd, 0x33, 0x07, 0x16, 0x19, 0x17, 0xfc, 0x22, 0x81,
-	0x1c, 0xcf, 0x06, 0x2c, 0x24, 0x93, 0x9c, 0x8e, 0xa6, 0x5c, 0x9c, 0xa3, 0x83, 0x53, 0xa8, 0x77,
-	0xdf, 0x7d, 0xff, 0xf3, 0x21, 0xbb, 0x01, 0xd7, 0x51, 0xd9, 0xc3, 0xdd, 0x83, 0x52, 0x69, 0x07,
-	0xe9, 0x66, 0x75, 0x7c, 0x4a, 0x27, 0x0f, 0x39, 0xfc, 0x2a, 0xc5, 0x63, 0x06, 0x4b, 0x29, 0xfc,
-	0xa6, 0x65, 0x59, 0xde, 0x99, 0xbf, 0x51, 0xf0, 0x16, 0x19, 0xef, 0x1d, 0xb8, 0x99, 0xcc, 0x1b,
-	0xbb, 0x7c, 0xe0, 0x67, 0x09, 0x64, 0x75, 0x13, 0xa2, 0x74, 0x9e, 0xe3, 0xd0, 0xc9, 0x85, 0xf4,
-	0x0d, 0x02, 0xae, 0xc0, 0xe0, 0xb6, 0x60, 0x3e, 0x19, 0xce, 0xee, 0xa0, 0x37, 0xec, 0xe8, 0xbc,
-	0x85, 0x1f, 0x25, 0xb0, 0xa8, 0x9b, 0x65, 0xcf, 0x4b, 0x85, 0x17, 0x3f, 0x13, 0xa9, 0xf0, 0x26,
-	0x62, 0xae, 0xe6, 0x19, 0x9e, 0x0a, 0xd7, 0x66, 0xe1, 0xc1, 0x6f, 0x12, 0x58, 0x3a, 0x75, 0x93,
-	0xc2, 0x47, 0x29, 0x1c, 0xcf, 0xba, 0xc7, 0xe5, 0xc7, 0xff, 0xd7, 0x2c, 0xd0, 0x1f, 0x32, 0xf4,
-	0xfb, 0x70, 0x7b, 0x16, 0x7a, 0xad, 0xde, 0xab, 0x4d, 0x7e, 0x2f, 0x2a, 0xfb, 0xc7, 0x7d, 0x45,
-	0x3a, 0xe9, 0x2b, 0xd2, 0xef, 0xbe, 0x22, 0xbd, 0x1f, 0x28, 0x99, 0x93, 0x81, 0x92, 0xf9, 0x31,
-	0x50, 0x32, 0x2f, 0x90, 0xe3, 0x86, 0xaf, 0xda, 0x75, 0xcd, 0x26, 0xcd, 0x69, 0xba, 0xdd, 0x98,
-	0x72, 0xd8, 0x0b, 0x30, 0xad, 0xe7, 0xd8, 0x47, 0xeb, 0xde, 0xdf, 0x00, 0x00, 0x00, 0xff, 0xff,
-	0xf9, 0x79, 0xab, 0xd9, 0x94, 0x07, 0x00, 0x00,
+	// 674 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x9c, 0x95, 0xcf, 0x6e, 0xd3, 0x4c,
+	0x14, 0xc5, 0xe3, 0x7c, 0x6d, 0xa4, 0x6f, 0x10, 0x0b, 0x86, 0x80, 0xc0, 0xad, 0x4c, 0xb0, 0xaa,
+	0x92, 0x16, 0xe4, 0x49, 0x8a, 0x44, 0xba, 0x02, 0x25, 0x96, 0xfa, 0x47, 0x42, 0x55, 0x49, 0x85,
+	0x25, 0x60, 0x11, 0x39, 0xee, 0xd4, 0x18, 0x39, 0x1e, 0x37, 0xe3, 0x58, 0x89, 0xaa, 0x6e, 0x78,
+	0x02, 0x24, 0x60, 0x81, 0x78, 0x0b, 0x9e, 0xa2, 0xcb, 0x4a, 0x6c, 0x58, 0x21, 0x94, 0x20, 0xf1,
+	0x08, 0x6c, 0x51, 0x66, 0x26, 0xb1, 0x0d, 0xc1, 0x75, 0xd8, 0x39, 0x77, 0xe6, 0x9e, 0xf3, 0x9b,
+	0xf1, 0x3d, 0x31, 0xb8, 0x66, 0x85, 0x7e, 0x97, 0xbc, 0xc2, 0x56, 0x80, 0x8e, 0x7b, 0xb8, 0x3b,
+	0xd0, 0xfc, 0x2e, 0x09, 0x08, 0x5c, 0x36, 0x5d, 0xdc, 0xa7, 0xb5, 0xda, 0xa6, 0x36, 0x5d, 0x8f,
+	0x9e, 0xe4, 0xa2, 0x4d, 0x6c, 0xc2, 0x36, 0xa2, 0xf1, 0x13, 0xef, 0x91, 0x97, 0x6d, 0x42, 0x6c,
+	0x17, 0x23, 0xd3, 0x77, 0x90, 0xe9, 0x79, 0x24, 0x30, 0x03, 0x87, 0x78, 0x54, 0xac, 0xae, 0x5b,
+	0x84, 0x76, 0x08, 0x45, 0x6d, 0x93, 0x62, 0x6e, 0x85, 0xc2, 0x6a, 0x1b, 0x07, 0x66, 0x15, 0xf9,
+	0xa6, 0xed, 0x78, 0x6c, 0xb3, 0xd8, 0x7b, 0x3d, 0x82, 0xf2, 0xcd, 0xae, 0xd9, 0x99, 0x68, 0x2c,
+	0x45, 0x75, 0x3a, 0xa0, 0x01, 0xee, 0xb4, 0x1c, 0xef, 0x68, 0x62, 0x0f, 0xa3, 0x45, 0x2b, 0xe4,
+	0x35, 0xb5, 0x08, 0xe0, 0x93, 0xb1, 0xd5, 0x3e, 0x53, 0x69, 0xe2, 0xe3, 0x1e, 0xa6, 0x81, 0xfa,
+	0x0c, 0x5c, 0x4d, 0x54, 0xa9, 0x4f, 0x3c, 0x8a, 0x61, 0x03, 0x14, 0xb8, 0xdb, 0x0d, 0xa9, 0x24,
+	0x95, 0x2f, 0x6d, 0xac, 0x68, 0x69, 0x97, 0xa0, 0xf1, 0xee, 0xc6, 0xc2, 0xd9, 0xd7, 0x5b, 0xb9,
+	0xa6, 0xe8, 0x54, 0x97, 0xc0, 0x4d, 0x26, 0xbd, 0x8d, 0x83, 0x03, 0x46, 0xb8, 0xeb, 0x1d, 0x91,
+	0x89, 0xaf, 0x0b, 0xe4, 0x59, 0x8b, 0xc2, 0x7e, 0x0f, 0x80, 0xa8, 0x2a, 0x10, 0xca, 0xe9, 0x08,
+	0xd1, 0x7e, 0x81, 0x11, 0x53, 0x50, 0xd7, 0xc0, 0x95, 0x89, 0x9b, 0x6e, 0x08, 0x04, 0x58, 0x04,
+	0x8b, 0x8e, 0x77, 0x88, 0xfb, 0x4c, 0x7f, 0xa1, 0xc9, 0x7f, 0xa8, 0x8f, 0xc5, 0x35, 0x89, 0xad,
+	0x02, 0xe8, 0x01, 0xc8, 0x5b, 0x86, 0x00, 0x29, 0xa5, 0x83, 0xe8, 0x86, 0x00, 0xc8, 0x5b, 0x86,
+	0xfa, 0x42, 0x18, 0xd7, 0x5d, 0x37, 0x32, 0xde, 0x02, 0x20, 0x7a, 0xcd, 0x42, 0x74, 0x55, 0xe3,
+	0x33, 0xa1, 0x8d, 0x67, 0x42, 0xe3, 0xe3, 0x27, 0x66, 0x42, 0xdb, 0x37, 0x6d, 0x2c, 0x7a, 0x9b,
+	0xb1, 0x4e, 0xf5, 0xbd, 0x24, 0x58, 0x85, 0xfa, 0x6f, 0xac, 0xff, 0xcd, 0xc7, 0x0a, 0xb7, 0x13,
+	0x58, 0x79, 0x86, 0x75, 0xe7, 0x42, 0x2c, 0x6e, 0x9a, 0xe0, 0xda, 0x01, 0xa5, 0xe9, 0x15, 0x86,
+	0x8d, 0x81, 0xce, 0x14, 0xea, 0x87, 0x87, 0x5d, 0x4c, 0x27, 0x73, 0x07, 0x57, 0xc0, 0x65, 0x2b,
+	0x5e, 0x67, 0xd7, 0xf0, 0x7f, 0x33, 0x59, 0x54, 0x9f, 0x82, 0xdb, 0x29, 0x4a, 0xe2, 0xbc, 0x95,
+	0x79, 0xde, 0xcd, 0xf8, 0xa4, 0x1b, 0x3f, 0x0b, 0x60, 0x91, 0xe9, 0xc2, 0x8f, 0x12, 0x28, 0xf0,
+	0xe1, 0x85, 0x95, 0xf4, 0xd6, 0x3f, 0xb3, 0x23, 0x57, 0xe7, 0xe8, 0xe0, 0xac, 0xea, 0xbd, 0xd7,
+	0x9f, 0xbf, 0xbf, 0xcd, 0xaf, 0xc2, 0x15, 0x54, 0x77, 0x71, 0xff, 0xa0, 0x56, 0xdb, 0x44, 0xba,
+	0xb1, 0x3f, 0x8d, 0x6a, 0x32, 0xe9, 0xf0, 0x93, 0x14, 0xcf, 0x01, 0xac, 0x65, 0xf0, 0x9b, 0x15,
+	0x36, 0x79, 0x73, 0xfe, 0x46, 0xc1, 0x5b, 0x65, 0xbc, 0x77, 0xe1, 0x5a, 0x3a, 0x6f, 0xec, 0x1f,
+	0x08, 0x7e, 0x90, 0x40, 0x5e, 0x37, 0x20, 0xca, 0xe6, 0x39, 0x4d, 0x85, 0x5c, 0xc9, 0xde, 0x20,
+	0xe0, 0x2a, 0x0c, 0x6e, 0x1d, 0x96, 0xd3, 0xe1, 0xac, 0x10, 0x9d, 0xb0, 0x6c, 0x9f, 0xc2, 0x77,
+	0x12, 0x58, 0xd4, 0x8d, 0xba, 0xeb, 0x66, 0xc2, 0x8b, 0x87, 0x36, 0x13, 0x5e, 0x22, 0x87, 0x6a,
+	0x99, 0xe1, 0xa9, 0xb0, 0x74, 0x11, 0x1e, 0xfc, 0x21, 0x81, 0xe2, 0xac, 0x11, 0x87, 0x0f, 0x33,
+	0xde, 0xc9, 0x5f, 0x52, 0x26, 0x3f, 0xfa, 0xe7, 0x7e, 0x71, 0x86, 0x3d, 0x76, 0x86, 0x1d, 0xb8,
+	0x95, 0x7e, 0x06, 0x1b, 0x07, 0x2d, 0x2b, 0x6c, 0xb5, 0x07, 0x2d, 0x9e, 0xdf, 0x96, 0xc9, 0x75,
+	0xd0, 0x49, 0x22, 0xcf, 0xa7, 0x8d, 0xdd, 0xb3, 0xa1, 0x22, 0x9d, 0x0f, 0x15, 0xe9, 0xdb, 0x50,
+	0x91, 0xde, 0x8c, 0x94, 0xdc, 0xf9, 0x48, 0xc9, 0x7d, 0x19, 0x29, 0xb9, 0xe7, 0xc8, 0x76, 0x82,
+	0x97, 0xbd, 0xb6, 0x66, 0x91, 0xce, 0x2c, 0xaf, 0x7e, 0xcc, 0x2d, 0x18, 0xf8, 0x98, 0xb6, 0x0b,
+	0xec, 0xb3, 0x76, 0xff, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff, 0xa3, 0xf1, 0x0b, 0x33, 0xb6, 0x07,
+	0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -546,7 +547,8 @@ type QueryClient interface {
 	CV(ctx context.Context, in *QueryGetCVRequest, opts ...grpc.CallOption) (*QueryGetCVResponse, error)
 	// Queries a list of CV items.
 	CVAll(ctx context.Context, in *QueryAllCVRequest, opts ...grpc.CallOption) (*QueryAllCVResponse, error)
-	CvByCosmosAddress(ctx context.Context, in *QueryCvByCosmosAddressRequest, opts ...grpc.CallOption) (*QueryCvByCosmosAddressResponse, error)
+	// Queries a list of GetCvByCosmosAddress items.
+	GetCvByCosmosAddress(ctx context.Context, in *QueryGetCvByCosmosAddressRequest, opts ...grpc.CallOption) (*QueryGetCvByCosmosAddressResponse, error)
 }
 
 type queryClient struct {
@@ -593,9 +595,9 @@ func (c *queryClient) CVAll(ctx context.Context, in *QueryAllCVRequest, opts ...
 	return out, nil
 }
 
-func (c *queryClient) CvByCosmosAddress(ctx context.Context, in *QueryCvByCosmosAddressRequest, opts ...grpc.CallOption) (*QueryCvByCosmosAddressResponse, error) {
-	out := new(QueryCvByCosmosAddressResponse)
-	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/CvByCosmosAddress", in, out, opts...)
+func (c *queryClient) GetCvByCosmosAddress(ctx context.Context, in *QueryGetCvByCosmosAddressRequest, opts ...grpc.CallOption) (*QueryGetCvByCosmosAddressResponse, error) {
+	out := new(QueryGetCvByCosmosAddressResponse)
+	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/GetCvByCosmosAddress", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -612,7 +614,8 @@ type QueryServer interface {
 	CV(context.Context, *QueryGetCVRequest) (*QueryGetCVResponse, error)
 	// Queries a list of CV items.
 	CVAll(context.Context, *QueryAllCVRequest) (*QueryAllCVResponse, error)
-	CvByCosmosAddress(context.Context, *QueryCvByCosmosAddressRequest) (*QueryCvByCosmosAddressResponse, error)
+	// Queries a list of GetCvByCosmosAddress items.
+	GetCvByCosmosAddress(context.Context, *QueryGetCvByCosmosAddressRequest) (*QueryGetCvByCosmosAddressResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -631,8 +634,8 @@ func (*UnimplementedQueryServer) CV(ctx context.Context, req *QueryGetCVRequest)
 func (*UnimplementedQueryServer) CVAll(ctx context.Context, req *QueryAllCVRequest) (*QueryAllCVResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CVAll not implemented")
 }
-func (*UnimplementedQueryServer) CvByCosmosAddress(ctx context.Context, req *QueryCvByCosmosAddressRequest) (*QueryCvByCosmosAddressResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CvByCosmosAddress not implemented")
+func (*UnimplementedQueryServer) GetCvByCosmosAddress(ctx context.Context, req *QueryGetCvByCosmosAddressRequest) (*QueryGetCvByCosmosAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCvByCosmosAddress not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -711,20 +714,20 @@ func _Query_CVAll_Handler(srv interface{}, ctx context.Context, dec func(interfa
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_CvByCosmosAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryCvByCosmosAddressRequest)
+func _Query_GetCvByCosmosAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetCvByCosmosAddressRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).CvByCosmosAddress(ctx, in)
+		return srv.(QueryServer).GetCvByCosmosAddress(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/alexs778.cvproject.cvproject.Query/CvByCosmosAddress",
+		FullMethod: "/alexs778.cvproject.cvproject.Query/GetCvByCosmosAddress",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).CvByCosmosAddress(ctx, req.(*QueryCvByCosmosAddressRequest))
+		return srv.(QueryServer).GetCvByCosmosAddress(ctx, req.(*QueryGetCvByCosmosAddressRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -750,77 +753,12 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_CVAll_Handler,
 		},
 		{
-			MethodName: "CvByCosmosAddress",
-			Handler:    _Query_CvByCosmosAddress_Handler,
+			MethodName: "GetCvByCosmosAddress",
+			Handler:    _Query_GetCvByCosmosAddress_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
 	Metadata: "cvproject/query.proto",
-}
-
-func (m *QueryCvByCosmosAddressRequest) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *QueryCvByCosmosAddressRequest) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *QueryCvByCosmosAddressRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if len(m.CosmosAddress) > 0 {
-		i -= len(m.CosmosAddress)
-		copy(dAtA[i:], m.CosmosAddress)
-		i = encodeVarintQuery(dAtA, i, uint64(len(m.CosmosAddress)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
-func (m *QueryCvByCosmosAddressResponse) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *QueryCvByCosmosAddressResponse) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *QueryCvByCosmosAddressResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if m.CV != nil {
-		{
-			size, err := m.CV.MarshalToSizedBuffer(dAtA[:i])
-			if err != nil {
-				return 0, err
-			}
-			i -= size
-			i = encodeVarintQuery(dAtA, i, uint64(size))
-		}
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
 }
 
 func (m *QueryParamsRequest) Marshal() (dAtA []byte, err error) {
@@ -1080,6 +1018,71 @@ func (m *QueryAllCVResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
+func (m *QueryGetCvByCosmosAddressRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetCvByCosmosAddressRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetCvByCosmosAddressRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.CosmosAddress) > 0 {
+		i -= len(m.CosmosAddress)
+		copy(dAtA[i:], m.CosmosAddress)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.CosmosAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.CV != nil {
+		{
+			size, err := m.CV.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
 func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	offset -= sovQuery(v)
 	base := offset
@@ -1091,32 +1094,6 @@ func encodeVarintQuery(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *QueryCvByCosmosAddressRequest) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	l = len(m.CosmosAddress)
-	if l > 0 {
-		n += 1 + l + sovQuery(uint64(l))
-	}
-	return n
-}
-
-func (m *QueryCvByCosmosAddressResponse) Size() (n int) {
-	if m == nil {
-		return 0
-	}
-	var l int
-	_ = l
-	if m.CV != nil {
-		l = m.CV.Size()
-		n += 1 + l + sovQuery(uint64(l))
-	}
-	return n
-}
-
 func (m *QueryParamsRequest) Size() (n int) {
 	if m == nil {
 		return 0
@@ -1212,179 +1189,37 @@ func (m *QueryAllCVResponse) Size() (n int) {
 	return n
 }
 
+func (m *QueryGetCvByCosmosAddressRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.CosmosAddress)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.CV != nil {
+		l = m.CV.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
 func sovQuery(x uint64) (n int) {
 	return (math_bits.Len64(x|1) + 6) / 7
 }
 func sozQuery(x uint64) (n int) {
 	return sovQuery(uint64((x << 1) ^ uint64((int64(x) >> 63))))
-}
-func (m *QueryCvByCosmosAddressRequest) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: QueryCvByCosmosAddressRequest: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryCvByCosmosAddressRequest: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CosmosAddress", wireType)
-			}
-			var stringLen uint64
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				stringLen |= uint64(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			intStringLen := int(stringLen)
-			if intStringLen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + intStringLen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.CosmosAddress = string(dAtA[iNdEx:postIndex])
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *QueryCvByCosmosAddressResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: QueryCvByCosmosAddressResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryCvByCosmosAddressResponse: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field CV", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowQuery
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthQuery
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			if m.CV == nil {
-				m.CV = &CV{}
-			}
-			if err := m.CV.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
 }
 func (m *QueryParamsRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
@@ -1986,6 +1821,174 @@ func (m *QueryAllCVResponse) Unmarshal(dAtA []byte) error {
 				m.Pagination = &query.PageResponse{}
 			}
 			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetCvByCosmosAddressRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetCvByCosmosAddressRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetCvByCosmosAddressRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CosmosAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CosmosAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetCvByCosmosAddressResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetCvByCosmosAddressResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetCvByCosmosAddressResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CV", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.CV == nil {
+				m.CV = &CV{}
+			}
+			if err := m.CV.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex

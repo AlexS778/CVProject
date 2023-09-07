@@ -10,7 +10,7 @@ message CV {
   string summary = 4; 
   string skills = 5; 
   string experience = 6; 
-  string cosmos_address = 7;
+  string creator = 7;
   repeated Company Companies = 8;
 }
 

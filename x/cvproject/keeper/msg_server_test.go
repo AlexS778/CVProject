@@ -19,7 +19,7 @@ func setupMsgServerCreateCV(t testing.TB) (types.MsgServer, keeper.Keeper, conte
 }
 
 func TestCreateCv(t *testing.T) {
-	srv, _, context := setupMsgServerCreateCV(t)
+	srv, k, context := setupMsgServerCreateCV(t)
 	crateResponse, err := srv.CreateCV(context, &types.MsgCreateCV{
 		Creator:   alice,
 		Name:      "Steve Jobs",
@@ -27,5 +27,9 @@ func TestCreateCv(t *testing.T) {
 		Companies: []string{"Apple", "Google", "Microsoft", "Amazon", "Facebook"},
 	})
 	require.Nil(t, err)
-	require.EqualValues(t, types.MsgCreateCVResponse{CvIndex: 1}, *crateResponse)
+	res, err := k.GetCvByCosmosAddress(context, &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: alice})
+	if err != nil {
+		t.Error(err)
+	}
+	require.EqualValues(t, res, *crateResponse)
 }

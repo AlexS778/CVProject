@@ -1,6 +1,5 @@
 /* eslint-disable */
 import { Params } from "../cvproject/params";
-import { SystemInfo } from "../cvproject/system_info";
 import { CV } from "../cvproject/cv";
 import { Writer, Reader } from "protobufjs/minimal";
 
@@ -9,7 +8,6 @@ export const protobufPackage = "alexs778.cvproject.cvproject";
 /** GenesisState defines the cvproject module's genesis state. */
 export interface GenesisState {
   params: Params | undefined;
-  systemInfo: SystemInfo | undefined;
   /** this line is used by starport scaffolding # genesis/proto/state */
   cVList: CV[];
 }
@@ -21,11 +19,8 @@ export const GenesisState = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
-    if (message.systemInfo !== undefined) {
-      SystemInfo.encode(message.systemInfo, writer.uint32(18).fork()).ldelim();
-    }
     for (const v of message.cVList) {
-      CV.encode(v!, writer.uint32(26).fork()).ldelim();
+      CV.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -42,9 +37,6 @@ export const GenesisState = {
           message.params = Params.decode(reader, reader.uint32());
           break;
         case 2:
-          message.systemInfo = SystemInfo.decode(reader, reader.uint32());
-          break;
-        case 3:
           message.cVList.push(CV.decode(reader, reader.uint32()));
           break;
         default:
@@ -63,11 +55,6 @@ export const GenesisState = {
     } else {
       message.params = undefined;
     }
-    if (object.systemInfo !== undefined && object.systemInfo !== null) {
-      message.systemInfo = SystemInfo.fromJSON(object.systemInfo);
-    } else {
-      message.systemInfo = undefined;
-    }
     if (object.cVList !== undefined && object.cVList !== null) {
       for (const e of object.cVList) {
         message.cVList.push(CV.fromJSON(e));
@@ -80,10 +67,6 @@ export const GenesisState = {
     const obj: any = {};
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    message.systemInfo !== undefined &&
-      (obj.systemInfo = message.systemInfo
-        ? SystemInfo.toJSON(message.systemInfo)
-        : undefined);
     if (message.cVList) {
       obj.cVList = message.cVList.map((e) => (e ? CV.toJSON(e) : undefined));
     } else {
@@ -99,11 +82,6 @@ export const GenesisState = {
       message.params = Params.fromPartial(object.params);
     } else {
       message.params = undefined;
-    }
-    if (object.systemInfo !== undefined && object.systemInfo !== null) {
-      message.systemInfo = SystemInfo.fromPartial(object.systemInfo);
-    } else {
-      message.systemInfo = undefined;
     }
     if (object.cVList !== undefined && object.cVList !== null) {
       for (const e of object.cVList) {

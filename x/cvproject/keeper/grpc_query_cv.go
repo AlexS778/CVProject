@@ -39,7 +39,7 @@ func (k Keeper) CVAll(c context.Context, req *types.QueryAllCVRequest) (*types.Q
 	return &types.QueryAllCVResponse{CV: cVs, Pagination: pageRes}, nil
 }
 
-func (k Keeper) CV(c context.Context, req *types.QueryGetCVRequest) (*types.QueryGetCVResponse, error) {
+func (k Keeper) GetCvByCosmosAddress(c context.Context, req *types.QueryGetCvByCosmosAddressRequest) (*types.QueryGetCvByCosmosAddressResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -47,11 +47,11 @@ func (k Keeper) CV(c context.Context, req *types.QueryGetCVRequest) (*types.Quer
 
 	val, found := k.GetCV(
 		ctx,
-		req.String(),
+		req.CosmosAddress,
 	)
 	if !found {
 		return nil, status.Error(codes.NotFound, "not found")
 	}
 
-	return &types.QueryGetCVResponse{CV: val}, nil
+	return &types.QueryGetCvByCosmosAddressResponse{CV: &val}, nil
 }

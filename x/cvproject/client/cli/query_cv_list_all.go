@@ -6,7 +6,6 @@ import (
 	"github.com/AlexS778/CVProject/x/cvproject/types"
 	"github.com/cosmos/cosmos-sdk/client"
 	"github.com/cosmos/cosmos-sdk/client/flags"
-	"github.com/spf13/cast"
 	"github.com/spf13/cobra"
 )
 
@@ -38,39 +37,6 @@ func CmdListCV() *cobra.Command {
 	}
 
 	flags.AddPaginationFlagsToCmd(cmd, cmd.Use)
-	flags.AddQueryFlagsToCmd(cmd)
-
-	return cmd
-}
-
-func CmdShowCV() *cobra.Command {
-	cmd := &cobra.Command{
-		Use:   "show-cv [index]",
-		Short: "shows a CV",
-		Args:  cobra.ExactArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) (err error) {
-			clientCtx := client.GetClientContextFromCmd(cmd)
-
-			queryClient := types.NewQueryClient(clientCtx)
-
-			argIndex, err := cast.ToUint64E(args[0])
-			if err != nil {
-				return err
-			}
-
-			params := &types.QueryGetCVRequest{
-				Index: argIndex,
-			}
-
-			res, err := queryClient.CV(context.Background(), params)
-			if err != nil {
-				return err
-			}
-
-			return clientCtx.PrintProto(res)
-		},
-	}
-
 	flags.AddQueryFlagsToCmd(cmd)
 
 	return cmd

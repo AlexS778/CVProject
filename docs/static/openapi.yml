@@ -19,9 +19,6 @@ paths:
                 items:
                   type: object
                   properties:
-                    index:
-                      type: string
-                      format: uint64
                     name:
                       type: string
                     education:
@@ -32,7 +29,7 @@ paths:
                       type: string
                     experience:
                       type: string
-                    cosmos_address:
+                    creator:
                       type: string
                     Companies:
                       type: array
@@ -153,142 +150,6 @@ paths:
           type: boolean
       tags:
         - Query
-  '/AlexS778/CVProject/cvproject/cv/{index}':
-    get:
-      summary: Queries a CV by index.
-      operationId: Alexs778CvprojectCvprojectCV
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              cV:
-                type: object
-                properties:
-                  index:
-                    type: string
-                    format: uint64
-                  name:
-                    type: string
-                  education:
-                    type: string
-                  summary:
-                    type: string
-                  skills:
-                    type: string
-                  experience:
-                    type: string
-                  cosmos_address:
-                    type: string
-                  Companies:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        uuid:
-                          type: string
-                        name:
-                          type: string
-                        timestamp_start:
-                          type: string
-                        timestamp_end:
-                          type: string
-                        comments:
-                          type: string
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: index
-          in: path
-          required: true
-          type: string
-          format: uint64
-      tags:
-        - Query
-  /AlexS778/CVProject/cvproject/cv_by_cosmos_address:
-    get:
-      operationId: Alexs778CvprojectCvprojectCvByCosmosAddress
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              cV:
-                type: object
-                properties:
-                  index:
-                    type: string
-                    format: uint64
-                  name:
-                    type: string
-                  education:
-                    type: string
-                  summary:
-                    type: string
-                  skills:
-                    type: string
-                  experience:
-                    type: string
-                  cosmos_address:
-                    type: string
-                  Companies:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        uuid:
-                          type: string
-                        name:
-                          type: string
-                        timestamp_start:
-                          type: string
-                        timestamp_end:
-                          type: string
-                        comments:
-                          type: string
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      parameters:
-        - name: cosmos_address
-          in: query
-          required: false
-          type: string
-      tags:
-        - Query
   '/AlexS778/CVProject/cvproject/get_cv_by_cosmos_address/{cosmosAddress}':
     get:
       summary: Queries a list of GetCvByCosmosAddress items.
@@ -300,7 +161,35 @@ paths:
             type: object
             properties:
               cV:
-                type: string
+                type: object
+                properties:
+                  name:
+                    type: string
+                  education:
+                    type: string
+                  summary:
+                    type: string
+                  skills:
+                    type: string
+                  experience:
+                    type: string
+                  creator:
+                    type: string
+                  Companies:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        uuid:
+                          type: string
+                        name:
+                          type: string
+                        timestamp_start:
+                          type: string
+                        timestamp_end:
+                          type: string
+                        comments:
+                          type: string
         default:
           description: An unexpected error response.
           schema:
@@ -342,42 +231,6 @@ paths:
             description: >-
               QueryParamsResponse is response type for the Query/Params RPC
               method.
-        default:
-          description: An unexpected error response.
-          schema:
-            type: object
-            properties:
-              code:
-                type: integer
-                format: int32
-              message:
-                type: string
-              details:
-                type: array
-                items:
-                  type: object
-                  properties:
-                    '@type':
-                      type: string
-                  additionalProperties: {}
-      tags:
-        - Query
-  /AlexS778/CVProject/cvproject/system_info:
-    get:
-      summary: Queries a SystemInfo by index.
-      operationId: Alexs778CvprojectCvprojectSystemInfo
-      responses:
-        '200':
-          description: A successful response.
-          schema:
-            type: object
-            properties:
-              SystemInfo:
-                type: object
-                properties:
-                  nextId:
-                    type: string
-                    format: uint64
         default:
           description: An unexpected error response.
           schema:
@@ -29854,9 +29707,6 @@ definitions:
   alexs778.cvproject.cvproject.CV:
     type: object
     properties:
-      index:
-        type: string
-        format: uint64
       name:
         type: string
       education:
@@ -29867,7 +29717,7 @@ definitions:
         type: string
       experience:
         type: string
-      cosmos_address:
+      creator:
         type: string
       Companies:
         type: array
@@ -29905,42 +29755,6 @@ definitions:
       cvIndex:
         type: string
         format: uint64
-  alexs778.cvproject.cvproject.MsgGetCVByCosmosAdressResponse:
-    type: object
-    properties:
-      cvResponse:
-        type: object
-        properties:
-          index:
-            type: string
-            format: uint64
-          name:
-            type: string
-          education:
-            type: string
-          summary:
-            type: string
-          skills:
-            type: string
-          experience:
-            type: string
-          cosmos_address:
-            type: string
-          Companies:
-            type: array
-            items:
-              type: object
-              properties:
-                uuid:
-                  type: string
-                name:
-                  type: string
-                timestamp_start:
-                  type: string
-                timestamp_end:
-                  type: string
-                comments:
-                  type: string
   alexs778.cvproject.cvproject.MsgUpdateCVResponse:
     type: object
   alexs778.cvproject.cvproject.Params:
@@ -29954,9 +29768,6 @@ definitions:
         items:
           type: object
           properties:
-            index:
-              type: string
-              format: uint64
             name:
               type: string
             education:
@@ -29967,7 +29778,7 @@ definitions:
               type: string
             experience:
               type: string
-            cosmos_address:
+            creator:
               type: string
             Companies:
               type: array
@@ -30009,92 +29820,39 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
-  alexs778.cvproject.cvproject.QueryCvByCosmosAddressResponse:
-    type: object
-    properties:
-      cV:
-        type: object
-        properties:
-          index:
-            type: string
-            format: uint64
-          name:
-            type: string
-          education:
-            type: string
-          summary:
-            type: string
-          skills:
-            type: string
-          experience:
-            type: string
-          cosmos_address:
-            type: string
-          Companies:
-            type: array
-            items:
-              type: object
-              properties:
-                uuid:
-                  type: string
-                name:
-                  type: string
-                timestamp_start:
-                  type: string
-                timestamp_end:
-                  type: string
-                comments:
-                  type: string
-  alexs778.cvproject.cvproject.QueryGetCVResponse:
-    type: object
-    properties:
-      cV:
-        type: object
-        properties:
-          index:
-            type: string
-            format: uint64
-          name:
-            type: string
-          education:
-            type: string
-          summary:
-            type: string
-          skills:
-            type: string
-          experience:
-            type: string
-          cosmos_address:
-            type: string
-          Companies:
-            type: array
-            items:
-              type: object
-              properties:
-                uuid:
-                  type: string
-                name:
-                  type: string
-                timestamp_start:
-                  type: string
-                timestamp_end:
-                  type: string
-                comments:
-                  type: string
   alexs778.cvproject.cvproject.QueryGetCvByCosmosAddressResponse:
     type: object
     properties:
       cV:
-        type: string
-  alexs778.cvproject.cvproject.QueryGetSystemInfoResponse:
-    type: object
-    properties:
-      SystemInfo:
         type: object
         properties:
-          nextId:
+          name:
             type: string
-            format: uint64
+          education:
+            type: string
+          summary:
+            type: string
+          skills:
+            type: string
+          experience:
+            type: string
+          creator:
+            type: string
+          Companies:
+            type: array
+            items:
+              type: object
+              properties:
+                uuid:
+                  type: string
+                name:
+                  type: string
+                timestamp_start:
+                  type: string
+                timestamp_end:
+                  type: string
+                comments:
+                  type: string
   alexs778.cvproject.cvproject.QueryParamsResponse:
     type: object
     properties:
@@ -30102,12 +29860,6 @@ definitions:
         description: params holds all the parameters of this module.
         type: object
     description: QueryParamsResponse is response type for the Query/Params RPC method.
-  alexs778.cvproject.cvproject.SystemInfo:
-    type: object
-    properties:
-      nextId:
-        type: string
-        format: uint64
   cosmos.base.query.v1beta1.PageRequest:
     type: object
     properties:

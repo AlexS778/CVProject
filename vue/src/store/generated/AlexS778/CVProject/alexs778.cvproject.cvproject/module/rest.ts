@@ -10,14 +10,12 @@
  */
 
 export interface CvprojectCV {
-  /** @format uint64 */
-  index?: string;
   name?: string;
   education?: string;
   summary?: string;
   skills?: string;
   experience?: string;
-  cosmos_address?: string;
+  creator?: string;
   Companies?: CvprojectCompany[];
 }
 
@@ -34,10 +32,6 @@ export type CvprojectMsgConfirmCVResponse = object;
 export interface CvprojectMsgCreateCVResponse {
   /** @format uint64 */
   cvIndex?: string;
-}
-
-export interface CvprojectMsgGetCVByCosmosAdressResponse {
-  cvResponse?: CvprojectCV;
 }
 
 export type CvprojectMsgUpdateCVResponse = object;
@@ -62,20 +56,8 @@ export interface CvprojectQueryAllCVResponse {
   pagination?: V1Beta1PageResponse;
 }
 
-export interface CvprojectQueryCvByCosmosAddressResponse {
-  cV?: CvprojectCV;
-}
-
-export interface CvprojectQueryGetCVResponse {
-  cV?: CvprojectCV;
-}
-
 export interface CvprojectQueryGetCvByCosmosAddressResponse {
-  cV?: string;
-}
-
-export interface CvprojectQueryGetSystemInfoResponse {
-  SystemInfo?: CvprojectSystemInfo;
+  cV?: CvprojectCV;
 }
 
 /**
@@ -84,11 +66,6 @@ export interface CvprojectQueryGetSystemInfoResponse {
 export interface CvprojectQueryParamsResponse {
   /** params holds all the parameters of this module. */
   params?: CvprojectParams;
-}
-
-export interface CvprojectSystemInfo {
-  /** @format uint64 */
-  nextId?: string;
 }
 
 export interface ProtobufAny {
@@ -391,38 +368,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
    * No description
    *
    * @tags Query
-   * @name QueryCv
-   * @summary Queries a CV by index.
-   * @request GET:/AlexS778/CVProject/cvproject/cv/{index}
-   */
-  queryCv = (index: string, params: RequestParams = {}) =>
-    this.request<CvprojectQueryGetCVResponse, RpcStatus>({
-      path: `/AlexS778/CVProject/cvproject/cv/${index}`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
-   * @name QueryCvByCosmosAddress
-   * @request GET:/AlexS778/CVProject/cvproject/cv_by_cosmos_address
-   */
-  queryCvByCosmosAddress = (query?: { cosmos_address?: string }, params: RequestParams = {}) =>
-    this.request<CvprojectQueryCvByCosmosAddressResponse, RpcStatus>({
-      path: `/AlexS778/CVProject/cvproject/cv_by_cosmos_address`,
-      method: "GET",
-      query: query,
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
    * @name QueryGetCvByCosmosAddress
    * @summary Queries a list of GetCvByCosmosAddress items.
    * @request GET:/AlexS778/CVProject/cvproject/get_cv_by_cosmos_address/{cosmosAddress}
@@ -446,22 +391,6 @@ export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDa
   queryParams = (params: RequestParams = {}) =>
     this.request<CvprojectQueryParamsResponse, RpcStatus>({
       path: `/AlexS778/CVProject/cvproject/params`,
-      method: "GET",
-      format: "json",
-      ...params,
-    });
-
-  /**
-   * No description
-   *
-   * @tags Query
-   * @name QuerySystemInfo
-   * @summary Queries a SystemInfo by index.
-   * @request GET:/AlexS778/CVProject/cvproject/system_info
-   */
-  querySystemInfo = (params: RequestParams = {}) =>
-    this.request<CvprojectQueryGetSystemInfoResponse, RpcStatus>({
-      path: `/AlexS778/CVProject/cvproject/system_info`,
       method: "GET",
       format: "json",
       ...params,

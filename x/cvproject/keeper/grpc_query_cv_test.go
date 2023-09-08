@@ -24,31 +24,24 @@ func TestCVQuerySingle(t *testing.T) {
 	msgs := createNCV(keeper, ctx, 2)
 	for _, tc := range []struct {
 		desc     string
-		request  *types.QueryGetCVRequest
-		response *types.QueryGetCVResponse
+		request  *types.QueryGetCvByCosmosAddressRequest
+		response *types.QueryGetCvByCosmosAddressResponse
 		err      error
 	}{
 		{
-			desc: "First",
-			request: &types.QueryGetCVRequest{
-				// TODO: index of query GetCV should be string?
-				Index: msgs[0].Creator,
-			},
-			response: &types.QueryGetCVResponse{CV: msgs[0]},
+			desc:     "First",
+			request:  &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: msgs[0].Creator},
+			response: &types.QueryGetCvByCosmosAddressResponse{CV: &msgs[0]},
 		},
 		{
-			desc: "Second",
-			request: &types.QueryGetCVRequest{
-				Index: msgs[1].Index,
-			},
-			response: &types.QueryGetCVResponse{CV: msgs[1]},
+			desc:     "Second",
+			request:  &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: msgs[1].Creator},
+			response: &types.QueryGetCvByCosmosAddressResponse{CV: &msgs[1]},
 		},
 		{
-			desc: "KeyNotFound",
-			request: &types.QueryGetCVRequest{
-				Index: 100000,
-			},
-			err: status.Error(codes.NotFound, "not found"),
+			desc:    "KeyNotFound",
+			request: &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: "invalid"},
+			err:     status.Error(codes.NotFound, "not found"),
 		},
 		{
 			desc: "InvalidRequest",
@@ -56,7 +49,7 @@ func TestCVQuerySingle(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.CV(wctx, tc.request)
+			response, err := keeper.GetCvByCosmosAddress(wctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {

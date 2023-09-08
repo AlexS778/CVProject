@@ -1,7 +1,6 @@
 /* eslint-disable */
 import { Reader, util, configure, Writer } from "protobufjs/minimal";
 import * as Long from "long";
-import { CV } from "../cvproject/cv";
 
 export const protobufPackage = "alexs778.cvproject.cvproject";
 
@@ -30,15 +29,6 @@ export interface MsgUpdateCV {
 }
 
 export interface MsgUpdateCVResponse {}
-
-export interface MsgGetCVByCosmosAdress {
-  creator: string;
-  cosmosAddress: string;
-}
-
-export interface MsgGetCVByCosmosAdressResponse {
-  cvResponse: CV | undefined;
-}
 
 export interface MsgConfirmCV {
   creator: string;
@@ -488,156 +478,6 @@ export const MsgUpdateCVResponse = {
   },
 };
 
-const baseMsgGetCVByCosmosAdress: object = { creator: "", cosmosAddress: "" };
-
-export const MsgGetCVByCosmosAdress = {
-  encode(
-    message: MsgGetCVByCosmosAdress,
-    writer: Writer = Writer.create()
-  ): Writer {
-    if (message.creator !== "") {
-      writer.uint32(10).string(message.creator);
-    }
-    if (message.cosmosAddress !== "") {
-      writer.uint32(18).string(message.cosmosAddress);
-    }
-    return writer;
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): MsgGetCVByCosmosAdress {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseMsgGetCVByCosmosAdress } as MsgGetCVByCosmosAdress;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.creator = reader.string();
-          break;
-        case 2:
-          message.cosmosAddress = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgGetCVByCosmosAdress {
-    const message = { ...baseMsgGetCVByCosmosAdress } as MsgGetCVByCosmosAdress;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = String(object.creator);
-    } else {
-      message.creator = "";
-    }
-    if (object.cosmosAddress !== undefined && object.cosmosAddress !== null) {
-      message.cosmosAddress = String(object.cosmosAddress);
-    } else {
-      message.cosmosAddress = "";
-    }
-    return message;
-  },
-
-  toJSON(message: MsgGetCVByCosmosAdress): unknown {
-    const obj: any = {};
-    message.creator !== undefined && (obj.creator = message.creator);
-    message.cosmosAddress !== undefined &&
-      (obj.cosmosAddress = message.cosmosAddress);
-    return obj;
-  },
-
-  fromPartial(
-    object: DeepPartial<MsgGetCVByCosmosAdress>
-  ): MsgGetCVByCosmosAdress {
-    const message = { ...baseMsgGetCVByCosmosAdress } as MsgGetCVByCosmosAdress;
-    if (object.creator !== undefined && object.creator !== null) {
-      message.creator = object.creator;
-    } else {
-      message.creator = "";
-    }
-    if (object.cosmosAddress !== undefined && object.cosmosAddress !== null) {
-      message.cosmosAddress = object.cosmosAddress;
-    } else {
-      message.cosmosAddress = "";
-    }
-    return message;
-  },
-};
-
-const baseMsgGetCVByCosmosAdressResponse: object = {};
-
-export const MsgGetCVByCosmosAdressResponse = {
-  encode(
-    message: MsgGetCVByCosmosAdressResponse,
-    writer: Writer = Writer.create()
-  ): Writer {
-    if (message.cvResponse !== undefined) {
-      CV.encode(message.cvResponse, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: Reader | Uint8Array,
-    length?: number
-  ): MsgGetCVByCosmosAdressResponse {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = {
-      ...baseMsgGetCVByCosmosAdressResponse,
-    } as MsgGetCVByCosmosAdressResponse;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.cvResponse = CV.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): MsgGetCVByCosmosAdressResponse {
-    const message = {
-      ...baseMsgGetCVByCosmosAdressResponse,
-    } as MsgGetCVByCosmosAdressResponse;
-    if (object.cvResponse !== undefined && object.cvResponse !== null) {
-      message.cvResponse = CV.fromJSON(object.cvResponse);
-    } else {
-      message.cvResponse = undefined;
-    }
-    return message;
-  },
-
-  toJSON(message: MsgGetCVByCosmosAdressResponse): unknown {
-    const obj: any = {};
-    message.cvResponse !== undefined &&
-      (obj.cvResponse = message.cvResponse
-        ? CV.toJSON(message.cvResponse)
-        : undefined);
-    return obj;
-  },
-
-  fromPartial(
-    object: DeepPartial<MsgGetCVByCosmosAdressResponse>
-  ): MsgGetCVByCosmosAdressResponse {
-    const message = {
-      ...baseMsgGetCVByCosmosAdressResponse,
-    } as MsgGetCVByCosmosAdressResponse;
-    if (object.cvResponse !== undefined && object.cvResponse !== null) {
-      message.cvResponse = CV.fromPartial(object.cvResponse);
-    } else {
-      message.cvResponse = undefined;
-    }
-    return message;
-  },
-};
-
 const baseMsgConfirmCV: object = { creator: "", name: "", cosmosAdress: "" };
 
 export const MsgConfirmCV = {
@@ -770,9 +610,6 @@ export const MsgConfirmCVResponse = {
 export interface Msg {
   CreateCV(request: MsgCreateCV): Promise<MsgCreateCVResponse>;
   UpdateCV(request: MsgUpdateCV): Promise<MsgUpdateCVResponse>;
-  GetCVByCosmosAdress(
-    request: MsgGetCVByCosmosAdress
-  ): Promise<MsgGetCVByCosmosAdressResponse>;
   /** this line is used by starport scaffolding # proto/tx/rpc */
   ConfirmCV(request: MsgConfirmCV): Promise<MsgConfirmCVResponse>;
 }
@@ -800,20 +637,6 @@ export class MsgClientImpl implements Msg {
       data
     );
     return promise.then((data) => MsgUpdateCVResponse.decode(new Reader(data)));
-  }
-
-  GetCVByCosmosAdress(
-    request: MsgGetCVByCosmosAdress
-  ): Promise<MsgGetCVByCosmosAdressResponse> {
-    const data = MsgGetCVByCosmosAdress.encode(request).finish();
-    const promise = this.rpc.request(
-      "alexs778.cvproject.cvproject.Msg",
-      "GetCVByCosmosAdress",
-      data
-    );
-    return promise.then((data) =>
-      MsgGetCVByCosmosAdressResponse.decode(new Reader(data))
-    );
   }
 
   ConfirmCV(request: MsgConfirmCV): Promise<MsgConfirmCVResponse> {

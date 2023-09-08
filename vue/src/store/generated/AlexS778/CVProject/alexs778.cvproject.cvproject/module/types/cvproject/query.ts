@@ -1,23 +1,13 @@
 /* eslint-disable */
-import { Reader, util, configure, Writer } from "protobufjs/minimal";
-import * as Long from "long";
-import { CV } from "../cvproject/cv";
+import { Reader, Writer } from "protobufjs/minimal";
 import { Params } from "../cvproject/params";
-import { SystemInfo } from "../cvproject/system_info";
 import {
   PageRequest,
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
+import { CV } from "../cvproject/cv";
 
 export const protobufPackage = "alexs778.cvproject.cvproject";
-
-export interface QueryCvByCosmosAddressRequest {
-  cosmos_address: string;
-}
-
-export interface QueryCvByCosmosAddressResponse {
-  cV: CV | undefined;
-}
 
 /** QueryParamsRequest is request type for the Query/Params RPC method. */
 export interface QueryParamsRequest {}
@@ -26,20 +16,6 @@ export interface QueryParamsRequest {}
 export interface QueryParamsResponse {
   /** params holds all the parameters of this module. */
   params: Params | undefined;
-}
-
-export interface QueryGetSystemInfoRequest {}
-
-export interface QueryGetSystemInfoResponse {
-  SystemInfo: SystemInfo | undefined;
-}
-
-export interface QueryGetCVRequest {
-  index: number;
-}
-
-export interface QueryGetCVResponse {
-  cV: CV | undefined;
 }
 
 export interface QueryAllCVRequest {
@@ -56,148 +32,8 @@ export interface QueryGetCvByCosmosAddressRequest {
 }
 
 export interface QueryGetCvByCosmosAddressResponse {
-  cV: string;
+  cV: CV | undefined;
 }
-
-const baseQueryCvByCosmosAddressRequest: object = { cosmos_address: "" };
-
-export const QueryCvByCosmosAddressRequest = {
-  encode(
-    message: QueryCvByCosmosAddressRequest,
-    writer: Writer = Writer.create()
-  ): Writer {
-    if (message.cosmos_address !== "") {
-      writer.uint32(10).string(message.cosmos_address);
-    }
-    return writer;
-  },
-
-  decode(
-    input: Reader | Uint8Array,
-    length?: number
-  ): QueryCvByCosmosAddressRequest {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = {
-      ...baseQueryCvByCosmosAddressRequest,
-    } as QueryCvByCosmosAddressRequest;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.cosmos_address = reader.string();
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryCvByCosmosAddressRequest {
-    const message = {
-      ...baseQueryCvByCosmosAddressRequest,
-    } as QueryCvByCosmosAddressRequest;
-    if (object.cosmos_address !== undefined && object.cosmos_address !== null) {
-      message.cosmos_address = String(object.cosmos_address);
-    } else {
-      message.cosmos_address = "";
-    }
-    return message;
-  },
-
-  toJSON(message: QueryCvByCosmosAddressRequest): unknown {
-    const obj: any = {};
-    message.cosmos_address !== undefined &&
-      (obj.cosmos_address = message.cosmos_address);
-    return obj;
-  },
-
-  fromPartial(
-    object: DeepPartial<QueryCvByCosmosAddressRequest>
-  ): QueryCvByCosmosAddressRequest {
-    const message = {
-      ...baseQueryCvByCosmosAddressRequest,
-    } as QueryCvByCosmosAddressRequest;
-    if (object.cosmos_address !== undefined && object.cosmos_address !== null) {
-      message.cosmos_address = object.cosmos_address;
-    } else {
-      message.cosmos_address = "";
-    }
-    return message;
-  },
-};
-
-const baseQueryCvByCosmosAddressResponse: object = {};
-
-export const QueryCvByCosmosAddressResponse = {
-  encode(
-    message: QueryCvByCosmosAddressResponse,
-    writer: Writer = Writer.create()
-  ): Writer {
-    if (message.cV !== undefined) {
-      CV.encode(message.cV, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: Reader | Uint8Array,
-    length?: number
-  ): QueryCvByCosmosAddressResponse {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = {
-      ...baseQueryCvByCosmosAddressResponse,
-    } as QueryCvByCosmosAddressResponse;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.cV = CV.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryCvByCosmosAddressResponse {
-    const message = {
-      ...baseQueryCvByCosmosAddressResponse,
-    } as QueryCvByCosmosAddressResponse;
-    if (object.cV !== undefined && object.cV !== null) {
-      message.cV = CV.fromJSON(object.cV);
-    } else {
-      message.cV = undefined;
-    }
-    return message;
-  },
-
-  toJSON(message: QueryCvByCosmosAddressResponse): unknown {
-    const obj: any = {};
-    message.cV !== undefined &&
-      (obj.cV = message.cV ? CV.toJSON(message.cV) : undefined);
-    return obj;
-  },
-
-  fromPartial(
-    object: DeepPartial<QueryCvByCosmosAddressResponse>
-  ): QueryCvByCosmosAddressResponse {
-    const message = {
-      ...baseQueryCvByCosmosAddressResponse,
-    } as QueryCvByCosmosAddressResponse;
-    if (object.cV !== undefined && object.cV !== null) {
-      message.cV = CV.fromPartial(object.cV);
-    } else {
-      message.cV = undefined;
-    }
-    return message;
-  },
-};
 
 const baseQueryParamsRequest: object = {};
 
@@ -291,244 +127,6 @@ export const QueryParamsResponse = {
       message.params = Params.fromPartial(object.params);
     } else {
       message.params = undefined;
-    }
-    return message;
-  },
-};
-
-const baseQueryGetSystemInfoRequest: object = {};
-
-export const QueryGetSystemInfoRequest = {
-  encode(
-    _: QueryGetSystemInfoRequest,
-    writer: Writer = Writer.create()
-  ): Writer {
-    return writer;
-  },
-
-  decode(
-    input: Reader | Uint8Array,
-    length?: number
-  ): QueryGetSystemInfoRequest {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = {
-      ...baseQueryGetSystemInfoRequest,
-    } as QueryGetSystemInfoRequest;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(_: any): QueryGetSystemInfoRequest {
-    const message = {
-      ...baseQueryGetSystemInfoRequest,
-    } as QueryGetSystemInfoRequest;
-    return message;
-  },
-
-  toJSON(_: QueryGetSystemInfoRequest): unknown {
-    const obj: any = {};
-    return obj;
-  },
-
-  fromPartial(
-    _: DeepPartial<QueryGetSystemInfoRequest>
-  ): QueryGetSystemInfoRequest {
-    const message = {
-      ...baseQueryGetSystemInfoRequest,
-    } as QueryGetSystemInfoRequest;
-    return message;
-  },
-};
-
-const baseQueryGetSystemInfoResponse: object = {};
-
-export const QueryGetSystemInfoResponse = {
-  encode(
-    message: QueryGetSystemInfoResponse,
-    writer: Writer = Writer.create()
-  ): Writer {
-    if (message.SystemInfo !== undefined) {
-      SystemInfo.encode(message.SystemInfo, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(
-    input: Reader | Uint8Array,
-    length?: number
-  ): QueryGetSystemInfoResponse {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = {
-      ...baseQueryGetSystemInfoResponse,
-    } as QueryGetSystemInfoResponse;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.SystemInfo = SystemInfo.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryGetSystemInfoResponse {
-    const message = {
-      ...baseQueryGetSystemInfoResponse,
-    } as QueryGetSystemInfoResponse;
-    if (object.SystemInfo !== undefined && object.SystemInfo !== null) {
-      message.SystemInfo = SystemInfo.fromJSON(object.SystemInfo);
-    } else {
-      message.SystemInfo = undefined;
-    }
-    return message;
-  },
-
-  toJSON(message: QueryGetSystemInfoResponse): unknown {
-    const obj: any = {};
-    message.SystemInfo !== undefined &&
-      (obj.SystemInfo = message.SystemInfo
-        ? SystemInfo.toJSON(message.SystemInfo)
-        : undefined);
-    return obj;
-  },
-
-  fromPartial(
-    object: DeepPartial<QueryGetSystemInfoResponse>
-  ): QueryGetSystemInfoResponse {
-    const message = {
-      ...baseQueryGetSystemInfoResponse,
-    } as QueryGetSystemInfoResponse;
-    if (object.SystemInfo !== undefined && object.SystemInfo !== null) {
-      message.SystemInfo = SystemInfo.fromPartial(object.SystemInfo);
-    } else {
-      message.SystemInfo = undefined;
-    }
-    return message;
-  },
-};
-
-const baseQueryGetCVRequest: object = { index: 0 };
-
-export const QueryGetCVRequest = {
-  encode(message: QueryGetCVRequest, writer: Writer = Writer.create()): Writer {
-    if (message.index !== 0) {
-      writer.uint32(8).uint64(message.index);
-    }
-    return writer;
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): QueryGetCVRequest {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryGetCVRequest } as QueryGetCVRequest;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.index = longToNumber(reader.uint64() as Long);
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryGetCVRequest {
-    const message = { ...baseQueryGetCVRequest } as QueryGetCVRequest;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = Number(object.index);
-    } else {
-      message.index = 0;
-    }
-    return message;
-  },
-
-  toJSON(message: QueryGetCVRequest): unknown {
-    const obj: any = {};
-    message.index !== undefined && (obj.index = message.index);
-    return obj;
-  },
-
-  fromPartial(object: DeepPartial<QueryGetCVRequest>): QueryGetCVRequest {
-    const message = { ...baseQueryGetCVRequest } as QueryGetCVRequest;
-    if (object.index !== undefined && object.index !== null) {
-      message.index = object.index;
-    } else {
-      message.index = 0;
-    }
-    return message;
-  },
-};
-
-const baseQueryGetCVResponse: object = {};
-
-export const QueryGetCVResponse = {
-  encode(
-    message: QueryGetCVResponse,
-    writer: Writer = Writer.create()
-  ): Writer {
-    if (message.cV !== undefined) {
-      CV.encode(message.cV, writer.uint32(10).fork()).ldelim();
-    }
-    return writer;
-  },
-
-  decode(input: Reader | Uint8Array, length?: number): QueryGetCVResponse {
-    const reader = input instanceof Uint8Array ? new Reader(input) : input;
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseQueryGetCVResponse } as QueryGetCVResponse;
-    while (reader.pos < end) {
-      const tag = reader.uint32();
-      switch (tag >>> 3) {
-        case 1:
-          message.cV = CV.decode(reader, reader.uint32());
-          break;
-        default:
-          reader.skipType(tag & 7);
-          break;
-      }
-    }
-    return message;
-  },
-
-  fromJSON(object: any): QueryGetCVResponse {
-    const message = { ...baseQueryGetCVResponse } as QueryGetCVResponse;
-    if (object.cV !== undefined && object.cV !== null) {
-      message.cV = CV.fromJSON(object.cV);
-    } else {
-      message.cV = undefined;
-    }
-    return message;
-  },
-
-  toJSON(message: QueryGetCVResponse): unknown {
-    const obj: any = {};
-    message.cV !== undefined &&
-      (obj.cV = message.cV ? CV.toJSON(message.cV) : undefined);
-    return obj;
-  },
-
-  fromPartial(object: DeepPartial<QueryGetCVResponse>): QueryGetCVResponse {
-    const message = { ...baseQueryGetCVResponse } as QueryGetCVResponse;
-    if (object.cV !== undefined && object.cV !== null) {
-      message.cV = CV.fromPartial(object.cV);
-    } else {
-      message.cV = undefined;
     }
     return message;
   },
@@ -750,15 +348,15 @@ export const QueryGetCvByCosmosAddressRequest = {
   },
 };
 
-const baseQueryGetCvByCosmosAddressResponse: object = { cV: "" };
+const baseQueryGetCvByCosmosAddressResponse: object = {};
 
 export const QueryGetCvByCosmosAddressResponse = {
   encode(
     message: QueryGetCvByCosmosAddressResponse,
     writer: Writer = Writer.create()
   ): Writer {
-    if (message.cV !== "") {
-      writer.uint32(10).string(message.cV);
+    if (message.cV !== undefined) {
+      CV.encode(message.cV, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -776,7 +374,7 @@ export const QueryGetCvByCosmosAddressResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.cV = reader.string();
+          message.cV = CV.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -791,16 +389,17 @@ export const QueryGetCvByCosmosAddressResponse = {
       ...baseQueryGetCvByCosmosAddressResponse,
     } as QueryGetCvByCosmosAddressResponse;
     if (object.cV !== undefined && object.cV !== null) {
-      message.cV = String(object.cV);
+      message.cV = CV.fromJSON(object.cV);
     } else {
-      message.cV = "";
+      message.cV = undefined;
     }
     return message;
   },
 
   toJSON(message: QueryGetCvByCosmosAddressResponse): unknown {
     const obj: any = {};
-    message.cV !== undefined && (obj.cV = message.cV);
+    message.cV !== undefined &&
+      (obj.cV = message.cV ? CV.toJSON(message.cV) : undefined);
     return obj;
   },
 
@@ -811,9 +410,9 @@ export const QueryGetCvByCosmosAddressResponse = {
       ...baseQueryGetCvByCosmosAddressResponse,
     } as QueryGetCvByCosmosAddressResponse;
     if (object.cV !== undefined && object.cV !== null) {
-      message.cV = object.cV;
+      message.cV = CV.fromPartial(object.cV);
     } else {
-      message.cV = "";
+      message.cV = undefined;
     }
     return message;
   },
@@ -823,17 +422,8 @@ export const QueryGetCvByCosmosAddressResponse = {
 export interface Query {
   /** Parameters queries the parameters of the module. */
   Params(request: QueryParamsRequest): Promise<QueryParamsResponse>;
-  /** Queries a SystemInfo by index. */
-  SystemInfo(
-    request: QueryGetSystemInfoRequest
-  ): Promise<QueryGetSystemInfoResponse>;
-  /** Queries a CV by index. */
-  CV(request: QueryGetCVRequest): Promise<QueryGetCVResponse>;
   /** Queries a list of CV items. */
   CVAll(request: QueryAllCVRequest): Promise<QueryAllCVResponse>;
-  CvByCosmosAddress(
-    request: QueryCvByCosmosAddressRequest
-  ): Promise<QueryCvByCosmosAddressResponse>;
   /** Queries a list of GetCvByCosmosAddress items. */
   GetCvByCosmosAddress(
     request: QueryGetCvByCosmosAddressRequest
@@ -855,30 +445,6 @@ export class QueryClientImpl implements Query {
     return promise.then((data) => QueryParamsResponse.decode(new Reader(data)));
   }
 
-  SystemInfo(
-    request: QueryGetSystemInfoRequest
-  ): Promise<QueryGetSystemInfoResponse> {
-    const data = QueryGetSystemInfoRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "alexs778.cvproject.cvproject.Query",
-      "SystemInfo",
-      data
-    );
-    return promise.then((data) =>
-      QueryGetSystemInfoResponse.decode(new Reader(data))
-    );
-  }
-
-  CV(request: QueryGetCVRequest): Promise<QueryGetCVResponse> {
-    const data = QueryGetCVRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "alexs778.cvproject.cvproject.Query",
-      "CV",
-      data
-    );
-    return promise.then((data) => QueryGetCVResponse.decode(new Reader(data)));
-  }
-
   CVAll(request: QueryAllCVRequest): Promise<QueryAllCVResponse> {
     const data = QueryAllCVRequest.encode(request).finish();
     const promise = this.rpc.request(
@@ -887,20 +453,6 @@ export class QueryClientImpl implements Query {
       data
     );
     return promise.then((data) => QueryAllCVResponse.decode(new Reader(data)));
-  }
-
-  CvByCosmosAddress(
-    request: QueryCvByCosmosAddressRequest
-  ): Promise<QueryCvByCosmosAddressResponse> {
-    const data = QueryCvByCosmosAddressRequest.encode(request).finish();
-    const promise = this.rpc.request(
-      "alexs778.cvproject.cvproject.Query",
-      "CvByCosmosAddress",
-      data
-    );
-    return promise.then((data) =>
-      QueryCvByCosmosAddressResponse.decode(new Reader(data))
-    );
   }
 
   GetCvByCosmosAddress(
@@ -926,16 +478,6 @@ interface Rpc {
   ): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -946,15 +488,3 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
-
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
-}
-
-if (util.Long !== Long) {
-  util.Long = Long as any;
-  configure();
-}

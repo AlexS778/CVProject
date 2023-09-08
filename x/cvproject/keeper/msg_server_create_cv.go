@@ -4,12 +4,12 @@ import (
 	"context"
 
 	"github.com/AlexS778/CVProject/x/cvproject/types"
+	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
 // TODO: message response should return cosmosAddress or should return nothinig at all
 func (k msgServer) CreateCV(goCtx context.Context, msg *types.MsgCreateCV) (*types.MsgCreateCVResponse, error) {
-	// k.SetCV(...)
-	//ctx := sdk.UnwrapSDKContext(goCtx)
+	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	cv := types.CV{
 		Name:       msg.Name,
@@ -44,6 +44,8 @@ func (k msgServer) CreateCV(goCtx context.Context, msg *types.MsgCreateCV) (*typ
 
 		cv.Companies = append(cv.Companies, &company)
 	}
+
+	k.SetCV(ctx, cv)
 
 	return &types.MsgCreateCVResponse{}, nil
 }

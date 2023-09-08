@@ -16,11 +16,6 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/AlexS778/CVProject/cvproject/params";
   }
-// Queries a CV by index.
-	rpc CV(QueryGetCVRequest) returns (QueryGetCVResponse) {
-		option (google.api.http).get = "/AlexS778/CVProject/cvproject/cv/{index}";
-	}
-
 	// Queries a list of CV items.
 	rpc CVAll(QueryAllCVRequest) returns (QueryAllCVResponse) {
 		option (google.api.http).get = "/AlexS778/CVProject/cvproject/cv";
@@ -41,15 +36,6 @@ message QueryParamsRequest {}
 message QueryParamsResponse {
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
-}
-
-message QueryGetCVRequest {
-	  uint64 index = 1;
-
-}
-
-message QueryGetCVResponse {
-	CV cV = 1 [(gogoproto.nullable) = false];
 }
 
 message QueryAllCVRequest {

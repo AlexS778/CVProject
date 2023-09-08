@@ -25,7 +25,6 @@ func GetQueryCmd(queryRoute string) *cobra.Command {
 	}
 
 	cmd.AddCommand(CmdQueryParams())
-	cmd.AddCommand(CmdShowSystemInfo())
 	cmd.AddCommand(CmdListCV())
 	cmd.AddCommand(CmdShowCV())
 	cmd.AddCommand(CmdGetCvByCosmosAddress())

@@ -31,7 +31,8 @@ func TestCVQuerySingle(t *testing.T) {
 		{
 			desc: "First",
 			request: &types.QueryGetCVRequest{
-				Index: msgs[0].Index,
+				// TODO: index of query GetCV should be string?
+				Index: msgs[0].Creator,
 			},
 			response: &types.QueryGetCVResponse{CV: msgs[0]},
 		},

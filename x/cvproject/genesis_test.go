@@ -3,6 +3,7 @@ package cvproject_test
 import (
 	"testing"
 
+	"github.com/AlexS778/CVProject/testutil"
 	keepertest "github.com/AlexS778/CVProject/testutil/keeper"
 	"github.com/AlexS778/CVProject/testutil/nullify"
 	"github.com/AlexS778/CVProject/x/cvproject"
@@ -14,15 +15,12 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
-		SystemInfo: types.SystemInfo{
-			NextId: 86,
-		},
 		CVList: []types.CV{
 			{
-				Index: 0,
+				Creator: testutil.Alice,
 			},
 			{
-				Index: 1,
+				Creator: testutil.Bob,
 			},
 		},
 		// this line is used by starport scaffolding # genesis/test/state
@@ -36,7 +34,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
-	require.Equal(t, genesisState.SystemInfo, got.SystemInfo)
 	require.ElementsMatch(t, genesisState.CVList, got.CVList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

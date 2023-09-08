@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	"github.com/AlexS778/CVProject/testutil"
 	"github.com/AlexS778/CVProject/testutil/network"
 	"github.com/AlexS778/CVProject/testutil/nullify"
 	"github.com/AlexS778/CVProject/x/cvproject/client/cli"
@@ -29,7 +30,7 @@ func networkWithCVObjects(t *testing.T, n int) (*network.Network, []types.CV) {
 
 	for i := 0; i < n; i++ {
 		cV := types.CV{
-			Index: uint64(i),
+			Creator: testutil.Alice,
 		}
 		nullify.Fill(&cV)
 		state.CVList = append(state.CVList, cV)
@@ -48,23 +49,23 @@ func TestShowCV(t *testing.T) {
 		fmt.Sprintf("--%s=json", tmcli.OutputFlag),
 	}
 	for _, tc := range []struct {
-		desc    string
-		idIndex uint64
+		desc         string
+		creatorIndex string
 
 		args []string
 		err  error
 		obj  types.CV
 	}{
 		{
-			desc:    "found",
-			idIndex: objs[0].Index,
+			desc:         "found",
+			creatorIndex: objs[0].Creator,
 
 			args: common,
 			obj:  objs[0],
 		},
 		{
-			desc:    "not found",
-			idIndex: 100000,
+			desc:         "not found",
+			creatorIndex: "",
 
 			args: common,
 			err:  status.Error(codes.NotFound, "not found"),
@@ -72,7 +73,7 @@ func TestShowCV(t *testing.T) {
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
 			args := []string{
-				strconv.Itoa(int(tc.idIndex)),
+				tc.creatorIndex,
 			}
 			args = append(args, tc.args...)
 			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdShowCV(), args)

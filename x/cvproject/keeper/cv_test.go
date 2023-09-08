@@ -18,7 +18,7 @@ var _ = strconv.IntSize
 func createNCV(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.CV {
 	items := make([]types.CV, n)
 	for i := range items {
-		items[i].Index = uint64(i)
+		items[i].Creator = strconv.FormatInt(int64(i), 10)
 
 		keeper.SetCV(ctx, items[i])
 	}

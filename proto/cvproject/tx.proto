@@ -27,7 +27,6 @@ message MsgCreateCV {
 }
 
 message MsgCreateCVResponse {
-  uint64 cvIndex = 1;
 }
 
 message MsgUpdateCV {

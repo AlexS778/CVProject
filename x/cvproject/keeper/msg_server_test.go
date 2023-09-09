@@ -20,7 +20,7 @@ func setupMsgServerCreateCV(t testing.TB) (types.MsgServer, keeper.Keeper, conte
 
 func TestCreateCv(t *testing.T) {
 	srv, k, context := setupMsgServerCreateCV(t)
-	crateResponse, err := srv.CreateCV(context, &types.MsgCreateCV{
+	_, err := srv.CreateCV(context, &types.MsgCreateCV{
 		Creator:   alice,
 		Name:      "Steve Jobs",
 		Summary:   "CEO",
@@ -31,5 +31,28 @@ func TestCreateCv(t *testing.T) {
 	if err != nil {
 		t.Error(err)
 	}
-	require.EqualValues(t, res, *crateResponse)
+	require.EqualValues(t, res.CV.Name, "Steve Jobs")
+}
+
+func TestUpdateCv(t *testing.T) {
+	srv, k, context := setupMsgServerCreateCV(t)
+	_, err := srv.CreateCV(context, &types.MsgCreateCV{
+		Creator:   alice,
+		Name:      "Steve Jobs",
+		Summary:   "CEO",
+		Companies: []string{"Apple", "Google", "Microsoft", "Amazon", "Facebook"},
+	})
+	require.Nil(t, err)
+	res, err := k.GetCvByCosmosAddress(context, &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: alice})
+	if err != nil {
+		t.Error(err)
+	}
+	require.EqualValues(t, res.CV.Name, "Steve Jobs")
+	_, err = srv.UpdateCV(context, &types.MsgUpdateCV{Creator: alice, CosmosAdress: alice, Name: "Bob"})
+	require.Nil(t, err)
+	res, err = k.GetCvByCosmosAddress(context, &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: alice})
+	if err != nil {
+		t.Error(err)
+	}
+	require.EqualValues(t, res.CV.Name, "Bob")
 }

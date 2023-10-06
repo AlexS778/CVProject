@@ -4,6 +4,7 @@ package alexs778.cvproject.cvproject;
 import "gogoproto/gogo.proto";
 import "cvproject/params.proto";
 import "cvproject/cv.proto";
+import "cvproject/company_worked_in.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
@@ -13,5 +14,6 @@ message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
   repeated CV cVList = 2 [(gogoproto.nullable) = false];
   repeated Company companyList = 4 [(gogoproto.nullable) = false];
+  repeated CompanyWorkedIn companyWorkedInList = 5 [(gogoproto.nullable) = false];
   // this line is used by starport scaffolding # genesis/proto/state
 }

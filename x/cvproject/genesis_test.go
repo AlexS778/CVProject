@@ -23,6 +23,14 @@ func TestGenesis(t *testing.T) {
 				Creator: testutil.Bob,
 			},
 		},
+		CompanyWorkedInList: []types.CompanyWorkedIn{
+			{
+				Uuid: "0",
+			},
+			{
+				Uuid: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -35,5 +43,6 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(got)
 
 	require.ElementsMatch(t, genesisState.CVList, got.CVList)
+	require.ElementsMatch(t, genesisState.CompanyWorkedInList, got.CompanyWorkedInList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

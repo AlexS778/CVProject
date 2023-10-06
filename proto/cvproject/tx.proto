@@ -4,6 +4,7 @@ import "cvproject/cv.proto";
 
 package alexs778.cvproject.cvproject;
 
+import "cvproject/company_worked_in.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
@@ -13,6 +14,9 @@ service Msg {
       rpc CreateCV(MsgCreateCV) returns (MsgCreateCVResponse);
   rpc UpdateCV(MsgUpdateCV) returns (MsgUpdateCVResponse);
   rpc ConfirmCV(MsgConfirmCV) returns (MsgConfirmCVResponse);
+  rpc CreateCompanyWorkedIn(MsgCreateCompanyWorkedIn) returns (MsgCreateCompanyWorkedInResponse);
+  rpc UpdateCompanyWorkedIn(MsgUpdateCompanyWorkedIn) returns (MsgUpdateCompanyWorkedInResponse);
+  rpc DeleteCompanyWorkedIn(MsgDeleteCompanyWorkedIn) returns (MsgDeleteCompanyWorkedInResponse);
 // this line is used by starport scaffolding # proto/tx/rpc
 }
 
@@ -51,5 +55,33 @@ message MsgConfirmCV {
 
 message MsgConfirmCVResponse {
 }
+
+message MsgCreateCompanyWorkedIn {
+  string creator = 1;
+  string uuid = 2;
+
+  string companyName = 3;
+  string timestampStart = 4;
+  string timestampEnd = 5;
+  string comments = 6;
+}
+message MsgCreateCompanyWorkedInResponse {}
+
+message MsgUpdateCompanyWorkedIn {
+  string creator = 1;
+  string uuid = 2;
+
+  string companyName = 3;
+  string timestampStart = 4;
+  string timestampEnd = 5;
+  string comments = 6;
+}
+message MsgUpdateCompanyWorkedInResponse {}
+
+message MsgDeleteCompanyWorkedIn {
+  string creator = 1;
+  string uuid = 2;
+}
+message MsgDeleteCompanyWorkedInResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

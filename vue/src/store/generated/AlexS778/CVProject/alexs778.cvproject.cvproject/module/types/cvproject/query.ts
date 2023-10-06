@@ -6,6 +6,7 @@ import {
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
 import { CV } from "../cvproject/cv";
+import { CompanyWorkedIn } from "../cvproject/company_worked_in";
 
 export const protobufPackage = "alexs778.cvproject.cvproject";
 
@@ -33,6 +34,23 @@ export interface QueryGetCvByCosmosAddressRequest {
 
 export interface QueryGetCvByCosmosAddressResponse {
   cV: CV | undefined;
+}
+
+export interface QueryGetCompanyWorkedInRequest {
+  uuid: string;
+}
+
+export interface QueryGetCompanyWorkedInResponse {
+  companyWorkedIn: CompanyWorkedIn | undefined;
+}
+
+export interface QueryAllCompanyWorkedInRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllCompanyWorkedInResponse {
+  companyWorkedIn: CompanyWorkedIn[];
+  pagination: PageResponse | undefined;
 }
 
 const baseQueryParamsRequest: object = {};
@@ -418,6 +436,344 @@ export const QueryGetCvByCosmosAddressResponse = {
   },
 };
 
+const baseQueryGetCompanyWorkedInRequest: object = { uuid: "" };
+
+export const QueryGetCompanyWorkedInRequest = {
+  encode(
+    message: QueryGetCompanyWorkedInRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.uuid !== "") {
+      writer.uint32(10).string(message.uuid);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetCompanyWorkedInRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetCompanyWorkedInRequest,
+    } as QueryGetCompanyWorkedInRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.uuid = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetCompanyWorkedInRequest {
+    const message = {
+      ...baseQueryGetCompanyWorkedInRequest,
+    } as QueryGetCompanyWorkedInRequest;
+    if (object.uuid !== undefined && object.uuid !== null) {
+      message.uuid = String(object.uuid);
+    } else {
+      message.uuid = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetCompanyWorkedInRequest): unknown {
+    const obj: any = {};
+    message.uuid !== undefined && (obj.uuid = message.uuid);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetCompanyWorkedInRequest>
+  ): QueryGetCompanyWorkedInRequest {
+    const message = {
+      ...baseQueryGetCompanyWorkedInRequest,
+    } as QueryGetCompanyWorkedInRequest;
+    if (object.uuid !== undefined && object.uuid !== null) {
+      message.uuid = object.uuid;
+    } else {
+      message.uuid = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetCompanyWorkedInResponse: object = {};
+
+export const QueryGetCompanyWorkedInResponse = {
+  encode(
+    message: QueryGetCompanyWorkedInResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.companyWorkedIn !== undefined) {
+      CompanyWorkedIn.encode(
+        message.companyWorkedIn,
+        writer.uint32(10).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryGetCompanyWorkedInResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetCompanyWorkedInResponse,
+    } as QueryGetCompanyWorkedInResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.companyWorkedIn = CompanyWorkedIn.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetCompanyWorkedInResponse {
+    const message = {
+      ...baseQueryGetCompanyWorkedInResponse,
+    } as QueryGetCompanyWorkedInResponse;
+    if (
+      object.companyWorkedIn !== undefined &&
+      object.companyWorkedIn !== null
+    ) {
+      message.companyWorkedIn = CompanyWorkedIn.fromJSON(
+        object.companyWorkedIn
+      );
+    } else {
+      message.companyWorkedIn = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetCompanyWorkedInResponse): unknown {
+    const obj: any = {};
+    message.companyWorkedIn !== undefined &&
+      (obj.companyWorkedIn = message.companyWorkedIn
+        ? CompanyWorkedIn.toJSON(message.companyWorkedIn)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetCompanyWorkedInResponse>
+  ): QueryGetCompanyWorkedInResponse {
+    const message = {
+      ...baseQueryGetCompanyWorkedInResponse,
+    } as QueryGetCompanyWorkedInResponse;
+    if (
+      object.companyWorkedIn !== undefined &&
+      object.companyWorkedIn !== null
+    ) {
+      message.companyWorkedIn = CompanyWorkedIn.fromPartial(
+        object.companyWorkedIn
+      );
+    } else {
+      message.companyWorkedIn = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllCompanyWorkedInRequest: object = {};
+
+export const QueryAllCompanyWorkedInRequest = {
+  encode(
+    message: QueryAllCompanyWorkedInRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllCompanyWorkedInRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllCompanyWorkedInRequest,
+    } as QueryAllCompanyWorkedInRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllCompanyWorkedInRequest {
+    const message = {
+      ...baseQueryAllCompanyWorkedInRequest,
+    } as QueryAllCompanyWorkedInRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllCompanyWorkedInRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllCompanyWorkedInRequest>
+  ): QueryAllCompanyWorkedInRequest {
+    const message = {
+      ...baseQueryAllCompanyWorkedInRequest,
+    } as QueryAllCompanyWorkedInRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllCompanyWorkedInResponse: object = {};
+
+export const QueryAllCompanyWorkedInResponse = {
+  encode(
+    message: QueryAllCompanyWorkedInResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.companyWorkedIn) {
+      CompanyWorkedIn.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): QueryAllCompanyWorkedInResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllCompanyWorkedInResponse,
+    } as QueryAllCompanyWorkedInResponse;
+    message.companyWorkedIn = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.companyWorkedIn.push(
+            CompanyWorkedIn.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllCompanyWorkedInResponse {
+    const message = {
+      ...baseQueryAllCompanyWorkedInResponse,
+    } as QueryAllCompanyWorkedInResponse;
+    message.companyWorkedIn = [];
+    if (
+      object.companyWorkedIn !== undefined &&
+      object.companyWorkedIn !== null
+    ) {
+      for (const e of object.companyWorkedIn) {
+        message.companyWorkedIn.push(CompanyWorkedIn.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllCompanyWorkedInResponse): unknown {
+    const obj: any = {};
+    if (message.companyWorkedIn) {
+      obj.companyWorkedIn = message.companyWorkedIn.map((e) =>
+        e ? CompanyWorkedIn.toJSON(e) : undefined
+      );
+    } else {
+      obj.companyWorkedIn = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllCompanyWorkedInResponse>
+  ): QueryAllCompanyWorkedInResponse {
+    const message = {
+      ...baseQueryAllCompanyWorkedInResponse,
+    } as QueryAllCompanyWorkedInResponse;
+    message.companyWorkedIn = [];
+    if (
+      object.companyWorkedIn !== undefined &&
+      object.companyWorkedIn !== null
+    ) {
+      for (const e of object.companyWorkedIn) {
+        message.companyWorkedIn.push(CompanyWorkedIn.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -428,6 +784,14 @@ export interface Query {
   GetCvByCosmosAddress(
     request: QueryGetCvByCosmosAddressRequest
   ): Promise<QueryGetCvByCosmosAddressResponse>;
+  /** Queries a CompanyWorkedIn by index. */
+  CompanyWorkedIn(
+    request: QueryGetCompanyWorkedInRequest
+  ): Promise<QueryGetCompanyWorkedInResponse>;
+  /** Queries a list of CompanyWorkedIn items. */
+  CompanyWorkedInAll(
+    request: QueryAllCompanyWorkedInRequest
+  ): Promise<QueryAllCompanyWorkedInResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -466,6 +830,34 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryGetCvByCosmosAddressResponse.decode(new Reader(data))
+    );
+  }
+
+  CompanyWorkedIn(
+    request: QueryGetCompanyWorkedInRequest
+  ): Promise<QueryGetCompanyWorkedInResponse> {
+    const data = QueryGetCompanyWorkedInRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Query",
+      "CompanyWorkedIn",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetCompanyWorkedInResponse.decode(new Reader(data))
+    );
+  }
+
+  CompanyWorkedInAll(
+    request: QueryAllCompanyWorkedInRequest
+  ): Promise<QueryAllCompanyWorkedInResponse> {
+    const data = QueryAllCompanyWorkedInRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Query",
+      "CompanyWorkedInAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllCompanyWorkedInResponse.decode(new Reader(data))
     );
   }
 }

@@ -40,6 +40,18 @@ const (
 	// TODO: Determine the simulation weight value
 	defaultWeightMsgConfirmCV int = 100
 
+	opWeightMsgCreateCompanyWorkedIn = "op_weight_msg_company_worked_in"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgCreateCompanyWorkedIn int = 100
+
+	opWeightMsgUpdateCompanyWorkedIn = "op_weight_msg_company_worked_in"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgUpdateCompanyWorkedIn int = 100
+
+	opWeightMsgDeleteCompanyWorkedIn = "op_weight_msg_company_worked_in"
+	// TODO: Determine the simulation weight value
+	defaultWeightMsgDeleteCompanyWorkedIn int = 100
+
 	// this line is used by starport scaffolding # simapp/module/const
 )
 
@@ -51,6 +63,16 @@ func (AppModule) GenerateGenesisState(simState *module.SimulationState) {
 	}
 	cvprojectGenesis := types.GenesisState{
 		Params: types.DefaultParams(),
+		CompanyWorkedInList: []types.CompanyWorkedIn{
+			{
+				Creator: sample.AccAddress(),
+				Uuid:    "0",
+			},
+			{
+				Creator: sample.AccAddress(),
+				Uuid:    "1",
+			},
+		},
 		// this line is used by starport scaffolding # simapp/module/genesisState
 	}
 	simState.GenState[types.ModuleName] = simState.Cdc.MustMarshalJSON(&cvprojectGenesis)
@@ -112,6 +134,39 @@ func (am AppModule) WeightedOperations(simState module.SimulationState) []simtyp
 	operations = append(operations, simulation.NewWeightedOperation(
 		weightMsgConfirmCV,
 		cvprojectsimulation.SimulateMsgConfirmCV(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgCreateCompanyWorkedIn int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgCreateCompanyWorkedIn, &weightMsgCreateCompanyWorkedIn, nil,
+		func(_ *rand.Rand) {
+			weightMsgCreateCompanyWorkedIn = defaultWeightMsgCreateCompanyWorkedIn
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgCreateCompanyWorkedIn,
+		cvprojectsimulation.SimulateMsgCreateCompanyWorkedIn(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgUpdateCompanyWorkedIn int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgUpdateCompanyWorkedIn, &weightMsgUpdateCompanyWorkedIn, nil,
+		func(_ *rand.Rand) {
+			weightMsgUpdateCompanyWorkedIn = defaultWeightMsgUpdateCompanyWorkedIn
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgUpdateCompanyWorkedIn,
+		cvprojectsimulation.SimulateMsgUpdateCompanyWorkedIn(am.accountKeeper, am.bankKeeper, am.keeper),
+	))
+
+	var weightMsgDeleteCompanyWorkedIn int
+	simState.AppParams.GetOrGenerate(simState.Cdc, opWeightMsgDeleteCompanyWorkedIn, &weightMsgDeleteCompanyWorkedIn, nil,
+		func(_ *rand.Rand) {
+			weightMsgDeleteCompanyWorkedIn = defaultWeightMsgDeleteCompanyWorkedIn
+		},
+	)
+	operations = append(operations, simulation.NewWeightedOperation(
+		weightMsgDeleteCompanyWorkedIn,
+		cvprojectsimulation.SimulateMsgDeleteCompanyWorkedIn(am.accountKeeper, am.bankKeeper, am.keeper),
 	))
 
 	// this line is used by starport scaffolding # simapp/module/operation

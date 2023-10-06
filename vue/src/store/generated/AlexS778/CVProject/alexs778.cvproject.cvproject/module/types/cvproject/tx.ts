@@ -36,6 +36,35 @@ export interface MsgConfirmCV {
 
 export interface MsgConfirmCVResponse {}
 
+export interface MsgCreateCompanyWorkedIn {
+  creator: string;
+  uuid: string;
+  companyName: string;
+  timestampStart: string;
+  timestampEnd: string;
+  comments: string;
+}
+
+export interface MsgCreateCompanyWorkedInResponse {}
+
+export interface MsgUpdateCompanyWorkedIn {
+  creator: string;
+  uuid: string;
+  companyName: string;
+  timestampStart: string;
+  timestampEnd: string;
+  comments: string;
+}
+
+export interface MsgUpdateCompanyWorkedInResponse {}
+
+export interface MsgDeleteCompanyWorkedIn {
+  creator: string;
+  uuid: string;
+}
+
+export interface MsgDeleteCompanyWorkedInResponse {}
+
 const baseMsgCreateCV: object = {
   creator: "",
   name: "",
@@ -603,12 +632,591 @@ export const MsgConfirmCVResponse = {
   },
 };
 
+const baseMsgCreateCompanyWorkedIn: object = {
+  creator: "",
+  uuid: "",
+  companyName: "",
+  timestampStart: "",
+  timestampEnd: "",
+  comments: "",
+};
+
+export const MsgCreateCompanyWorkedIn = {
+  encode(
+    message: MsgCreateCompanyWorkedIn,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.uuid !== "") {
+      writer.uint32(18).string(message.uuid);
+    }
+    if (message.companyName !== "") {
+      writer.uint32(26).string(message.companyName);
+    }
+    if (message.timestampStart !== "") {
+      writer.uint32(34).string(message.timestampStart);
+    }
+    if (message.timestampEnd !== "") {
+      writer.uint32(42).string(message.timestampEnd);
+    }
+    if (message.comments !== "") {
+      writer.uint32(50).string(message.comments);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateCompanyWorkedIn {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateCompanyWorkedIn,
+    } as MsgCreateCompanyWorkedIn;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.uuid = reader.string();
+          break;
+        case 3:
+          message.companyName = reader.string();
+          break;
+        case 4:
+          message.timestampStart = reader.string();
+          break;
+        case 5:
+          message.timestampEnd = reader.string();
+          break;
+        case 6:
+          message.comments = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateCompanyWorkedIn {
+    const message = {
+      ...baseMsgCreateCompanyWorkedIn,
+    } as MsgCreateCompanyWorkedIn;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.uuid !== undefined && object.uuid !== null) {
+      message.uuid = String(object.uuid);
+    } else {
+      message.uuid = "";
+    }
+    if (object.companyName !== undefined && object.companyName !== null) {
+      message.companyName = String(object.companyName);
+    } else {
+      message.companyName = "";
+    }
+    if (object.timestampStart !== undefined && object.timestampStart !== null) {
+      message.timestampStart = String(object.timestampStart);
+    } else {
+      message.timestampStart = "";
+    }
+    if (object.timestampEnd !== undefined && object.timestampEnd !== null) {
+      message.timestampEnd = String(object.timestampEnd);
+    } else {
+      message.timestampEnd = "";
+    }
+    if (object.comments !== undefined && object.comments !== null) {
+      message.comments = String(object.comments);
+    } else {
+      message.comments = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateCompanyWorkedIn): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.uuid !== undefined && (obj.uuid = message.uuid);
+    message.companyName !== undefined &&
+      (obj.companyName = message.companyName);
+    message.timestampStart !== undefined &&
+      (obj.timestampStart = message.timestampStart);
+    message.timestampEnd !== undefined &&
+      (obj.timestampEnd = message.timestampEnd);
+    message.comments !== undefined && (obj.comments = message.comments);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgCreateCompanyWorkedIn>
+  ): MsgCreateCompanyWorkedIn {
+    const message = {
+      ...baseMsgCreateCompanyWorkedIn,
+    } as MsgCreateCompanyWorkedIn;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.uuid !== undefined && object.uuid !== null) {
+      message.uuid = object.uuid;
+    } else {
+      message.uuid = "";
+    }
+    if (object.companyName !== undefined && object.companyName !== null) {
+      message.companyName = object.companyName;
+    } else {
+      message.companyName = "";
+    }
+    if (object.timestampStart !== undefined && object.timestampStart !== null) {
+      message.timestampStart = object.timestampStart;
+    } else {
+      message.timestampStart = "";
+    }
+    if (object.timestampEnd !== undefined && object.timestampEnd !== null) {
+      message.timestampEnd = object.timestampEnd;
+    } else {
+      message.timestampEnd = "";
+    }
+    if (object.comments !== undefined && object.comments !== null) {
+      message.comments = object.comments;
+    } else {
+      message.comments = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateCompanyWorkedInResponse: object = {};
+
+export const MsgCreateCompanyWorkedInResponse = {
+  encode(
+    _: MsgCreateCompanyWorkedInResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateCompanyWorkedInResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateCompanyWorkedInResponse,
+    } as MsgCreateCompanyWorkedInResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCreateCompanyWorkedInResponse {
+    const message = {
+      ...baseMsgCreateCompanyWorkedInResponse,
+    } as MsgCreateCompanyWorkedInResponse;
+    return message;
+  },
+
+  toJSON(_: MsgCreateCompanyWorkedInResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgCreateCompanyWorkedInResponse>
+  ): MsgCreateCompanyWorkedInResponse {
+    const message = {
+      ...baseMsgCreateCompanyWorkedInResponse,
+    } as MsgCreateCompanyWorkedInResponse;
+    return message;
+  },
+};
+
+const baseMsgUpdateCompanyWorkedIn: object = {
+  creator: "",
+  uuid: "",
+  companyName: "",
+  timestampStart: "",
+  timestampEnd: "",
+  comments: "",
+};
+
+export const MsgUpdateCompanyWorkedIn = {
+  encode(
+    message: MsgUpdateCompanyWorkedIn,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.uuid !== "") {
+      writer.uint32(18).string(message.uuid);
+    }
+    if (message.companyName !== "") {
+      writer.uint32(26).string(message.companyName);
+    }
+    if (message.timestampStart !== "") {
+      writer.uint32(34).string(message.timestampStart);
+    }
+    if (message.timestampEnd !== "") {
+      writer.uint32(42).string(message.timestampEnd);
+    }
+    if (message.comments !== "") {
+      writer.uint32(50).string(message.comments);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUpdateCompanyWorkedIn {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUpdateCompanyWorkedIn,
+    } as MsgUpdateCompanyWorkedIn;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.uuid = reader.string();
+          break;
+        case 3:
+          message.companyName = reader.string();
+          break;
+        case 4:
+          message.timestampStart = reader.string();
+          break;
+        case 5:
+          message.timestampEnd = reader.string();
+          break;
+        case 6:
+          message.comments = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdateCompanyWorkedIn {
+    const message = {
+      ...baseMsgUpdateCompanyWorkedIn,
+    } as MsgUpdateCompanyWorkedIn;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.uuid !== undefined && object.uuid !== null) {
+      message.uuid = String(object.uuid);
+    } else {
+      message.uuid = "";
+    }
+    if (object.companyName !== undefined && object.companyName !== null) {
+      message.companyName = String(object.companyName);
+    } else {
+      message.companyName = "";
+    }
+    if (object.timestampStart !== undefined && object.timestampStart !== null) {
+      message.timestampStart = String(object.timestampStart);
+    } else {
+      message.timestampStart = "";
+    }
+    if (object.timestampEnd !== undefined && object.timestampEnd !== null) {
+      message.timestampEnd = String(object.timestampEnd);
+    } else {
+      message.timestampEnd = "";
+    }
+    if (object.comments !== undefined && object.comments !== null) {
+      message.comments = String(object.comments);
+    } else {
+      message.comments = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgUpdateCompanyWorkedIn): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.uuid !== undefined && (obj.uuid = message.uuid);
+    message.companyName !== undefined &&
+      (obj.companyName = message.companyName);
+    message.timestampStart !== undefined &&
+      (obj.timestampStart = message.timestampStart);
+    message.timestampEnd !== undefined &&
+      (obj.timestampEnd = message.timestampEnd);
+    message.comments !== undefined && (obj.comments = message.comments);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgUpdateCompanyWorkedIn>
+  ): MsgUpdateCompanyWorkedIn {
+    const message = {
+      ...baseMsgUpdateCompanyWorkedIn,
+    } as MsgUpdateCompanyWorkedIn;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.uuid !== undefined && object.uuid !== null) {
+      message.uuid = object.uuid;
+    } else {
+      message.uuid = "";
+    }
+    if (object.companyName !== undefined && object.companyName !== null) {
+      message.companyName = object.companyName;
+    } else {
+      message.companyName = "";
+    }
+    if (object.timestampStart !== undefined && object.timestampStart !== null) {
+      message.timestampStart = object.timestampStart;
+    } else {
+      message.timestampStart = "";
+    }
+    if (object.timestampEnd !== undefined && object.timestampEnd !== null) {
+      message.timestampEnd = object.timestampEnd;
+    } else {
+      message.timestampEnd = "";
+    }
+    if (object.comments !== undefined && object.comments !== null) {
+      message.comments = object.comments;
+    } else {
+      message.comments = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgUpdateCompanyWorkedInResponse: object = {};
+
+export const MsgUpdateCompanyWorkedInResponse = {
+  encode(
+    _: MsgUpdateCompanyWorkedInResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUpdateCompanyWorkedInResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUpdateCompanyWorkedInResponse,
+    } as MsgUpdateCompanyWorkedInResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateCompanyWorkedInResponse {
+    const message = {
+      ...baseMsgUpdateCompanyWorkedInResponse,
+    } as MsgUpdateCompanyWorkedInResponse;
+    return message;
+  },
+
+  toJSON(_: MsgUpdateCompanyWorkedInResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgUpdateCompanyWorkedInResponse>
+  ): MsgUpdateCompanyWorkedInResponse {
+    const message = {
+      ...baseMsgUpdateCompanyWorkedInResponse,
+    } as MsgUpdateCompanyWorkedInResponse;
+    return message;
+  },
+};
+
+const baseMsgDeleteCompanyWorkedIn: object = { creator: "", uuid: "" };
+
+export const MsgDeleteCompanyWorkedIn = {
+  encode(
+    message: MsgDeleteCompanyWorkedIn,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.uuid !== "") {
+      writer.uint32(18).string(message.uuid);
+    }
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgDeleteCompanyWorkedIn {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgDeleteCompanyWorkedIn,
+    } as MsgDeleteCompanyWorkedIn;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.uuid = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDeleteCompanyWorkedIn {
+    const message = {
+      ...baseMsgDeleteCompanyWorkedIn,
+    } as MsgDeleteCompanyWorkedIn;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.uuid !== undefined && object.uuid !== null) {
+      message.uuid = String(object.uuid);
+    } else {
+      message.uuid = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgDeleteCompanyWorkedIn): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.uuid !== undefined && (obj.uuid = message.uuid);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MsgDeleteCompanyWorkedIn>
+  ): MsgDeleteCompanyWorkedIn {
+    const message = {
+      ...baseMsgDeleteCompanyWorkedIn,
+    } as MsgDeleteCompanyWorkedIn;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.uuid !== undefined && object.uuid !== null) {
+      message.uuid = object.uuid;
+    } else {
+      message.uuid = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgDeleteCompanyWorkedInResponse: object = {};
+
+export const MsgDeleteCompanyWorkedInResponse = {
+  encode(
+    _: MsgDeleteCompanyWorkedInResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgDeleteCompanyWorkedInResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgDeleteCompanyWorkedInResponse,
+    } as MsgDeleteCompanyWorkedInResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDeleteCompanyWorkedInResponse {
+    const message = {
+      ...baseMsgDeleteCompanyWorkedInResponse,
+    } as MsgDeleteCompanyWorkedInResponse;
+    return message;
+  },
+
+  toJSON(_: MsgDeleteCompanyWorkedInResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgDeleteCompanyWorkedInResponse>
+  ): MsgDeleteCompanyWorkedInResponse {
+    const message = {
+      ...baseMsgDeleteCompanyWorkedInResponse,
+    } as MsgDeleteCompanyWorkedInResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateCV(request: MsgCreateCV): Promise<MsgCreateCVResponse>;
   UpdateCV(request: MsgUpdateCV): Promise<MsgUpdateCVResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   ConfirmCV(request: MsgConfirmCV): Promise<MsgConfirmCVResponse>;
+  CreateCompanyWorkedIn(
+    request: MsgCreateCompanyWorkedIn
+  ): Promise<MsgCreateCompanyWorkedInResponse>;
+  UpdateCompanyWorkedIn(
+    request: MsgUpdateCompanyWorkedIn
+  ): Promise<MsgUpdateCompanyWorkedInResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  DeleteCompanyWorkedIn(
+    request: MsgDeleteCompanyWorkedIn
+  ): Promise<MsgDeleteCompanyWorkedInResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -645,6 +1253,48 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgConfirmCVResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateCompanyWorkedIn(
+    request: MsgCreateCompanyWorkedIn
+  ): Promise<MsgCreateCompanyWorkedInResponse> {
+    const data = MsgCreateCompanyWorkedIn.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Msg",
+      "CreateCompanyWorkedIn",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateCompanyWorkedInResponse.decode(new Reader(data))
+    );
+  }
+
+  UpdateCompanyWorkedIn(
+    request: MsgUpdateCompanyWorkedIn
+  ): Promise<MsgUpdateCompanyWorkedInResponse> {
+    const data = MsgUpdateCompanyWorkedIn.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Msg",
+      "UpdateCompanyWorkedIn",
+      data
+    );
+    return promise.then((data) =>
+      MsgUpdateCompanyWorkedInResponse.decode(new Reader(data))
+    );
+  }
+
+  DeleteCompanyWorkedIn(
+    request: MsgDeleteCompanyWorkedIn
+  ): Promise<MsgDeleteCompanyWorkedInResponse> {
+    const data = MsgDeleteCompanyWorkedIn.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Msg",
+      "DeleteCompanyWorkedIn",
+      data
+    );
+    return promise.then((data) =>
+      MsgDeleteCompanyWorkedInResponse.decode(new Reader(data))
     );
   }
 }

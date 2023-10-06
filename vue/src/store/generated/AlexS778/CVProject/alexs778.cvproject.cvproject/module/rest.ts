@@ -27,11 +27,26 @@ export interface CvprojectCompany {
   comments?: string;
 }
 
+export interface CvprojectCompanyWorkedIn {
+  uuid?: string;
+  companyName?: string;
+  timestampStart?: string;
+  timestampEnd?: string;
+  comments?: string;
+  creator?: string;
+}
+
 export type CvprojectMsgConfirmCVResponse = object;
 
 export type CvprojectMsgCreateCVResponse = object;
 
+export type CvprojectMsgCreateCompanyWorkedInResponse = object;
+
+export type CvprojectMsgDeleteCompanyWorkedInResponse = object;
+
 export type CvprojectMsgUpdateCVResponse = object;
+
+export type CvprojectMsgUpdateCompanyWorkedInResponse = object;
 
 /**
  * Params defines the parameters for the module.
@@ -51,6 +66,25 @@ export interface CvprojectQueryAllCVResponse {
    *  }
    */
   pagination?: V1Beta1PageResponse;
+}
+
+export interface CvprojectQueryAllCompanyWorkedInResponse {
+  companyWorkedIn?: CvprojectCompanyWorkedIn[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface CvprojectQueryGetCompanyWorkedInResponse {
+  companyWorkedIn?: CvprojectCompanyWorkedIn;
 }
 
 export interface CvprojectQueryGetCvByCosmosAddressResponse {
@@ -331,10 +365,52 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title cvproject/cv.proto
+ * @title cvproject/company_worked_in.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryCompanyWorkedInAll
+   * @summary Queries a list of CompanyWorkedIn items.
+   * @request GET:/AlexS778/CVProject/cvproject/company_worked_in
+   */
+  queryCompanyWorkedInAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<CvprojectQueryAllCompanyWorkedInResponse, RpcStatus>({
+      path: `/AlexS778/CVProject/cvproject/company_worked_in`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryCompanyWorkedIn
+   * @summary Queries a CompanyWorkedIn by index.
+   * @request GET:/AlexS778/CVProject/cvproject/company_worked_in/{uuid}
+   */
+  queryCompanyWorkedIn = (uuid: string, params: RequestParams = {}) =>
+    this.request<CvprojectQueryGetCompanyWorkedInResponse, RpcStatus>({
+      path: `/AlexS778/CVProject/cvproject/company_worked_in/${uuid}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *

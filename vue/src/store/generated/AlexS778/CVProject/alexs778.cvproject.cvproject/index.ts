@@ -1,11 +1,12 @@
 import { txClient, queryClient, MissingWalletError , registry} from './module'
 
+import { CompanyWorkedIn } from "./module/types/cvproject/company_worked_in"
 import { CV } from "./module/types/cvproject/cv"
 import { Company } from "./module/types/cvproject/cv"
 import { Params } from "./module/types/cvproject/params"
 
 
-export { CV, Company, Params };
+export { CompanyWorkedIn, CV, Company, Params };
 
 async function initTxClient(vuexGetters) {
 	return await txClient(vuexGetters['common/wallet/signer'], {
@@ -46,8 +47,11 @@ const getDefaultState = () => {
 				Params: {},
 				CVAll: {},
 				GetCvByCosmosAddress: {},
+				CompanyWorkedIn: {},
+				CompanyWorkedInAll: {},
 				
 				_Structure: {
+						CompanyWorkedIn: getStructure(CompanyWorkedIn.fromPartial({})),
 						CV: getStructure(CV.fromPartial({})),
 						Company: getStructure(Company.fromPartial({})),
 						Params: getStructure(Params.fromPartial({})),
@@ -96,6 +100,18 @@ export default {
 						(<any> params).query=null
 					}
 			return state.GetCvByCosmosAddress[JSON.stringify(params)] ?? {}
+		},
+				getCompanyWorkedIn: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.CompanyWorkedIn[JSON.stringify(params)] ?? {}
+		},
+				getCompanyWorkedInAll: (state) => (params = { params: {}}) => {
+					if (!(<any> params).query) {
+						(<any> params).query=null
+					}
+			return state.CompanyWorkedInAll[JSON.stringify(params)] ?? {}
 		},
 				
 		getTypeStructure: (state) => (type) => {
@@ -201,6 +217,54 @@ export default {
 		},
 		
 		
+		
+		
+		 		
+		
+		
+		async QueryCompanyWorkedIn({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryCompanyWorkedIn( key.uuid)).data
+				
+					
+				commit('QUERY', { query: 'CompanyWorkedIn', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryCompanyWorkedIn', payload: { options: { all }, params: {...key},query }})
+				return getters['getCompanyWorkedIn']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryCompanyWorkedIn API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
+		
+		
+		 		
+		
+		
+		async QueryCompanyWorkedInAll({ commit, rootGetters, getters }, { options: { subscribe, all} = { subscribe:false, all:false}, params, query=null }) {
+			try {
+				const key = params ?? {};
+				const queryClient=await initQueryClient(rootGetters)
+				let value= (await queryClient.queryCompanyWorkedInAll(query)).data
+				
+					
+				while (all && (<any> value).pagination && (<any> value).pagination.next_key!=null) {
+					let next_values=(await queryClient.queryCompanyWorkedInAll({...query, 'pagination.key':(<any> value).pagination.next_key})).data
+					value = mergeResults(value, next_values);
+				}
+				commit('QUERY', { query: 'CompanyWorkedInAll', key: { params: {...key}, query}, value })
+				if (subscribe) commit('SUBSCRIBE', { action: 'QueryCompanyWorkedInAll', payload: { options: { all }, params: {...key},query }})
+				return getters['getCompanyWorkedInAll']( { params: {...key}, query}) ?? {}
+			} catch (e) {
+				throw new Error('QueryClient:QueryCompanyWorkedInAll API Node Unavailable. Could not perform query: ' + e.message)
+				
+			}
+		},
+		
+		
 		async sendMsgConfirmCV({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -213,6 +277,36 @@ export default {
 					throw new Error('TxClient:MsgConfirmCV:Init Could not initialize signing client. Wallet is required.')
 				}else{
 					throw new Error('TxClient:MsgConfirmCV:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgUpdateCompanyWorkedIn({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUpdateCompanyWorkedIn(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgUpdateCompanyWorkedIn:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgUpdateCompanyWorkedIn:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
+		async sendMsgDeleteCompanyWorkedIn({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteCompanyWorkedIn(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeleteCompanyWorkedIn:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgDeleteCompanyWorkedIn:Send Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -246,6 +340,21 @@ export default {
 				}
 			}
 		},
+		async sendMsgCreateCompanyWorkedIn({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateCompanyWorkedIn(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateCompanyWorkedIn:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgCreateCompanyWorkedIn:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		
 		async MsgConfirmCV({ rootGetters }, { value }) {
 			try {
@@ -257,6 +366,32 @@ export default {
 					throw new Error('TxClient:MsgConfirmCV:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgConfirmCV:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgUpdateCompanyWorkedIn({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgUpdateCompanyWorkedIn(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgUpdateCompanyWorkedIn:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgUpdateCompanyWorkedIn:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgDeleteCompanyWorkedIn({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgDeleteCompanyWorkedIn(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgDeleteCompanyWorkedIn:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgDeleteCompanyWorkedIn:Create Could not create message: ' + e.message)
 				}
 			}
 		},
@@ -283,6 +418,19 @@ export default {
 					throw new Error('TxClient:MsgUpdateCV:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgUpdateCV:Create Could not create message: ' + e.message)
+				}
+			}
+		},
+		async MsgCreateCompanyWorkedIn({ rootGetters }, { value }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgCreateCompanyWorkedIn(value)
+				return msg
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgCreateCompanyWorkedIn:Init Could not initialize signing client. Wallet is required.')
+				} else{
+					throw new Error('TxClient:MsgCreateCompanyWorkedIn:Create Could not create message: ' + e.message)
 				}
 			}
 		},

@@ -201,6 +201,21 @@ export default {
 		},
 		
 		
+		async sendMsgConfirmCV({ rootGetters }, { value, fee = [], memo = '' }) {
+			try {
+				const txClient=await initTxClient(rootGetters)
+				const msg = await txClient.msgConfirmCV(value)
+				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
+	gas: "200000" }, memo})
+				return result
+			} catch (e) {
+				if (e == MissingWalletError) {
+					throw new Error('TxClient:MsgConfirmCV:Init Could not initialize signing client. Wallet is required.')
+				}else{
+					throw new Error('TxClient:MsgConfirmCV:Send Could not broadcast Tx: '+ e.message)
+				}
+			}
+		},
 		async sendMsgCreateCV({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -231,22 +246,20 @@ export default {
 				}
 			}
 		},
-		async sendMsgConfirmCV({ rootGetters }, { value, fee = [], memo = '' }) {
+		
+		async MsgConfirmCV({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
 				const msg = await txClient.msgConfirmCV(value)
-				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
-	gas: "200000" }, memo})
-				return result
+				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
 					throw new Error('TxClient:MsgConfirmCV:Init Could not initialize signing client. Wallet is required.')
-				}else{
-					throw new Error('TxClient:MsgConfirmCV:Send Could not broadcast Tx: '+ e.message)
+				} else{
+					throw new Error('TxClient:MsgConfirmCV:Create Could not create message: ' + e.message)
 				}
 			}
 		},
-		
 		async MsgCreateCV({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
@@ -270,19 +283,6 @@ export default {
 					throw new Error('TxClient:MsgUpdateCV:Init Could not initialize signing client. Wallet is required.')
 				} else{
 					throw new Error('TxClient:MsgUpdateCV:Create Could not create message: ' + e.message)
-				}
-			}
-		},
-		async MsgConfirmCV({ rootGetters }, { value }) {
-			try {
-				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgConfirmCV(value)
-				return msg
-			} catch (e) {
-				if (e == MissingWalletError) {
-					throw new Error('TxClient:MsgConfirmCV:Init Could not initialize signing client. Wallet is required.')
-				} else{
-					throw new Error('TxClient:MsgConfirmCV:Create Could not create message: ' + e.message)
 				}
 			}
 		},

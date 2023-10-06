@@ -29,10 +29,7 @@ export interface CvprojectCompany {
 
 export type CvprojectMsgConfirmCVResponse = object;
 
-export interface CvprojectMsgCreateCVResponse {
-  /** @format uint64 */
-  cvIndex?: string;
-}
+export type CvprojectMsgCreateCVResponse = object;
 
 export type CvprojectMsgUpdateCVResponse = object;
 

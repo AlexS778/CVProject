@@ -1,6 +1,5 @@
 /* eslint-disable */
-import { Reader, util, configure, Writer } from "protobufjs/minimal";
-import * as Long from "long";
+import { Reader, Writer } from "protobufjs/minimal";
 
 export const protobufPackage = "alexs778.cvproject.cvproject";
 
@@ -14,12 +13,11 @@ export interface MsgCreateCV {
   companies: string[];
 }
 
-export interface MsgCreateCVResponse {
-  cvIndex: number;
-}
+export interface MsgCreateCVResponse {}
 
 export interface MsgUpdateCV {
   creator: string;
+  cosmosAdress: string;
   name: string;
   education: string;
   summary: string;
@@ -210,16 +208,10 @@ export const MsgCreateCV = {
   },
 };
 
-const baseMsgCreateCVResponse: object = { cvIndex: 0 };
+const baseMsgCreateCVResponse: object = {};
 
 export const MsgCreateCVResponse = {
-  encode(
-    message: MsgCreateCVResponse,
-    writer: Writer = Writer.create()
-  ): Writer {
-    if (message.cvIndex !== 0) {
-      writer.uint32(8).uint64(message.cvIndex);
-    }
+  encode(_: MsgCreateCVResponse, writer: Writer = Writer.create()): Writer {
     return writer;
   },
 
@@ -230,9 +222,6 @@ export const MsgCreateCVResponse = {
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
-        case 1:
-          message.cvIndex = longToNumber(reader.uint64() as Long);
-          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -241,35 +230,25 @@ export const MsgCreateCVResponse = {
     return message;
   },
 
-  fromJSON(object: any): MsgCreateCVResponse {
+  fromJSON(_: any): MsgCreateCVResponse {
     const message = { ...baseMsgCreateCVResponse } as MsgCreateCVResponse;
-    if (object.cvIndex !== undefined && object.cvIndex !== null) {
-      message.cvIndex = Number(object.cvIndex);
-    } else {
-      message.cvIndex = 0;
-    }
     return message;
   },
 
-  toJSON(message: MsgCreateCVResponse): unknown {
+  toJSON(_: MsgCreateCVResponse): unknown {
     const obj: any = {};
-    message.cvIndex !== undefined && (obj.cvIndex = message.cvIndex);
     return obj;
   },
 
-  fromPartial(object: DeepPartial<MsgCreateCVResponse>): MsgCreateCVResponse {
+  fromPartial(_: DeepPartial<MsgCreateCVResponse>): MsgCreateCVResponse {
     const message = { ...baseMsgCreateCVResponse } as MsgCreateCVResponse;
-    if (object.cvIndex !== undefined && object.cvIndex !== null) {
-      message.cvIndex = object.cvIndex;
-    } else {
-      message.cvIndex = 0;
-    }
     return message;
   },
 };
 
 const baseMsgUpdateCV: object = {
   creator: "",
+  cosmosAdress: "",
   name: "",
   education: "",
   summary: "",
@@ -283,23 +262,26 @@ export const MsgUpdateCV = {
     if (message.creator !== "") {
       writer.uint32(10).string(message.creator);
     }
+    if (message.cosmosAdress !== "") {
+      writer.uint32(18).string(message.cosmosAdress);
+    }
     if (message.name !== "") {
-      writer.uint32(18).string(message.name);
+      writer.uint32(26).string(message.name);
     }
     if (message.education !== "") {
-      writer.uint32(26).string(message.education);
+      writer.uint32(34).string(message.education);
     }
     if (message.summary !== "") {
-      writer.uint32(34).string(message.summary);
+      writer.uint32(42).string(message.summary);
     }
     if (message.skills !== "") {
-      writer.uint32(42).string(message.skills);
+      writer.uint32(50).string(message.skills);
     }
     if (message.experience !== "") {
-      writer.uint32(50).string(message.experience);
+      writer.uint32(58).string(message.experience);
     }
     for (const v of message.companies) {
-      writer.uint32(58).string(v!);
+      writer.uint32(66).string(v!);
     }
     return writer;
   },
@@ -316,21 +298,24 @@ export const MsgUpdateCV = {
           message.creator = reader.string();
           break;
         case 2:
-          message.name = reader.string();
+          message.cosmosAdress = reader.string();
           break;
         case 3:
-          message.education = reader.string();
+          message.name = reader.string();
           break;
         case 4:
-          message.summary = reader.string();
+          message.education = reader.string();
           break;
         case 5:
-          message.skills = reader.string();
+          message.summary = reader.string();
           break;
         case 6:
-          message.experience = reader.string();
+          message.skills = reader.string();
           break;
         case 7:
+          message.experience = reader.string();
+          break;
+        case 8:
           message.companies.push(reader.string());
           break;
         default:
@@ -348,6 +333,11 @@ export const MsgUpdateCV = {
       message.creator = String(object.creator);
     } else {
       message.creator = "";
+    }
+    if (object.cosmosAdress !== undefined && object.cosmosAdress !== null) {
+      message.cosmosAdress = String(object.cosmosAdress);
+    } else {
+      message.cosmosAdress = "";
     }
     if (object.name !== undefined && object.name !== null) {
       message.name = String(object.name);
@@ -385,6 +375,8 @@ export const MsgUpdateCV = {
   toJSON(message: MsgUpdateCV): unknown {
     const obj: any = {};
     message.creator !== undefined && (obj.creator = message.creator);
+    message.cosmosAdress !== undefined &&
+      (obj.cosmosAdress = message.cosmosAdress);
     message.name !== undefined && (obj.name = message.name);
     message.education !== undefined && (obj.education = message.education);
     message.summary !== undefined && (obj.summary = message.summary);
@@ -405,6 +397,11 @@ export const MsgUpdateCV = {
       message.creator = object.creator;
     } else {
       message.creator = "";
+    }
+    if (object.cosmosAdress !== undefined && object.cosmosAdress !== null) {
+      message.cosmosAdress = object.cosmosAdress;
+    } else {
+      message.cosmosAdress = "";
     }
     if (object.name !== undefined && object.name !== null) {
       message.name = object.name;
@@ -660,16 +657,6 @@ interface Rpc {
   ): Promise<Uint8Array>;
 }
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
-})();
-
 type Builtin = Date | Function | Uint8Array | string | number | undefined;
 export type DeepPartial<T> = T extends Builtin
   ? T
@@ -680,15 +667,3 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
-
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
-}
-
-if (util.Long !== Long) {
-  util.Long = Long as any;
-  configure();
-}

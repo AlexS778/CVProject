@@ -65,6 +65,29 @@ export interface MsgDeleteCompanyWorkedIn {
 
 export interface MsgDeleteCompanyWorkedInResponse {}
 
+export interface MsgCreateCompany {
+  creator: string;
+  uUID: string;
+  name: string;
+}
+
+export interface MsgCreateCompanyResponse {}
+
+export interface MsgUpdateCompany {
+  creator: string;
+  uUID: string;
+  name: string;
+}
+
+export interface MsgUpdateCompanyResponse {}
+
+export interface MsgDeleteCompany {
+  creator: string;
+  uUID: string;
+}
+
+export interface MsgDeleteCompanyResponse {}
+
 const baseMsgCreateCV: object = {
   creator: "",
   name: "",
@@ -1202,6 +1225,412 @@ export const MsgDeleteCompanyWorkedInResponse = {
   },
 };
 
+const baseMsgCreateCompany: object = { creator: "", uUID: "", name: "" };
+
+export const MsgCreateCompany = {
+  encode(message: MsgCreateCompany, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.uUID !== "") {
+      writer.uint32(18).string(message.uUID);
+    }
+    if (message.name !== "") {
+      writer.uint32(26).string(message.name);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgCreateCompany {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgCreateCompany } as MsgCreateCompany;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.uUID = reader.string();
+          break;
+        case 3:
+          message.name = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgCreateCompany {
+    const message = { ...baseMsgCreateCompany } as MsgCreateCompany;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.uUID !== undefined && object.uUID !== null) {
+      message.uUID = String(object.uUID);
+    } else {
+      message.uUID = "";
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = String(object.name);
+    } else {
+      message.name = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgCreateCompany): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.uUID !== undefined && (obj.uUID = message.uUID);
+    message.name !== undefined && (obj.name = message.name);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgCreateCompany>): MsgCreateCompany {
+    const message = { ...baseMsgCreateCompany } as MsgCreateCompany;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.uUID !== undefined && object.uUID !== null) {
+      message.uUID = object.uUID;
+    } else {
+      message.uUID = "";
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    } else {
+      message.name = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgCreateCompanyResponse: object = {};
+
+export const MsgCreateCompanyResponse = {
+  encode(
+    _: MsgCreateCompanyResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgCreateCompanyResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgCreateCompanyResponse,
+    } as MsgCreateCompanyResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgCreateCompanyResponse {
+    const message = {
+      ...baseMsgCreateCompanyResponse,
+    } as MsgCreateCompanyResponse;
+    return message;
+  },
+
+  toJSON(_: MsgCreateCompanyResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgCreateCompanyResponse>
+  ): MsgCreateCompanyResponse {
+    const message = {
+      ...baseMsgCreateCompanyResponse,
+    } as MsgCreateCompanyResponse;
+    return message;
+  },
+};
+
+const baseMsgUpdateCompany: object = { creator: "", uUID: "", name: "" };
+
+export const MsgUpdateCompany = {
+  encode(message: MsgUpdateCompany, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.uUID !== "") {
+      writer.uint32(18).string(message.uUID);
+    }
+    if (message.name !== "") {
+      writer.uint32(26).string(message.name);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgUpdateCompany {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgUpdateCompany } as MsgUpdateCompany;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.uUID = reader.string();
+          break;
+        case 3:
+          message.name = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgUpdateCompany {
+    const message = { ...baseMsgUpdateCompany } as MsgUpdateCompany;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.uUID !== undefined && object.uUID !== null) {
+      message.uUID = String(object.uUID);
+    } else {
+      message.uUID = "";
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = String(object.name);
+    } else {
+      message.name = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgUpdateCompany): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.uUID !== undefined && (obj.uUID = message.uUID);
+    message.name !== undefined && (obj.name = message.name);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgUpdateCompany>): MsgUpdateCompany {
+    const message = { ...baseMsgUpdateCompany } as MsgUpdateCompany;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.uUID !== undefined && object.uUID !== null) {
+      message.uUID = object.uUID;
+    } else {
+      message.uUID = "";
+    }
+    if (object.name !== undefined && object.name !== null) {
+      message.name = object.name;
+    } else {
+      message.name = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgUpdateCompanyResponse: object = {};
+
+export const MsgUpdateCompanyResponse = {
+  encode(
+    _: MsgUpdateCompanyResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgUpdateCompanyResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgUpdateCompanyResponse,
+    } as MsgUpdateCompanyResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgUpdateCompanyResponse {
+    const message = {
+      ...baseMsgUpdateCompanyResponse,
+    } as MsgUpdateCompanyResponse;
+    return message;
+  },
+
+  toJSON(_: MsgUpdateCompanyResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgUpdateCompanyResponse>
+  ): MsgUpdateCompanyResponse {
+    const message = {
+      ...baseMsgUpdateCompanyResponse,
+    } as MsgUpdateCompanyResponse;
+    return message;
+  },
+};
+
+const baseMsgDeleteCompany: object = { creator: "", uUID: "" };
+
+export const MsgDeleteCompany = {
+  encode(message: MsgDeleteCompany, writer: Writer = Writer.create()): Writer {
+    if (message.creator !== "") {
+      writer.uint32(10).string(message.creator);
+    }
+    if (message.uUID !== "") {
+      writer.uint32(18).string(message.uUID);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): MsgDeleteCompany {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMsgDeleteCompany } as MsgDeleteCompany;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.creator = reader.string();
+          break;
+        case 2:
+          message.uUID = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MsgDeleteCompany {
+    const message = { ...baseMsgDeleteCompany } as MsgDeleteCompany;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = String(object.creator);
+    } else {
+      message.creator = "";
+    }
+    if (object.uUID !== undefined && object.uUID !== null) {
+      message.uUID = String(object.uUID);
+    } else {
+      message.uUID = "";
+    }
+    return message;
+  },
+
+  toJSON(message: MsgDeleteCompany): unknown {
+    const obj: any = {};
+    message.creator !== undefined && (obj.creator = message.creator);
+    message.uUID !== undefined && (obj.uUID = message.uUID);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<MsgDeleteCompany>): MsgDeleteCompany {
+    const message = { ...baseMsgDeleteCompany } as MsgDeleteCompany;
+    if (object.creator !== undefined && object.creator !== null) {
+      message.creator = object.creator;
+    } else {
+      message.creator = "";
+    }
+    if (object.uUID !== undefined && object.uUID !== null) {
+      message.uUID = object.uUID;
+    } else {
+      message.uUID = "";
+    }
+    return message;
+  },
+};
+
+const baseMsgDeleteCompanyResponse: object = {};
+
+export const MsgDeleteCompanyResponse = {
+  encode(
+    _: MsgDeleteCompanyResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    return writer;
+  },
+
+  decode(
+    input: Reader | Uint8Array,
+    length?: number
+  ): MsgDeleteCompanyResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseMsgDeleteCompanyResponse,
+    } as MsgDeleteCompanyResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): MsgDeleteCompanyResponse {
+    const message = {
+      ...baseMsgDeleteCompanyResponse,
+    } as MsgDeleteCompanyResponse;
+    return message;
+  },
+
+  toJSON(_: MsgDeleteCompanyResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<MsgDeleteCompanyResponse>
+  ): MsgDeleteCompanyResponse {
+    const message = {
+      ...baseMsgDeleteCompanyResponse,
+    } as MsgDeleteCompanyResponse;
+    return message;
+  },
+};
+
 /** Msg defines the Msg service. */
 export interface Msg {
   CreateCV(request: MsgCreateCV): Promise<MsgCreateCVResponse>;
@@ -1213,10 +1642,13 @@ export interface Msg {
   UpdateCompanyWorkedIn(
     request: MsgUpdateCompanyWorkedIn
   ): Promise<MsgUpdateCompanyWorkedInResponse>;
-  /** this line is used by starport scaffolding # proto/tx/rpc */
   DeleteCompanyWorkedIn(
     request: MsgDeleteCompanyWorkedIn
   ): Promise<MsgDeleteCompanyWorkedInResponse>;
+  CreateCompany(request: MsgCreateCompany): Promise<MsgCreateCompanyResponse>;
+  UpdateCompany(request: MsgUpdateCompany): Promise<MsgUpdateCompanyResponse>;
+  /** this line is used by starport scaffolding # proto/tx/rpc */
+  DeleteCompany(request: MsgDeleteCompany): Promise<MsgDeleteCompanyResponse>;
 }
 
 export class MsgClientImpl implements Msg {
@@ -1295,6 +1727,42 @@ export class MsgClientImpl implements Msg {
     );
     return promise.then((data) =>
       MsgDeleteCompanyWorkedInResponse.decode(new Reader(data))
+    );
+  }
+
+  CreateCompany(request: MsgCreateCompany): Promise<MsgCreateCompanyResponse> {
+    const data = MsgCreateCompany.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Msg",
+      "CreateCompany",
+      data
+    );
+    return promise.then((data) =>
+      MsgCreateCompanyResponse.decode(new Reader(data))
+    );
+  }
+
+  UpdateCompany(request: MsgUpdateCompany): Promise<MsgUpdateCompanyResponse> {
+    const data = MsgUpdateCompany.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Msg",
+      "UpdateCompany",
+      data
+    );
+    return promise.then((data) =>
+      MsgUpdateCompanyResponse.decode(new Reader(data))
+    );
+  }
+
+  DeleteCompany(request: MsgDeleteCompany): Promise<MsgDeleteCompanyResponse> {
+    const data = MsgDeleteCompany.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Msg",
+      "DeleteCompany",
+      data
+    );
+    return promise.then((data) =>
+      MsgDeleteCompanyResponse.decode(new Reader(data))
     );
   }
 }

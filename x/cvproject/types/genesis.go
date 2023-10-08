@@ -12,6 +12,7 @@ func DefaultGenesis() *GenesisState {
 	return &GenesisState{
 		CVList:              []CV{},
 		CompanyWorkedInList: []CompanyWorkedIn{},
+		CompanyList:         []Company{},
 		// this line is used by starport scaffolding # genesis/types/default
 		Params: DefaultParams(),
 	}
@@ -39,6 +40,16 @@ func (gs GenesisState) Validate() error {
 			return fmt.Errorf("duplicated index for companyWorkedIn")
 		}
 		companyWorkedInIndexMap[index] = struct{}{}
+	}
+	// Check for duplicated index in company
+	companyIndexMap := make(map[string]struct{})
+
+	for _, elem := range gs.CompanyList {
+		index := string(CompanyKey(elem.UUID))
+		if _, ok := companyIndexMap[index]; ok {
+			return fmt.Errorf("duplicated index for company")
+		}
+		companyIndexMap[index] = struct{}{}
 	}
 	// this line is used by starport scaffolding # genesis/types/validate
 

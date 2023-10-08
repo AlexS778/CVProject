@@ -14,6 +14,9 @@ func RegisterCodec(cdc *codec.LegacyAmino) {
 	cdc.RegisterConcrete(&MsgCreateCompanyWorkedIn{}, "cvproject/CreateCompanyWorkedIn", nil)
 	cdc.RegisterConcrete(&MsgUpdateCompanyWorkedIn{}, "cvproject/UpdateCompanyWorkedIn", nil)
 	cdc.RegisterConcrete(&MsgDeleteCompanyWorkedIn{}, "cvproject/DeleteCompanyWorkedIn", nil)
+	cdc.RegisterConcrete(&MsgCreateCompany{}, "cvproject/CreateCompany", nil)
+	cdc.RegisterConcrete(&MsgUpdateCompany{}, "cvproject/UpdateCompany", nil)
+	cdc.RegisterConcrete(&MsgDeleteCompany{}, "cvproject/DeleteCompany", nil)
 	// this line is used by starport scaffolding # 2
 }
 
@@ -31,6 +34,11 @@ func RegisterInterfaces(registry cdctypes.InterfaceRegistry) {
 		&MsgCreateCompanyWorkedIn{},
 		&MsgUpdateCompanyWorkedIn{},
 		&MsgDeleteCompanyWorkedIn{},
+	)
+	registry.RegisterImplementations((*sdk.Msg)(nil),
+		&MsgCreateCompany{},
+		&MsgUpdateCompany{},
+		&MsgDeleteCompany{},
 	)
 	// this line is used by starport scaffolding # 3
 

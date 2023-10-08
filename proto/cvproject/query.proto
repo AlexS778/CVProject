@@ -7,6 +7,7 @@ import "cosmos/base/query/v1beta1/pagination.proto";
 import "cvproject/params.proto";
 import "cvproject/cv.proto";
 import "cvproject/company_worked_in.proto";
+import "cvproject/company.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
@@ -35,6 +36,16 @@ service Query {
 	// Queries a list of CompanyWorkedIn items.
 	rpc CompanyWorkedInAll(QueryAllCompanyWorkedInRequest) returns (QueryAllCompanyWorkedInResponse) {
 		option (google.api.http).get = "/AlexS778/CVProject/cvproject/company_worked_in";
+	}
+
+// Queries a Company by index.
+	rpc Company(QueryGetCompanyRequest) returns (QueryGetCompanyResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/company/{uUID}";
+	}
+
+	// Queries a list of Company items.
+	rpc CompanyAll(QueryAllCompanyRequest) returns (QueryAllCompanyResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/company";
 	}
 
 // this line is used by starport scaffolding # 2
@@ -85,6 +96,24 @@ message QueryAllCompanyWorkedInRequest {
 
 message QueryAllCompanyWorkedInResponse {
 	repeated CompanyWorkedIn companyWorkedIn = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCompanyRequest {
+	  string uUID = 1;
+
+}
+
+message QueryGetCompanyResponse {
+	Company company = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCompanyRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCompanyResponse {
+	repeated Company company = 1 [(gogoproto.nullable) = false];
 	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 

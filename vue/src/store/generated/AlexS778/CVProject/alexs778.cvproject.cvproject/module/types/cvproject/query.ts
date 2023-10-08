@@ -7,6 +7,7 @@ import {
 } from "../cosmos/base/query/v1beta1/pagination";
 import { CV, CvForResponse } from "../cvproject/cv";
 import { CompanyWorkedIn } from "../cvproject/company_worked_in";
+import { Company } from "../cvproject/company";
 
 export const protobufPackage = "alexs778.cvproject.cvproject";
 
@@ -50,6 +51,23 @@ export interface QueryAllCompanyWorkedInRequest {
 
 export interface QueryAllCompanyWorkedInResponse {
   companyWorkedIn: CompanyWorkedIn[];
+  pagination: PageResponse | undefined;
+}
+
+export interface QueryGetCompanyRequest {
+  uUID: string;
+}
+
+export interface QueryGetCompanyResponse {
+  company: Company | undefined;
+}
+
+export interface QueryAllCompanyRequest {
+  pagination: PageRequest | undefined;
+}
+
+export interface QueryAllCompanyResponse {
+  company: Company[];
   pagination: PageResponse | undefined;
 }
 
@@ -774,6 +792,296 @@ export const QueryAllCompanyWorkedInResponse = {
   },
 };
 
+const baseQueryGetCompanyRequest: object = { uUID: "" };
+
+export const QueryGetCompanyRequest = {
+  encode(
+    message: QueryGetCompanyRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.uUID !== "") {
+      writer.uint32(10).string(message.uUID);
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetCompanyRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryGetCompanyRequest } as QueryGetCompanyRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.uUID = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetCompanyRequest {
+    const message = { ...baseQueryGetCompanyRequest } as QueryGetCompanyRequest;
+    if (object.uUID !== undefined && object.uUID !== null) {
+      message.uUID = String(object.uUID);
+    } else {
+      message.uUID = "";
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetCompanyRequest): unknown {
+    const obj: any = {};
+    message.uUID !== undefined && (obj.uUID = message.uUID);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetCompanyRequest>
+  ): QueryGetCompanyRequest {
+    const message = { ...baseQueryGetCompanyRequest } as QueryGetCompanyRequest;
+    if (object.uUID !== undefined && object.uUID !== null) {
+      message.uUID = object.uUID;
+    } else {
+      message.uUID = "";
+    }
+    return message;
+  },
+};
+
+const baseQueryGetCompanyResponse: object = {};
+
+export const QueryGetCompanyResponse = {
+  encode(
+    message: QueryGetCompanyResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.company !== undefined) {
+      Company.encode(message.company, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryGetCompanyResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryGetCompanyResponse,
+    } as QueryGetCompanyResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.company = Company.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryGetCompanyResponse {
+    const message = {
+      ...baseQueryGetCompanyResponse,
+    } as QueryGetCompanyResponse;
+    if (object.company !== undefined && object.company !== null) {
+      message.company = Company.fromJSON(object.company);
+    } else {
+      message.company = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryGetCompanyResponse): unknown {
+    const obj: any = {};
+    message.company !== undefined &&
+      (obj.company = message.company
+        ? Company.toJSON(message.company)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryGetCompanyResponse>
+  ): QueryGetCompanyResponse {
+    const message = {
+      ...baseQueryGetCompanyResponse,
+    } as QueryGetCompanyResponse;
+    if (object.company !== undefined && object.company !== null) {
+      message.company = Company.fromPartial(object.company);
+    } else {
+      message.company = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllCompanyRequest: object = {};
+
+export const QueryAllCompanyRequest = {
+  encode(
+    message: QueryAllCompanyRequest,
+    writer: Writer = Writer.create()
+  ): Writer {
+    if (message.pagination !== undefined) {
+      PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllCompanyRequest {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseQueryAllCompanyRequest } as QueryAllCompanyRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pagination = PageRequest.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllCompanyRequest {
+    const message = { ...baseQueryAllCompanyRequest } as QueryAllCompanyRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllCompanyRequest): unknown {
+    const obj: any = {};
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageRequest.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllCompanyRequest>
+  ): QueryAllCompanyRequest {
+    const message = { ...baseQueryAllCompanyRequest } as QueryAllCompanyRequest;
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageRequest.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
+const baseQueryAllCompanyResponse: object = {};
+
+export const QueryAllCompanyResponse = {
+  encode(
+    message: QueryAllCompanyResponse,
+    writer: Writer = Writer.create()
+  ): Writer {
+    for (const v of message.company) {
+      Company.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.pagination !== undefined) {
+      PageResponse.encode(
+        message.pagination,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: Reader | Uint8Array, length?: number): QueryAllCompanyResponse {
+    const reader = input instanceof Uint8Array ? new Reader(input) : input;
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseQueryAllCompanyResponse,
+    } as QueryAllCompanyResponse;
+    message.company = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.company.push(Company.decode(reader, reader.uint32()));
+          break;
+        case 2:
+          message.pagination = PageResponse.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): QueryAllCompanyResponse {
+    const message = {
+      ...baseQueryAllCompanyResponse,
+    } as QueryAllCompanyResponse;
+    message.company = [];
+    if (object.company !== undefined && object.company !== null) {
+      for (const e of object.company) {
+        message.company.push(Company.fromJSON(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromJSON(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: QueryAllCompanyResponse): unknown {
+    const obj: any = {};
+    if (message.company) {
+      obj.company = message.company.map((e) =>
+        e ? Company.toJSON(e) : undefined
+      );
+    } else {
+      obj.company = [];
+    }
+    message.pagination !== undefined &&
+      (obj.pagination = message.pagination
+        ? PageResponse.toJSON(message.pagination)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<QueryAllCompanyResponse>
+  ): QueryAllCompanyResponse {
+    const message = {
+      ...baseQueryAllCompanyResponse,
+    } as QueryAllCompanyResponse;
+    message.company = [];
+    if (object.company !== undefined && object.company !== null) {
+      for (const e of object.company) {
+        message.company.push(Company.fromPartial(e));
+      }
+    }
+    if (object.pagination !== undefined && object.pagination !== null) {
+      message.pagination = PageResponse.fromPartial(object.pagination);
+    } else {
+      message.pagination = undefined;
+    }
+    return message;
+  },
+};
+
 /** Query defines the gRPC querier service. */
 export interface Query {
   /** Parameters queries the parameters of the module. */
@@ -792,6 +1100,10 @@ export interface Query {
   CompanyWorkedInAll(
     request: QueryAllCompanyWorkedInRequest
   ): Promise<QueryAllCompanyWorkedInResponse>;
+  /** Queries a Company by index. */
+  Company(request: QueryGetCompanyRequest): Promise<QueryGetCompanyResponse>;
+  /** Queries a list of Company items. */
+  CompanyAll(request: QueryAllCompanyRequest): Promise<QueryAllCompanyResponse>;
 }
 
 export class QueryClientImpl implements Query {
@@ -858,6 +1170,32 @@ export class QueryClientImpl implements Query {
     );
     return promise.then((data) =>
       QueryAllCompanyWorkedInResponse.decode(new Reader(data))
+    );
+  }
+
+  Company(request: QueryGetCompanyRequest): Promise<QueryGetCompanyResponse> {
+    const data = QueryGetCompanyRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Query",
+      "Company",
+      data
+    );
+    return promise.then((data) =>
+      QueryGetCompanyResponse.decode(new Reader(data))
+    );
+  }
+
+  CompanyAll(
+    request: QueryAllCompanyRequest
+  ): Promise<QueryAllCompanyResponse> {
+    const data = QueryAllCompanyRequest.encode(request).finish();
+    const promise = this.rpc.request(
+      "alexs778.cvproject.cvproject.Query",
+      "CompanyAll",
+      data
+    );
+    return promise.then((data) =>
+      QueryAllCompanyResponse.decode(new Reader(data))
     );
   }
 }

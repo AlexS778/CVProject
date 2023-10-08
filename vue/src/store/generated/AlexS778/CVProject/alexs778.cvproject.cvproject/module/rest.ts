@@ -19,6 +19,12 @@ export interface CvprojectCV {
   CompaniesUUID?: string[];
 }
 
+export interface CvprojectCompany {
+  uUID?: string;
+  name?: string;
+  creator?: string;
+}
+
 export interface CvprojectCompanyWorkedIn {
   uuid?: string;
   companyName?: string;
@@ -43,11 +49,17 @@ export type CvprojectMsgConfirmCVResponse = object;
 
 export type CvprojectMsgCreateCVResponse = object;
 
+export type CvprojectMsgCreateCompanyResponse = object;
+
 export type CvprojectMsgCreateCompanyWorkedInResponse = object;
+
+export type CvprojectMsgDeleteCompanyResponse = object;
 
 export type CvprojectMsgDeleteCompanyWorkedInResponse = object;
 
 export type CvprojectMsgUpdateCVResponse = object;
+
+export type CvprojectMsgUpdateCompanyResponse = object;
 
 export type CvprojectMsgUpdateCompanyWorkedInResponse = object;
 
@@ -58,6 +70,21 @@ export type CvprojectParams = object;
 
 export interface CvprojectQueryAllCVResponse {
   cV?: CvprojectCV[];
+
+  /**
+   * PageResponse is to be embedded in gRPC response messages where the
+   * corresponding request message has used PageRequest.
+   *
+   *  message SomeResponse {
+   *          repeated Bar results = 1;
+   *          PageResponse page = 2;
+   *  }
+   */
+  pagination?: V1Beta1PageResponse;
+}
+
+export interface CvprojectQueryAllCompanyResponse {
+  company?: CvprojectCompany[];
 
   /**
    * PageResponse is to be embedded in gRPC response messages where the
@@ -84,6 +111,10 @@ export interface CvprojectQueryAllCompanyWorkedInResponse {
    *  }
    */
   pagination?: V1Beta1PageResponse;
+}
+
+export interface CvprojectQueryGetCompanyResponse {
+  company?: CvprojectCompany;
 }
 
 export interface CvprojectQueryGetCompanyWorkedInResponse {
@@ -368,10 +399,52 @@ export class HttpClient<SecurityDataType = unknown> {
 }
 
 /**
- * @title cvproject/company_worked_in.proto
+ * @title cvproject/company.proto
  * @version version not set
  */
 export class Api<SecurityDataType extends unknown> extends HttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryCompanyAll
+   * @summary Queries a list of Company items.
+   * @request GET:/AlexS778/CVProject/cvproject/company
+   */
+  queryCompanyAll = (
+    query?: {
+      "pagination.key"?: string;
+      "pagination.offset"?: string;
+      "pagination.limit"?: string;
+      "pagination.count_total"?: boolean;
+      "pagination.reverse"?: boolean;
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<CvprojectQueryAllCompanyResponse, RpcStatus>({
+      path: `/AlexS778/CVProject/cvproject/company`,
+      method: "GET",
+      query: query,
+      format: "json",
+      ...params,
+    });
+
+  /**
+   * No description
+   *
+   * @tags Query
+   * @name QueryCompany
+   * @summary Queries a Company by index.
+   * @request GET:/AlexS778/CVProject/cvproject/company/{uUID}
+   */
+  queryCompany = (uUID: string, params: RequestParams = {}) =>
+    this.request<CvprojectQueryGetCompanyResponse, RpcStatus>({
+      path: `/AlexS778/CVProject/cvproject/company/${uUID}`,
+      method: "GET",
+      format: "json",
+      ...params,
+    });
+
   /**
    * No description
    *

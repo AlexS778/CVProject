@@ -38,6 +38,14 @@ func TestGenesisState_Validate(t *testing.T) {
 						Uuid: "1",
 					},
 				},
+				CompanyList: []types.Company{
+					{
+						UUID: "0",
+					},
+					{
+						UUID: "1",
+					},
+				},
 				// this line is used by starport scaffolding # types/genesis/validField
 			},
 			valid: true,
@@ -65,6 +73,20 @@ func TestGenesisState_Validate(t *testing.T) {
 					},
 					{
 						Uuid: "0",
+					},
+				},
+			},
+			valid: false,
+		},
+		{
+			desc: "duplicated company",
+			genState: &types.GenesisState{
+				CompanyList: []types.Company{
+					{
+						UUID: "0",
+					},
+					{
+						UUID: "0",
 					},
 				},
 			},

@@ -31,6 +31,14 @@ func TestGenesis(t *testing.T) {
 				Uuid: "1",
 			},
 		},
+		CompanyList: []types.Company{
+			{
+				UUID: "0",
+			},
+			{
+				UUID: "1",
+			},
+		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
 
@@ -44,5 +52,6 @@ func TestGenesis(t *testing.T) {
 
 	require.ElementsMatch(t, genesisState.CVList, got.CVList)
 	require.ElementsMatch(t, genesisState.CompanyWorkedInList, got.CompanyWorkedInList)
+	require.ElementsMatch(t, genesisState.CompanyList, got.CompanyList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

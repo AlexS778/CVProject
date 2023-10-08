@@ -39,7 +39,7 @@ func (k Keeper) CVAll(c context.Context, req *types.QueryAllCVRequest) (*types.Q
 	return &types.QueryAllCVResponse{CV: cVs, Pagination: pageRes}, nil
 }
 
-func (k Keeper) CV(c context.Context, req *types.QueryGetCVRequest) (*types.QueryGetCVResponse, error) {
+func (k Keeper) GetCvByCosmosAddress(c context.Context, req *types.QueryGetCvByCosmosAddressRequest) (*types.QueryGetCvByCosmosAddressResponse, error) {
 	if req == nil {
 		return nil, status.Error(codes.InvalidArgument, "invalid request")
 	}
@@ -47,11 +47,28 @@ func (k Keeper) CV(c context.Context, req *types.QueryGetCVRequest) (*types.Quer
 
 	val, found := k.GetCV(
 		ctx,
-		req.Index,
+		req.CosmosAddress,
 	)
 	if !found {
 		return nil, status.Error(codes.NotFound, "not found")
 	}
 
-	return &types.QueryGetCVResponse{CV: val}, nil
+	cvForResp := types.CvForResponse{}
+	cvForResp.Name = val.Name
+	cvForResp.Skills = val.Skills
+	cvForResp.Experience = val.Experience
+	cvForResp.Education = val.Education
+	cvForResp.Summary = val.Summary
+	cvForResp.Creator = val.Creator
+
+	for _, v := range val.CompaniesUUID {
+		company, found := k.GetCompanyWorkedIn(ctx, v)
+		if !found {
+			return nil, status.Error(codes.Internal, "not found")
+		}
+		cvForResp.Companies = append(cvForResp.Companies, &company)
+
+	}
+
+	return &types.QueryGetCvByCosmosAddressResponse{CV: &cvForResp}, nil
 }

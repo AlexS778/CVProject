@@ -3,6 +3,7 @@ package cvproject_test
 import (
 	"testing"
 
+	"github.com/AlexS778/CVProject/testutil"
 	keepertest "github.com/AlexS778/CVProject/testutil/keeper"
 	"github.com/AlexS778/CVProject/testutil/nullify"
 	"github.com/AlexS778/CVProject/x/cvproject"
@@ -14,8 +15,29 @@ func TestGenesis(t *testing.T) {
 	genesisState := types.GenesisState{
 		Params: types.DefaultParams(),
 
-		SystemInfo: &types.SystemInfo{
-			NextId: 80,
+		CVList: []types.CV{
+			{
+				Creator: testutil.Alice,
+			},
+			{
+				Creator: testutil.Bob,
+			},
+		},
+		CompanyWorkedInList: []types.CompanyWorkedIn{
+			{
+				Uuid: "0",
+			},
+			{
+				Uuid: "1",
+			},
+		},
+		CompanyList: []types.Company{
+			{
+				UUID: "0",
+			},
+			{
+				UUID: "1",
+			},
 		},
 		// this line is used by starport scaffolding # genesis/test/state
 	}
@@ -28,6 +50,8 @@ func TestGenesis(t *testing.T) {
 	nullify.Fill(&genesisState)
 	nullify.Fill(got)
 
-	require.Equal(t, genesisState.SystemInfo, got.SystemInfo)
+	require.ElementsMatch(t, genesisState.CVList, got.CVList)
+	require.ElementsMatch(t, genesisState.CompanyWorkedInList, got.CompanyWorkedInList)
+	require.ElementsMatch(t, genesisState.CompanyList, got.CompanyList)
 	// this line is used by starport scaffolding # genesis/test/assert
 }

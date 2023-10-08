@@ -1,13 +1,115 @@
 syntax = "proto3";
+
+import "cvproject/cv.proto";
+
 package alexs778.cvproject.cvproject;
 
+import "cvproject/company_worked_in.proto";
+import "cvproject/company.proto";
 // this line is used by starport scaffolding # proto/tx/import
 
 option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
 
 // Msg defines the Msg service.
 service Msg {
-    // this line is used by starport scaffolding # proto/tx/rpc
+      rpc CreateCV(MsgCreateCV) returns (MsgCreateCVResponse);
+  rpc UpdateCV(MsgUpdateCV) returns (MsgUpdateCVResponse);
+  rpc ConfirmCV(MsgConfirmCV) returns (MsgConfirmCVResponse);
+  rpc CreateCompanyWorkedIn(MsgCreateCompanyWorkedIn) returns (MsgCreateCompanyWorkedInResponse);
+  rpc UpdateCompanyWorkedIn(MsgUpdateCompanyWorkedIn) returns (MsgUpdateCompanyWorkedInResponse);
+  rpc DeleteCompanyWorkedIn(MsgDeleteCompanyWorkedIn) returns (MsgDeleteCompanyWorkedInResponse);
+  rpc CreateCompany(MsgCreateCompany) returns (MsgCreateCompanyResponse);
+  rpc UpdateCompany(MsgUpdateCompany) returns (MsgUpdateCompanyResponse);
+  rpc DeleteCompany(MsgDeleteCompany) returns (MsgDeleteCompanyResponse);
+// this line is used by starport scaffolding # proto/tx/rpc
 }
+
+message MsgCreateCV {
+  string creator = 1;
+  string name = 2;
+  string education = 3;
+  string summary = 4;
+  string skills = 5;
+  string experience = 6;
+  repeated string companiesUUID = 7;
+}
+
+message MsgCreateCVResponse {
+}
+
+message MsgUpdateCV {
+  string creator = 1;
+  string cosmosAdress = 2;
+  string name = 3;
+  string education = 4;
+  string summary = 5;
+  string skills = 6;
+  string experience = 7;
+  repeated string companiesUUID = 8;
+}
+
+message MsgUpdateCVResponse {
+}
+
+message MsgConfirmCV {
+  string creator = 1;
+  string name = 2;
+  string cosmosAdress = 3;
+}
+
+message MsgConfirmCVResponse {
+}
+
+message MsgCreateCompanyWorkedIn {
+  string creator = 1;
+  string uuid = 2;
+
+  string companyID = 3;
+  string companyName = 4;
+  string timestampStart = 5;
+  string timestampEnd = 6;
+  string comments = 7;
+}
+message MsgCreateCompanyWorkedInResponse {}
+
+message MsgUpdateCompanyWorkedIn {
+  string creator = 1;
+  string uuid = 2;
+
+  string companyID = 3;
+  string companyName = 4;
+  string timestampStart = 5;
+  string timestampEnd = 6;
+  string comments = 7;
+}
+message MsgUpdateCompanyWorkedInResponse {}
+
+message MsgDeleteCompanyWorkedIn {
+  string creator = 1;
+  string uuid = 2;
+}
+message MsgDeleteCompanyWorkedInResponse {}
+
+message MsgCreateCompany {
+  string creator = 1;
+  string uUID = 2;
+
+  string name = 3;
+}
+message MsgCreateCompanyResponse {}
+
+message MsgUpdateCompany {
+  string creator = 1;
+  string uUID = 2;
+
+  string name = 3;
+}
+message MsgUpdateCompanyResponse {}
+
+message MsgDeleteCompany {
+  string creator = 1;
+  string uUID = 2;
+}
+message MsgDeleteCompanyResponse {}
 
 // this line is used by starport scaffolding # proto/tx/message

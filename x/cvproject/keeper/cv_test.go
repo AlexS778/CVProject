@@ -18,7 +18,7 @@ var _ = strconv.IntSize
 func createNCV(keeper *keeper.Keeper, ctx sdk.Context, n int) []types.CV {
 	items := make([]types.CV, n)
 	for i := range items {
-		items[i].Index = strconv.Itoa(i)
+		items[i].Creator = strconv.FormatInt(int64(i), 10)
 
 		keeper.SetCV(ctx, items[i])
 	}
@@ -30,7 +30,7 @@ func TestCVGet(t *testing.T) {
 	items := createNCV(keeper, ctx, 10)
 	for _, item := range items {
 		rst, found := keeper.GetCV(ctx,
-			item.Index,
+			item.Creator,
 		)
 		require.True(t, found)
 		require.Equal(t,
@@ -44,10 +44,10 @@ func TestCVRemove(t *testing.T) {
 	items := createNCV(keeper, ctx, 10)
 	for _, item := range items {
 		keeper.RemoveCV(ctx,
-			item.Index,
+			item.Creator,
 		)
 		_, found := keeper.GetCV(ctx,
-			item.Index,
+			item.Creator,
 		)
 		require.False(t, found)
 	}

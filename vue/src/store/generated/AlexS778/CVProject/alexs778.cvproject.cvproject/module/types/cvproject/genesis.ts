@@ -1,6 +1,8 @@
 /* eslint-disable */
 import { Params } from "../cvproject/params";
-import { SystemInfo } from "../cvproject/system_info";
+import { CV } from "../cvproject/cv";
+import { CompanyWorkedIn } from "../cvproject/company_worked_in";
+import { Company } from "../cvproject/company";
 import { Writer, Reader } from "protobufjs/minimal";
 
 export const protobufPackage = "alexs778.cvproject.cvproject";
@@ -8,8 +10,10 @@ export const protobufPackage = "alexs778.cvproject.cvproject";
 /** GenesisState defines the cvproject module's genesis state. */
 export interface GenesisState {
   params: Params | undefined;
+  cVList: CV[];
+  companyWorkedInList: CompanyWorkedIn[];
   /** this line is used by starport scaffolding # genesis/proto/state */
-  systemInfo: SystemInfo | undefined;
+  companyList: Company[];
 }
 
 const baseGenesisState: object = {};
@@ -19,8 +23,14 @@ export const GenesisState = {
     if (message.params !== undefined) {
       Params.encode(message.params, writer.uint32(10).fork()).ldelim();
     }
-    if (message.systemInfo !== undefined) {
-      SystemInfo.encode(message.systemInfo, writer.uint32(18).fork()).ldelim();
+    for (const v of message.cVList) {
+      CV.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    for (const v of message.companyWorkedInList) {
+      CompanyWorkedIn.encode(v!, writer.uint32(42).fork()).ldelim();
+    }
+    for (const v of message.companyList) {
+      Company.encode(v!, writer.uint32(50).fork()).ldelim();
     }
     return writer;
   },
@@ -29,6 +39,9 @@ export const GenesisState = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenesisState } as GenesisState;
+    message.cVList = [];
+    message.companyWorkedInList = [];
+    message.companyList = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -36,7 +49,15 @@ export const GenesisState = {
           message.params = Params.decode(reader, reader.uint32());
           break;
         case 2:
-          message.systemInfo = SystemInfo.decode(reader, reader.uint32());
+          message.cVList.push(CV.decode(reader, reader.uint32()));
+          break;
+        case 5:
+          message.companyWorkedInList.push(
+            CompanyWorkedIn.decode(reader, reader.uint32())
+          );
+          break;
+        case 6:
+          message.companyList.push(Company.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -48,15 +69,31 @@ export const GenesisState = {
 
   fromJSON(object: any): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
+    message.cVList = [];
+    message.companyWorkedInList = [];
+    message.companyList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromJSON(object.params);
     } else {
       message.params = undefined;
     }
-    if (object.systemInfo !== undefined && object.systemInfo !== null) {
-      message.systemInfo = SystemInfo.fromJSON(object.systemInfo);
-    } else {
-      message.systemInfo = undefined;
+    if (object.cVList !== undefined && object.cVList !== null) {
+      for (const e of object.cVList) {
+        message.cVList.push(CV.fromJSON(e));
+      }
+    }
+    if (
+      object.companyWorkedInList !== undefined &&
+      object.companyWorkedInList !== null
+    ) {
+      for (const e of object.companyWorkedInList) {
+        message.companyWorkedInList.push(CompanyWorkedIn.fromJSON(e));
+      }
+    }
+    if (object.companyList !== undefined && object.companyList !== null) {
+      for (const e of object.companyList) {
+        message.companyList.push(Company.fromJSON(e));
+      }
     }
     return message;
   },
@@ -65,24 +102,55 @@ export const GenesisState = {
     const obj: any = {};
     message.params !== undefined &&
       (obj.params = message.params ? Params.toJSON(message.params) : undefined);
-    message.systemInfo !== undefined &&
-      (obj.systemInfo = message.systemInfo
-        ? SystemInfo.toJSON(message.systemInfo)
-        : undefined);
+    if (message.cVList) {
+      obj.cVList = message.cVList.map((e) => (e ? CV.toJSON(e) : undefined));
+    } else {
+      obj.cVList = [];
+    }
+    if (message.companyWorkedInList) {
+      obj.companyWorkedInList = message.companyWorkedInList.map((e) =>
+        e ? CompanyWorkedIn.toJSON(e) : undefined
+      );
+    } else {
+      obj.companyWorkedInList = [];
+    }
+    if (message.companyList) {
+      obj.companyList = message.companyList.map((e) =>
+        e ? Company.toJSON(e) : undefined
+      );
+    } else {
+      obj.companyList = [];
+    }
     return obj;
   },
 
   fromPartial(object: DeepPartial<GenesisState>): GenesisState {
     const message = { ...baseGenesisState } as GenesisState;
+    message.cVList = [];
+    message.companyWorkedInList = [];
+    message.companyList = [];
     if (object.params !== undefined && object.params !== null) {
       message.params = Params.fromPartial(object.params);
     } else {
       message.params = undefined;
     }
-    if (object.systemInfo !== undefined && object.systemInfo !== null) {
-      message.systemInfo = SystemInfo.fromPartial(object.systemInfo);
-    } else {
-      message.systemInfo = undefined;
+    if (object.cVList !== undefined && object.cVList !== null) {
+      for (const e of object.cVList) {
+        message.cVList.push(CV.fromPartial(e));
+      }
+    }
+    if (
+      object.companyWorkedInList !== undefined &&
+      object.companyWorkedInList !== null
+    ) {
+      for (const e of object.companyWorkedInList) {
+        message.companyWorkedInList.push(CompanyWorkedIn.fromPartial(e));
+      }
+    }
+    if (object.companyList !== undefined && object.companyList !== null) {
+      for (const e of object.companyList) {
+        message.companyList.push(Company.fromPartial(e));
+      }
     }
     return message;
   },

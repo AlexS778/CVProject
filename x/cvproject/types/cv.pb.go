@@ -23,13 +23,13 @@ var _ = math.Inf
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
 type CV struct {
-	Name       string     `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
-	Education  string     `protobuf:"bytes,2,opt,name=education,proto3" json:"education,omitempty"`
-	Summary    string     `protobuf:"bytes,3,opt,name=summary,proto3" json:"summary,omitempty"`
-	Skills     string     `protobuf:"bytes,4,opt,name=skills,proto3" json:"skills,omitempty"`
-	Experience string     `protobuf:"bytes,5,opt,name=experience,proto3" json:"experience,omitempty"`
-	Creator    string     `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
-	Companies  []*Company `protobuf:"bytes,7,rep,name=Companies,proto3" json:"Companies,omitempty"`
+	Name          string   `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Education     string   `protobuf:"bytes,2,opt,name=education,proto3" json:"education,omitempty"`
+	Summary       string   `protobuf:"bytes,3,opt,name=summary,proto3" json:"summary,omitempty"`
+	Skills        string   `protobuf:"bytes,4,opt,name=skills,proto3" json:"skills,omitempty"`
+	Experience    string   `protobuf:"bytes,5,opt,name=experience,proto3" json:"experience,omitempty"`
+	Creator       string   `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+	CompaniesUUID []string `protobuf:"bytes,7,rep,name=CompaniesUUID,proto3" json:"CompaniesUUID,omitempty"`
 }
 
 func (m *CV) Reset()         { *m = CV{} }
@@ -107,33 +107,35 @@ func (m *CV) GetCreator() string {
 	return ""
 }
 
-func (m *CV) GetCompanies() []*Company {
+func (m *CV) GetCompaniesUUID() []string {
 	if m != nil {
-		return m.Companies
+		return m.CompaniesUUID
 	}
 	return nil
 }
 
-type Company struct {
-	Uuid           string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
-	Name           string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	TimestampStart string `protobuf:"bytes,3,opt,name=timestamp_start,json=timestampStart,proto3" json:"timestamp_start,omitempty"`
-	TimestampEnd   string `protobuf:"bytes,4,opt,name=timestamp_end,json=timestampEnd,proto3" json:"timestamp_end,omitempty"`
-	Comments       string `protobuf:"bytes,5,opt,name=comments,proto3" json:"comments,omitempty"`
+type CvForResponse struct {
+	Name       string             `protobuf:"bytes,1,opt,name=name,proto3" json:"name,omitempty"`
+	Education  string             `protobuf:"bytes,2,opt,name=education,proto3" json:"education,omitempty"`
+	Summary    string             `protobuf:"bytes,3,opt,name=summary,proto3" json:"summary,omitempty"`
+	Skills     string             `protobuf:"bytes,4,opt,name=skills,proto3" json:"skills,omitempty"`
+	Experience string             `protobuf:"bytes,5,opt,name=experience,proto3" json:"experience,omitempty"`
+	Creator    string             `protobuf:"bytes,6,opt,name=creator,proto3" json:"creator,omitempty"`
+	Companies  []*CompanyWorkedIn `protobuf:"bytes,7,rep,name=Companies,proto3" json:"Companies,omitempty"`
 }
 
-func (m *Company) Reset()         { *m = Company{} }
-func (m *Company) String() string { return proto.CompactTextString(m) }
-func (*Company) ProtoMessage()    {}
-func (*Company) Descriptor() ([]byte, []int) {
+func (m *CvForResponse) Reset()         { *m = CvForResponse{} }
+func (m *CvForResponse) String() string { return proto.CompactTextString(m) }
+func (*CvForResponse) ProtoMessage()    {}
+func (*CvForResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_3612606c94a40498, []int{1}
 }
-func (m *Company) XXX_Unmarshal(b []byte) error {
+func (m *CvForResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *Company) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *CvForResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_Company.Marshal(b, m, deterministic)
+		return xxx_messageInfo_CvForResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -143,84 +145,97 @@ func (m *Company) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 		return b[:n], nil
 	}
 }
-func (m *Company) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_Company.Merge(m, src)
+func (m *CvForResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_CvForResponse.Merge(m, src)
 }
-func (m *Company) XXX_Size() int {
+func (m *CvForResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *Company) XXX_DiscardUnknown() {
-	xxx_messageInfo_Company.DiscardUnknown(m)
+func (m *CvForResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_CvForResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_Company proto.InternalMessageInfo
+var xxx_messageInfo_CvForResponse proto.InternalMessageInfo
 
-func (m *Company) GetUuid() string {
-	if m != nil {
-		return m.Uuid
-	}
-	return ""
-}
-
-func (m *Company) GetName() string {
+func (m *CvForResponse) GetName() string {
 	if m != nil {
 		return m.Name
 	}
 	return ""
 }
 
-func (m *Company) GetTimestampStart() string {
+func (m *CvForResponse) GetEducation() string {
 	if m != nil {
-		return m.TimestampStart
+		return m.Education
 	}
 	return ""
 }
 
-func (m *Company) GetTimestampEnd() string {
+func (m *CvForResponse) GetSummary() string {
 	if m != nil {
-		return m.TimestampEnd
+		return m.Summary
 	}
 	return ""
 }
 
-func (m *Company) GetComments() string {
+func (m *CvForResponse) GetSkills() string {
 	if m != nil {
-		return m.Comments
+		return m.Skills
 	}
 	return ""
+}
+
+func (m *CvForResponse) GetExperience() string {
+	if m != nil {
+		return m.Experience
+	}
+	return ""
+}
+
+func (m *CvForResponse) GetCreator() string {
+	if m != nil {
+		return m.Creator
+	}
+	return ""
+}
+
+func (m *CvForResponse) GetCompanies() []*CompanyWorkedIn {
+	if m != nil {
+		return m.Companies
+	}
+	return nil
 }
 
 func init() {
 	proto.RegisterType((*CV)(nil), "alexs778.cvproject.cvproject.CV")
-	proto.RegisterType((*Company)(nil), "alexs778.cvproject.cvproject.Company")
+	proto.RegisterType((*CvForResponse)(nil), "alexs778.cvproject.cvproject.CvForResponse")
 }
 
 func init() { proto.RegisterFile("cvproject/cv.proto", fileDescriptor_3612606c94a40498) }
 
 var fileDescriptor_3612606c94a40498 = []byte{
-	// 340 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x7c, 0x91, 0xbf, 0x4e, 0xf3, 0x30,
-	0x14, 0xc5, 0x9b, 0xb6, 0x5f, 0xfb, 0xd5, 0xfc, 0x93, 0x3c, 0x20, 0x0b, 0x55, 0x51, 0x55, 0x84,
-	0xe8, 0x94, 0x48, 0x30, 0xa4, 0x2b, 0x44, 0x0c, 0x6c, 0xa8, 0x95, 0x3a, 0xb0, 0x20, 0xd7, 0xb9,
-	0x82, 0x40, 0x6c, 0x47, 0xb6, 0x53, 0xa5, 0x6f, 0xc1, 0xce, 0x0b, 0x31, 0x76, 0x64, 0x44, 0xed,
-	0xc0, 0x6b, 0xa0, 0xa4, 0x6e, 0xd2, 0x89, 0xed, 0x9e, 0x73, 0xec, 0x2b, 0xfd, 0xee, 0x41, 0x98,
-	0x2d, 0x52, 0x25, 0x5f, 0x81, 0x19, 0x9f, 0x2d, 0xbc, 0x54, 0x49, 0x23, 0x71, 0x9f, 0x26, 0x90,
-	0xeb, 0x20, 0x18, 0x7b, 0x55, 0x58, 0x4f, 0xc3, 0x1f, 0x07, 0x35, 0xc3, 0x19, 0xc6, 0xa8, 0x2d,
-	0x28, 0x07, 0xe2, 0x0c, 0x9c, 0x51, 0x6f, 0x52, 0xce, 0xb8, 0x8f, 0x7a, 0x10, 0x65, 0x8c, 0x9a,
-	0x58, 0x0a, 0xd2, 0x2c, 0x83, 0xda, 0xc0, 0x04, 0x75, 0x75, 0xc6, 0x39, 0x55, 0x4b, 0xd2, 0x2a,
-	0xb3, 0x9d, 0xc4, 0xa7, 0xa8, 0xa3, 0xdf, 0xe2, 0x24, 0xd1, 0xa4, 0x5d, 0x06, 0x56, 0x61, 0x17,
-	0x21, 0xc8, 0x53, 0x50, 0x31, 0x08, 0x06, 0xe4, 0x5f, 0x99, 0xed, 0x39, 0xc5, 0x46, 0xa6, 0x80,
-	0x1a, 0xa9, 0x48, 0x67, 0xbb, 0xd1, 0x4a, 0x1c, 0xa2, 0x5e, 0x28, 0x79, 0x4a, 0x45, 0x0c, 0x9a,
-	0x74, 0x07, 0xad, 0xd1, 0xc1, 0xd5, 0x85, 0xf7, 0x17, 0x96, 0xb7, 0x7d, 0xbe, 0x9c, 0xd4, 0xff,
-	0x86, 0x1f, 0x0e, 0xea, 0x5a, 0xbb, 0xc0, 0xcd, 0xb2, 0x38, 0xda, 0xe1, 0x16, 0x73, 0x75, 0x82,
-	0xe6, 0xde, 0x09, 0x2e, 0xd1, 0x89, 0x89, 0x39, 0x68, 0x43, 0x79, 0xfa, 0xa4, 0x0d, 0x55, 0xc6,
-	0xc2, 0x1e, 0x57, 0xf6, 0xb4, 0x70, 0xf1, 0x39, 0x3a, 0xaa, 0x1f, 0x82, 0x88, 0x2c, 0xfa, 0x61,
-	0x65, 0xde, 0x89, 0x08, 0x9f, 0xa1, 0xff, 0x4c, 0x72, 0x0e, 0xc2, 0x68, 0x8b, 0x5f, 0xe9, 0xdb,
-	0xfb, 0xcf, 0xb5, 0xeb, 0xac, 0xd6, 0xae, 0xf3, 0xbd, 0x76, 0x9d, 0xf7, 0x8d, 0xdb, 0x58, 0x6d,
-	0xdc, 0xc6, 0xd7, 0xc6, 0x6d, 0x3c, 0xfa, 0xcf, 0xb1, 0x79, 0xc9, 0xe6, 0x1e, 0x93, 0xdc, 0xbf,
-	0x49, 0x20, 0x9f, 0x06, 0xc1, 0xd8, 0x0f, 0x67, 0x0f, 0xb6, 0xe7, 0xdc, 0xaf, 0x3b, 0x37, 0xcb,
-	0x14, 0xf4, 0xbc, 0x53, 0xf6, 0x7e, 0xfd, 0x1b, 0x00, 0x00, 0xff, 0xff, 0xcf, 0x28, 0xe4, 0x04,
-	0x0d, 0x02, 0x00, 0x00,
+	// 326 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xcc, 0x52, 0x31, 0x4f, 0xc2, 0x40,
+	0x18, 0xe5, 0x00, 0x21, 0x3d, 0xc3, 0x72, 0x83, 0xb9, 0x18, 0x72, 0x41, 0xe2, 0xc0, 0x62, 0x9b,
+	0xe8, 0x50, 0x56, 0xad, 0x31, 0x21, 0x2e, 0xa6, 0x06, 0x4c, 0x5c, 0x48, 0x39, 0xbe, 0x68, 0xa5,
+	0xbd, 0x6b, 0xee, 0x0a, 0xb6, 0xff, 0xc2, 0x9f, 0xc5, 0xc8, 0xe8, 0x68, 0xe0, 0x5f, 0x38, 0x19,
+	0x8f, 0x4a, 0x71, 0x71, 0x76, 0xfb, 0xde, 0x7b, 0xf7, 0xbd, 0xdc, 0xcb, 0xf7, 0x30, 0xe1, 0x8b,
+	0x44, 0xc9, 0x17, 0xe0, 0xa9, 0xc3, 0x17, 0x76, 0xa2, 0x64, 0x2a, 0x49, 0x3b, 0x88, 0x20, 0xd3,
+	0xae, 0xdb, 0xb7, 0x77, 0x62, 0x39, 0x1d, 0x9f, 0xec, 0x6d, 0xc8, 0x38, 0x09, 0x44, 0x3e, 0x7e,
+	0x95, 0x6a, 0x06, 0xd3, 0x71, 0x28, 0xb6, 0x06, 0xdd, 0x25, 0xc2, 0x55, 0x6f, 0x44, 0x08, 0xae,
+	0x8b, 0x20, 0x06, 0x8a, 0x3a, 0xa8, 0x67, 0xf9, 0x66, 0x26, 0x6d, 0x6c, 0xc1, 0x74, 0xce, 0x83,
+	0x34, 0x94, 0x82, 0x56, 0x8d, 0x50, 0x12, 0x84, 0xe2, 0xa6, 0x9e, 0xc7, 0x71, 0xa0, 0x72, 0x5a,
+	0x33, 0xda, 0x0f, 0x24, 0x47, 0xb8, 0xa1, 0x67, 0x61, 0x14, 0x69, 0x5a, 0x37, 0x42, 0x81, 0x08,
+	0xc3, 0x18, 0xb2, 0x04, 0x54, 0x08, 0x82, 0x03, 0x3d, 0x30, 0xda, 0x1e, 0xf3, 0xed, 0xc8, 0x15,
+	0x04, 0xa9, 0x54, 0xb4, 0xb1, 0x75, 0x2c, 0x20, 0x39, 0xc5, 0x2d, 0xcf, 0xfc, 0x3f, 0x04, 0x3d,
+	0x1c, 0x0e, 0xae, 0x69, 0xb3, 0x53, 0xeb, 0x59, 0xfe, 0x6f, 0xb2, 0xfb, 0x89, 0x70, 0xcb, 0x5b,
+	0xdc, 0x48, 0xe5, 0x83, 0x4e, 0xa4, 0xd0, 0xf0, 0xcf, 0x53, 0xdd, 0x62, 0x6b, 0x17, 0xc0, 0x24,
+	0x3a, 0x3c, 0x3f, 0xb3, 0xff, 0xba, 0xa7, 0xbd, 0x7d, 0x9e, 0x3f, 0x98, 0x1b, 0x0e, 0x84, 0x5f,
+	0xee, 0x5f, 0x0d, 0x96, 0x6b, 0x86, 0x56, 0x6b, 0x86, 0x3e, 0xd6, 0x0c, 0xbd, 0x6d, 0x58, 0x65,
+	0xb5, 0x61, 0x95, 0xf7, 0x0d, 0xab, 0x3c, 0x3a, 0x4f, 0x61, 0xfa, 0x3c, 0x9f, 0xd8, 0x5c, 0xc6,
+	0xce, 0x65, 0x04, 0xd9, 0xbd, 0xeb, 0xf6, 0x1d, 0x6f, 0x74, 0x57, 0x14, 0x23, 0x73, 0xca, 0x92,
+	0xa4, 0x79, 0x02, 0x7a, 0xd2, 0x30, 0xcd, 0xb8, 0xf8, 0x0a, 0x00, 0x00, 0xff, 0xff, 0xe3, 0x41,
+	0x48, 0x7b, 0x70, 0x02, 0x00, 0x00,
 }
 
 func (m *CV) Marshal() (dAtA []byte, err error) {
@@ -239,6 +254,80 @@ func (m *CV) MarshalTo(dAtA []byte) (int, error) {
 }
 
 func (m *CV) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.CompaniesUUID) > 0 {
+		for iNdEx := len(m.CompaniesUUID) - 1; iNdEx >= 0; iNdEx-- {
+			i -= len(m.CompaniesUUID[iNdEx])
+			copy(dAtA[i:], m.CompaniesUUID[iNdEx])
+			i = encodeVarintCv(dAtA, i, uint64(len(m.CompaniesUUID[iNdEx])))
+			i--
+			dAtA[i] = 0x3a
+		}
+	}
+	if len(m.Creator) > 0 {
+		i -= len(m.Creator)
+		copy(dAtA[i:], m.Creator)
+		i = encodeVarintCv(dAtA, i, uint64(len(m.Creator)))
+		i--
+		dAtA[i] = 0x32
+	}
+	if len(m.Experience) > 0 {
+		i -= len(m.Experience)
+		copy(dAtA[i:], m.Experience)
+		i = encodeVarintCv(dAtA, i, uint64(len(m.Experience)))
+		i--
+		dAtA[i] = 0x2a
+	}
+	if len(m.Skills) > 0 {
+		i -= len(m.Skills)
+		copy(dAtA[i:], m.Skills)
+		i = encodeVarintCv(dAtA, i, uint64(len(m.Skills)))
+		i--
+		dAtA[i] = 0x22
+	}
+	if len(m.Summary) > 0 {
+		i -= len(m.Summary)
+		copy(dAtA[i:], m.Summary)
+		i = encodeVarintCv(dAtA, i, uint64(len(m.Summary)))
+		i--
+		dAtA[i] = 0x1a
+	}
+	if len(m.Education) > 0 {
+		i -= len(m.Education)
+		copy(dAtA[i:], m.Education)
+		i = encodeVarintCv(dAtA, i, uint64(len(m.Education)))
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Name) > 0 {
+		i -= len(m.Name)
+		copy(dAtA[i:], m.Name)
+		i = encodeVarintCv(dAtA, i, uint64(len(m.Name)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *CvForResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *CvForResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *CvForResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -302,64 +391,6 @@ func (m *CV) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *Company) Marshal() (dAtA []byte, err error) {
-	size := m.Size()
-	dAtA = make([]byte, size)
-	n, err := m.MarshalToSizedBuffer(dAtA[:size])
-	if err != nil {
-		return nil, err
-	}
-	return dAtA[:n], nil
-}
-
-func (m *Company) MarshalTo(dAtA []byte) (int, error) {
-	size := m.Size()
-	return m.MarshalToSizedBuffer(dAtA[:size])
-}
-
-func (m *Company) MarshalToSizedBuffer(dAtA []byte) (int, error) {
-	i := len(dAtA)
-	_ = i
-	var l int
-	_ = l
-	if len(m.Comments) > 0 {
-		i -= len(m.Comments)
-		copy(dAtA[i:], m.Comments)
-		i = encodeVarintCv(dAtA, i, uint64(len(m.Comments)))
-		i--
-		dAtA[i] = 0x2a
-	}
-	if len(m.TimestampEnd) > 0 {
-		i -= len(m.TimestampEnd)
-		copy(dAtA[i:], m.TimestampEnd)
-		i = encodeVarintCv(dAtA, i, uint64(len(m.TimestampEnd)))
-		i--
-		dAtA[i] = 0x22
-	}
-	if len(m.TimestampStart) > 0 {
-		i -= len(m.TimestampStart)
-		copy(dAtA[i:], m.TimestampStart)
-		i = encodeVarintCv(dAtA, i, uint64(len(m.TimestampStart)))
-		i--
-		dAtA[i] = 0x1a
-	}
-	if len(m.Name) > 0 {
-		i -= len(m.Name)
-		copy(dAtA[i:], m.Name)
-		i = encodeVarintCv(dAtA, i, uint64(len(m.Name)))
-		i--
-		dAtA[i] = 0x12
-	}
-	if len(m.Uuid) > 0 {
-		i -= len(m.Uuid)
-		copy(dAtA[i:], m.Uuid)
-		i = encodeVarintCv(dAtA, i, uint64(len(m.Uuid)))
-		i--
-		dAtA[i] = 0xa
-	}
-	return len(dAtA) - i, nil
-}
-
 func encodeVarintCv(dAtA []byte, offset int, v uint64) int {
 	offset -= sovCv(v)
 	base := offset
@@ -401,40 +432,50 @@ func (m *CV) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovCv(uint64(l))
 	}
-	if len(m.Companies) > 0 {
-		for _, e := range m.Companies {
-			l = e.Size()
+	if len(m.CompaniesUUID) > 0 {
+		for _, s := range m.CompaniesUUID {
+			l = len(s)
 			n += 1 + l + sovCv(uint64(l))
 		}
 	}
 	return n
 }
 
-func (m *Company) Size() (n int) {
+func (m *CvForResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = len(m.Uuid)
-	if l > 0 {
-		n += 1 + l + sovCv(uint64(l))
-	}
 	l = len(m.Name)
 	if l > 0 {
 		n += 1 + l + sovCv(uint64(l))
 	}
-	l = len(m.TimestampStart)
+	l = len(m.Education)
 	if l > 0 {
 		n += 1 + l + sovCv(uint64(l))
 	}
-	l = len(m.TimestampEnd)
+	l = len(m.Summary)
 	if l > 0 {
 		n += 1 + l + sovCv(uint64(l))
 	}
-	l = len(m.Comments)
+	l = len(m.Skills)
 	if l > 0 {
 		n += 1 + l + sovCv(uint64(l))
+	}
+	l = len(m.Experience)
+	if l > 0 {
+		n += 1 + l + sovCv(uint64(l))
+	}
+	l = len(m.Creator)
+	if l > 0 {
+		n += 1 + l + sovCv(uint64(l))
+	}
+	if len(m.Companies) > 0 {
+		for _, e := range m.Companies {
+			l = e.Size()
+			n += 1 + l + sovCv(uint64(l))
+		}
 	}
 	return n
 }
@@ -668,91 +709,7 @@ func (m *CV) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 7:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Companies", wireType)
-			}
-			var msglen int
-			for shift := uint(0); ; shift += 7 {
-				if shift >= 64 {
-					return ErrIntOverflowCv
-				}
-				if iNdEx >= l {
-					return io.ErrUnexpectedEOF
-				}
-				b := dAtA[iNdEx]
-				iNdEx++
-				msglen |= int(b&0x7F) << shift
-				if b < 0x80 {
-					break
-				}
-			}
-			if msglen < 0 {
-				return ErrInvalidLengthCv
-			}
-			postIndex := iNdEx + msglen
-			if postIndex < 0 {
-				return ErrInvalidLengthCv
-			}
-			if postIndex > l {
-				return io.ErrUnexpectedEOF
-			}
-			m.Companies = append(m.Companies, &Company{})
-			if err := m.Companies[len(m.Companies)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
-				return err
-			}
-			iNdEx = postIndex
-		default:
-			iNdEx = preIndex
-			skippy, err := skipCv(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthCv
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *Company) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowCv
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: Company: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: Company: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		case 1:
-			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Uuid", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field CompaniesUUID", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -780,9 +737,59 @@ func (m *Company) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Uuid = string(dAtA[iNdEx:postIndex])
+			m.CompaniesUUID = append(m.CompaniesUUID, string(dAtA[iNdEx:postIndex]))
 			iNdEx = postIndex
-		case 2:
+		default:
+			iNdEx = preIndex
+			skippy, err := skipCv(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthCv
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *CvForResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowCv
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: CvForResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: CvForResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
 			if wireType != 2 {
 				return fmt.Errorf("proto: wrong wireType = %d for field Name", wireType)
 			}
@@ -814,9 +821,9 @@ func (m *Company) Unmarshal(dAtA []byte) error {
 			}
 			m.Name = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
-		case 3:
+		case 2:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TimestampStart", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Education", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -844,11 +851,43 @@ func (m *Company) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.TimestampStart = string(dAtA[iNdEx:postIndex])
+			m.Education = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 3:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Summary", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCv
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCv
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCv
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Summary = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field TimestampEnd", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Skills", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -876,11 +915,11 @@ func (m *Company) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.TimestampEnd = string(dAtA[iNdEx:postIndex])
+			m.Skills = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 5:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field Comments", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Experience", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -908,7 +947,73 @@ func (m *Company) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.Comments = string(dAtA[iNdEx:postIndex])
+			m.Experience = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 6:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Creator", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCv
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthCv
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthCv
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Creator = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		case 7:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Companies", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowCv
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthCv
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthCv
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Companies = append(m.Companies, &CompanyWorkedIn{})
+			if err := m.Companies[len(m.Companies)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
 			iNdEx = postIndex
 		default:
 			iNdEx = preIndex

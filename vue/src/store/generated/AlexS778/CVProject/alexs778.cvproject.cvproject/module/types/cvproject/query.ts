@@ -5,7 +5,7 @@ import {
   PageRequest,
   PageResponse,
 } from "../cosmos/base/query/v1beta1/pagination";
-import { CV } from "../cvproject/cv";
+import { CV, CvForResponse } from "../cvproject/cv";
 import { CompanyWorkedIn } from "../cvproject/company_worked_in";
 
 export const protobufPackage = "alexs778.cvproject.cvproject";
@@ -33,7 +33,7 @@ export interface QueryGetCvByCosmosAddressRequest {
 }
 
 export interface QueryGetCvByCosmosAddressResponse {
-  cV: CV | undefined;
+  cV: CvForResponse | undefined;
 }
 
 export interface QueryGetCompanyWorkedInRequest {
@@ -374,7 +374,7 @@ export const QueryGetCvByCosmosAddressResponse = {
     writer: Writer = Writer.create()
   ): Writer {
     if (message.cV !== undefined) {
-      CV.encode(message.cV, writer.uint32(10).fork()).ldelim();
+      CvForResponse.encode(message.cV, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -392,7 +392,7 @@ export const QueryGetCvByCosmosAddressResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.cV = CV.decode(reader, reader.uint32());
+          message.cV = CvForResponse.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -407,7 +407,7 @@ export const QueryGetCvByCosmosAddressResponse = {
       ...baseQueryGetCvByCosmosAddressResponse,
     } as QueryGetCvByCosmosAddressResponse;
     if (object.cV !== undefined && object.cV !== null) {
-      message.cV = CV.fromJSON(object.cV);
+      message.cV = CvForResponse.fromJSON(object.cV);
     } else {
       message.cV = undefined;
     }
@@ -417,7 +417,7 @@ export const QueryGetCvByCosmosAddressResponse = {
   toJSON(message: QueryGetCvByCosmosAddressResponse): unknown {
     const obj: any = {};
     message.cV !== undefined &&
-      (obj.cV = message.cV ? CV.toJSON(message.cV) : undefined);
+      (obj.cV = message.cV ? CvForResponse.toJSON(message.cV) : undefined);
     return obj;
   },
 
@@ -428,7 +428,7 @@ export const QueryGetCvByCosmosAddressResponse = {
       ...baseQueryGetCvByCosmosAddressResponse,
     } as QueryGetCvByCosmosAddressResponse;
     if (object.cV !== undefined && object.cV !== null) {
-      message.cV = CV.fromPartial(object.cV);
+      message.cV = CvForResponse.fromPartial(object.cV);
     } else {
       message.cV = undefined;
     }

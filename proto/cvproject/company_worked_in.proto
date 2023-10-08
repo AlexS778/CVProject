@@ -6,9 +6,10 @@ option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
 message CompanyWorkedIn {
   string uuid = 1; 
   string companyName = 2; 
-  string timestampStart = 3; 
-  string timestampEnd = 4; 
-  string comments = 5; 
-  string creator = 6;
+  string companyID = 3;
+  string timestampStart = 4; 
+  string timestampEnd = 5; 
+  string comments = 6; 
+  string creator = 7;
 }
 

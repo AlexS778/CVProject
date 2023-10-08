@@ -10,7 +10,7 @@ export interface MsgCreateCV {
   summary: string;
   skills: string;
   experience: string;
-  companies: string[];
+  companiesUUID: string[];
 }
 
 export interface MsgCreateCVResponse {}
@@ -23,7 +23,7 @@ export interface MsgUpdateCV {
   summary: string;
   skills: string;
   experience: string;
-  companies: string[];
+  companiesUUID: string[];
 }
 
 export interface MsgUpdateCVResponse {}
@@ -72,7 +72,7 @@ const baseMsgCreateCV: object = {
   summary: "",
   skills: "",
   experience: "",
-  companies: "",
+  companiesUUID: "",
 };
 
 export const MsgCreateCV = {
@@ -95,7 +95,7 @@ export const MsgCreateCV = {
     if (message.experience !== "") {
       writer.uint32(50).string(message.experience);
     }
-    for (const v of message.companies) {
+    for (const v of message.companiesUUID) {
       writer.uint32(58).string(v!);
     }
     return writer;
@@ -105,7 +105,7 @@ export const MsgCreateCV = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseMsgCreateCV } as MsgCreateCV;
-    message.companies = [];
+    message.companiesUUID = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -128,7 +128,7 @@ export const MsgCreateCV = {
           message.experience = reader.string();
           break;
         case 7:
-          message.companies.push(reader.string());
+          message.companiesUUID.push(reader.string());
           break;
         default:
           reader.skipType(tag & 7);
@@ -140,7 +140,7 @@ export const MsgCreateCV = {
 
   fromJSON(object: any): MsgCreateCV {
     const message = { ...baseMsgCreateCV } as MsgCreateCV;
-    message.companies = [];
+    message.companiesUUID = [];
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -171,9 +171,9 @@ export const MsgCreateCV = {
     } else {
       message.experience = "";
     }
-    if (object.companies !== undefined && object.companies !== null) {
-      for (const e of object.companies) {
-        message.companies.push(String(e));
+    if (object.companiesUUID !== undefined && object.companiesUUID !== null) {
+      for (const e of object.companiesUUID) {
+        message.companiesUUID.push(String(e));
       }
     }
     return message;
@@ -187,17 +187,17 @@ export const MsgCreateCV = {
     message.summary !== undefined && (obj.summary = message.summary);
     message.skills !== undefined && (obj.skills = message.skills);
     message.experience !== undefined && (obj.experience = message.experience);
-    if (message.companies) {
-      obj.companies = message.companies.map((e) => e);
+    if (message.companiesUUID) {
+      obj.companiesUUID = message.companiesUUID.map((e) => e);
     } else {
-      obj.companies = [];
+      obj.companiesUUID = [];
     }
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgCreateCV>): MsgCreateCV {
     const message = { ...baseMsgCreateCV } as MsgCreateCV;
-    message.companies = [];
+    message.companiesUUID = [];
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -228,9 +228,9 @@ export const MsgCreateCV = {
     } else {
       message.experience = "";
     }
-    if (object.companies !== undefined && object.companies !== null) {
-      for (const e of object.companies) {
-        message.companies.push(e);
+    if (object.companiesUUID !== undefined && object.companiesUUID !== null) {
+      for (const e of object.companiesUUID) {
+        message.companiesUUID.push(e);
       }
     }
     return message;
@@ -283,7 +283,7 @@ const baseMsgUpdateCV: object = {
   summary: "",
   skills: "",
   experience: "",
-  companies: "",
+  companiesUUID: "",
 };
 
 export const MsgUpdateCV = {
@@ -309,7 +309,7 @@ export const MsgUpdateCV = {
     if (message.experience !== "") {
       writer.uint32(58).string(message.experience);
     }
-    for (const v of message.companies) {
+    for (const v of message.companiesUUID) {
       writer.uint32(66).string(v!);
     }
     return writer;
@@ -319,7 +319,7 @@ export const MsgUpdateCV = {
     const reader = input instanceof Uint8Array ? new Reader(input) : input;
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseMsgUpdateCV } as MsgUpdateCV;
-    message.companies = [];
+    message.companiesUUID = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -345,7 +345,7 @@ export const MsgUpdateCV = {
           message.experience = reader.string();
           break;
         case 8:
-          message.companies.push(reader.string());
+          message.companiesUUID.push(reader.string());
           break;
         default:
           reader.skipType(tag & 7);
@@ -357,7 +357,7 @@ export const MsgUpdateCV = {
 
   fromJSON(object: any): MsgUpdateCV {
     const message = { ...baseMsgUpdateCV } as MsgUpdateCV;
-    message.companies = [];
+    message.companiesUUID = [];
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = String(object.creator);
     } else {
@@ -393,9 +393,9 @@ export const MsgUpdateCV = {
     } else {
       message.experience = "";
     }
-    if (object.companies !== undefined && object.companies !== null) {
-      for (const e of object.companies) {
-        message.companies.push(String(e));
+    if (object.companiesUUID !== undefined && object.companiesUUID !== null) {
+      for (const e of object.companiesUUID) {
+        message.companiesUUID.push(String(e));
       }
     }
     return message;
@@ -411,17 +411,17 @@ export const MsgUpdateCV = {
     message.summary !== undefined && (obj.summary = message.summary);
     message.skills !== undefined && (obj.skills = message.skills);
     message.experience !== undefined && (obj.experience = message.experience);
-    if (message.companies) {
-      obj.companies = message.companies.map((e) => e);
+    if (message.companiesUUID) {
+      obj.companiesUUID = message.companiesUUID.map((e) => e);
     } else {
-      obj.companies = [];
+      obj.companiesUUID = [];
     }
     return obj;
   },
 
   fromPartial(object: DeepPartial<MsgUpdateCV>): MsgUpdateCV {
     const message = { ...baseMsgUpdateCV } as MsgUpdateCV;
-    message.companies = [];
+    message.companiesUUID = [];
     if (object.creator !== undefined && object.creator !== null) {
       message.creator = object.creator;
     } else {
@@ -457,9 +457,9 @@ export const MsgUpdateCV = {
     } else {
       message.experience = "";
     }
-    if (object.companies !== undefined && object.companies !== null) {
-      for (const e of object.companies) {
-        message.companies.push(e);
+    if (object.companiesUUID !== undefined && object.companiesUUID !== null) {
+      for (const e of object.companiesUUID) {
+        message.companiesUUID.push(e);
       }
     }
     return message;

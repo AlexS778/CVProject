@@ -17,57 +17,31 @@ func (k msgServer) UpdateCV(goCtx context.Context, msg *types.MsgUpdateCV) (*typ
 		return nil, sdkerrors.Wrap(types.ErrUpdateNotAllowed, fmt.Sprintf("your CosmosAddress: %s, CV you are trying to update CosmosAddress: %s", msg.Creator, msg.CosmosAdress))
 	}
 
-	cv, err := k.GetCvByCosmosAddress(goCtx, &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: msg.CosmosAdress})
-	if err != nil {
+	cv, found := k.GetCV(ctx, msg.CosmosAdress)
+	if !found {
 		return &types.MsgUpdateCVResponse{}, sdkerrors.Wrap(types.ErrCVNotFound, fmt.Sprintf("Failed to update CV for this address: %s", msg.CosmosAdress))
 	}
 
 	if msg.Name != "" {
-		cv.CV.Name = msg.Name
+		cv.Name = msg.Name
 	}
 	if msg.Education != "" {
-		cv.CV.Education = msg.Education
+		cv.Education = msg.Education
 	}
 	if msg.Summary != "" {
-		cv.CV.Summary = msg.Summary
+		cv.Summary = msg.Summary
 	}
 	if msg.Skills != "" {
-		cv.CV.Skills = msg.Skills
+		cv.Skills = msg.Skills
 	}
 	if msg.Experience != "" {
-		cv.CV.Experience = msg.Experience
+		cv.Experience = msg.Experience
+	}
+	if len(msg.CompaniesUUID) != 0 {
+		cv.CompaniesUUID = msg.CompaniesUUID
 	}
 
-	counter := 0
-	if len(msg.Companies) != 0 {
-		for i := 0; i < len(msg.Companies); i += 5 {
-			end := i + 5
-
-			if end > len(msg.Companies) {
-				end = len(msg.Companies)
-			}
-
-			chunk := msg.Companies[i:end]
-			companyUUID := chunk[0]
-			companyName := chunk[1]
-			companyTimestampStart := chunk[2]
-			companyTimestampEnd := chunk[3]
-			companyComments := chunk[4]
-
-			company := types.Company{
-				Uuid:           companyUUID,
-				Name:           companyName,
-				TimestampStart: companyTimestampStart,
-				TimestampEnd:   companyTimestampEnd,
-				Comments:       companyComments,
-			}
-
-			cv.CV.Companies[counter] = &company
-			counter++
-		}
-	}
-
-	k.SetCV(ctx, *cv.CV)
+	k.SetCV(ctx, cv)
 
 	return &types.MsgUpdateCVResponse{}, nil
 }

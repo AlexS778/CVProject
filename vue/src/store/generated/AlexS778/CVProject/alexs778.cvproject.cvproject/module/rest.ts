@@ -16,15 +16,7 @@ export interface CvprojectCV {
   skills?: string;
   experience?: string;
   creator?: string;
-  Companies?: CvprojectCompany[];
-}
-
-export interface CvprojectCompany {
-  uuid?: string;
-  name?: string;
-  timestamp_start?: string;
-  timestamp_end?: string;
-  comments?: string;
+  CompaniesUUID?: string[];
 }
 
 export interface CvprojectCompanyWorkedIn {
@@ -34,6 +26,16 @@ export interface CvprojectCompanyWorkedIn {
   timestampEnd?: string;
   comments?: string;
   creator?: string;
+}
+
+export interface CvprojectCvForResponse {
+  name?: string;
+  education?: string;
+  summary?: string;
+  skills?: string;
+  experience?: string;
+  creator?: string;
+  Companies?: CvprojectCompanyWorkedIn[];
 }
 
 export type CvprojectMsgConfirmCVResponse = object;
@@ -88,7 +90,7 @@ export interface CvprojectQueryGetCompanyWorkedInResponse {
 }
 
 export interface CvprojectQueryGetCvByCosmosAddressResponse {
-  cV?: CvprojectCV;
+  cV?: CvprojectCvForResponse;
 }
 
 /**

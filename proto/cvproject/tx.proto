@@ -27,7 +27,7 @@ message MsgCreateCV {
   string summary = 4;
   string skills = 5;
   string experience = 6;
-  repeated string companies = 7;
+  repeated string companiesUUID = 7;
 }
 
 message MsgCreateCVResponse {
@@ -41,7 +41,7 @@ message MsgUpdateCV {
   string summary = 5;
   string skills = 6;
   string experience = 7;
-  repeated string companies = 8;
+  repeated string companiesUUID = 8;
 }
 
 message MsgUpdateCVResponse {

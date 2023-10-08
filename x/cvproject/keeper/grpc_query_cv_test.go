@@ -20,8 +20,9 @@ var _ = strconv.IntSize
 
 func TestCVQuerySingle(t *testing.T) {
 	keeper, ctx := keepertest.CvprojectKeeper(t)
+	TestCreateCv(t)
 	wctx := sdk.WrapSDKContext(ctx)
-	msgs := createNCV(keeper, ctx, 2)
+	msgs := createNCV(keeper, ctx, 3)
 	for _, tc := range []struct {
 		desc     string
 		request  *types.QueryGetCvByCosmosAddressRequest
@@ -31,12 +32,12 @@ func TestCVQuerySingle(t *testing.T) {
 		{
 			desc:     "First",
 			request:  &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: msgs[0].Creator},
-			response: &types.QueryGetCvByCosmosAddressResponse{CV: &msgs[0]},
+			response: &types.QueryGetCvByCosmosAddressResponse{CV: &types.CvForResponse{Creator: msgs[0].Creator}},
 		},
 		{
 			desc:     "Second",
 			request:  &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: msgs[1].Creator},
-			response: &types.QueryGetCvByCosmosAddressResponse{CV: &msgs[1]},
+			response: &types.QueryGetCvByCosmosAddressResponse{CV: &types.CvForResponse{Creator: msgs[1].Creator}},
 		},
 		{
 			desc:    "KeyNotFound",

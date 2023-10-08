@@ -11,13 +11,13 @@ var _ sdk.Msg = &MsgCreateCV{}
 
 func NewMsgCreateCV(creator string, name string, education string, summary string, skills string, experience string, companies []string) *MsgCreateCV {
 	return &MsgCreateCV{
-		Creator:    creator,
-		Name:       name,
-		Education:  education,
-		Summary:    summary,
-		Skills:     skills,
-		Experience: experience,
-		Companies:  companies,
+		Creator:       creator,
+		Name:          name,
+		Education:     education,
+		Summary:       summary,
+		Skills:        skills,
+		Experience:    experience,
+		CompaniesUUID: companies,
 	}
 }
 
@@ -46,9 +46,6 @@ func (msg *MsgCreateCV) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Creator)
 	if err != nil {
 		return sdkerrors.Wrapf(sdkerrors.ErrInvalidAddress, "invalid creator address (%s)", err)
-	}
-	if len(msg.Companies)%5 != 0 {
-		return sdkerrors.Wrapf(ErrNotEnoughLen, "there are only %d elements in companies array, should be divisible by 5", len(msg.Companies))
 	}
 	return nil
 }

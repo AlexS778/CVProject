@@ -53,5 +53,22 @@ func (k Keeper) GetCvByCosmosAddress(c context.Context, req *types.QueryGetCvByC
 		return nil, status.Error(codes.NotFound, "not found")
 	}
 
-	return &types.QueryGetCvByCosmosAddressResponse{CV: &val}, nil
+	cvForResp := types.CvForResponse{}
+	cvForResp.Name = val.Name
+	cvForResp.Skills = val.Skills
+	cvForResp.Experience = val.Experience
+	cvForResp.Education = val.Education
+	cvForResp.Summary = val.Summary
+	cvForResp.Creator = val.Creator
+
+	for _, v := range val.CompaniesUUID {
+		company, found := k.GetCompanyWorkedIn(ctx, v)
+		if !found {
+			return nil, status.Error(codes.Internal, "not found")
+		}
+		cvForResp.Companies = append(cvForResp.Companies, &company)
+
+	}
+
+	return &types.QueryGetCvByCosmosAddressResponse{CV: &cvForResp}, nil
 }

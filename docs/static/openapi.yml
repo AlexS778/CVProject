@@ -212,21 +212,10 @@ paths:
                       type: string
                     creator:
                       type: string
-                    Companies:
+                    CompaniesUUID:
                       type: array
                       items:
-                        type: object
-                        properties:
-                          uuid:
-                            type: string
-                          name:
-                            type: string
-                          timestamp_start:
-                            type: string
-                          timestamp_end:
-                            type: string
-                          comments:
-                            type: string
+                        type: string
               pagination:
                 type: object
                 properties:
@@ -363,13 +352,15 @@ paths:
                       properties:
                         uuid:
                           type: string
-                        name:
+                        companyName:
                           type: string
-                        timestamp_start:
+                        timestampStart:
                           type: string
-                        timestamp_end:
+                        timestampEnd:
                           type: string
                         comments:
+                          type: string
+                        creator:
                           type: string
         default:
           description: An unexpected error response.
@@ -29900,34 +29891,10 @@ definitions:
         type: string
       creator:
         type: string
-      Companies:
+      CompaniesUUID:
         type: array
         items:
-          type: object
-          properties:
-            uuid:
-              type: string
-            name:
-              type: string
-            timestamp_start:
-              type: string
-            timestamp_end:
-              type: string
-            comments:
-              type: string
-  alexs778.cvproject.cvproject.Company:
-    type: object
-    properties:
-      uuid:
-        type: string
-      name:
-        type: string
-      timestamp_start:
-        type: string
-      timestamp_end:
-        type: string
-      comments:
-        type: string
+          type: string
   alexs778.cvproject.cvproject.CompanyWorkedIn:
     type: object
     properties:
@@ -29943,6 +29910,38 @@ definitions:
         type: string
       creator:
         type: string
+  alexs778.cvproject.cvproject.CvForResponse:
+    type: object
+    properties:
+      name:
+        type: string
+      education:
+        type: string
+      summary:
+        type: string
+      skills:
+        type: string
+      experience:
+        type: string
+      creator:
+        type: string
+      Companies:
+        type: array
+        items:
+          type: object
+          properties:
+            uuid:
+              type: string
+            companyName:
+              type: string
+            timestampStart:
+              type: string
+            timestampEnd:
+              type: string
+            comments:
+              type: string
+            creator:
+              type: string
   alexs778.cvproject.cvproject.MsgConfirmCVResponse:
     type: object
   alexs778.cvproject.cvproject.MsgCreateCVResponse:
@@ -29978,21 +29977,10 @@ definitions:
               type: string
             creator:
               type: string
-            Companies:
+            CompaniesUUID:
               type: array
               items:
-                type: object
-                properties:
-                  uuid:
-                    type: string
-                  name:
-                    type: string
-                  timestamp_start:
-                    type: string
-                  timestamp_end:
-                    type: string
-                  comments:
-                    type: string
+                type: string
       pagination:
         type: object
         properties:
@@ -30106,13 +30094,15 @@ definitions:
               properties:
                 uuid:
                   type: string
-                name:
+                companyName:
                   type: string
-                timestamp_start:
+                timestampStart:
                   type: string
-                timestamp_end:
+                timestampEnd:
                   type: string
                 comments:
+                  type: string
+                creator:
                   type: string
   alexs778.cvproject.cvproject.QueryParamsResponse:
     type: object

@@ -1,6 +1,8 @@
 syntax = "proto3";
 package alexs778.cvproject.cvproject;
 
+import "cvproject/company_worked_in.proto";
+
 option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
 
 message CV {
@@ -10,13 +12,15 @@ message CV {
   string skills = 4; 
   string experience = 5; 
   string creator = 6;
-  repeated Company Companies = 7;
+  repeated string CompaniesUUID = 7;
 }
 
-message Company{
-  string uuid = 1;
-  string name = 2;
-  string timestamp_start = 3;
-  string timestamp_end = 4;
-  string comments = 5;
+message CvForResponse{
+  string name = 1; 
+  string education = 2; 
+  string summary = 3; 
+  string skills = 4; 
+  string experience = 5; 
+  string creator = 6;
+  repeated CompanyWorkedIn Companies = 7;
 }

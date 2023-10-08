@@ -62,8 +62,12 @@ message QueryGetCvByCosmosAddressRequest {
   string cosmosAddress = 1;
 }
 
-message QueryGetCvByCosmosAddressResponse {
-	CV cV = 1;
+//message QueryGetCvByCosmosAddressResponse {
+	//CV cV = 1;
+//}
+
+message QueryGetCvByCosmosAddressResponse{
+	CvForResponse cV = 1;
 }
 
 message QueryGetCompanyWorkedInRequest {

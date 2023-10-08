@@ -23,6 +23,8 @@ paths:
                       type: string
                     companyName:
                       type: string
+                    companyID:
+                      type: string
                     timestampStart:
                       type: string
                     timestampEnd:
@@ -151,6 +153,8 @@ paths:
                   uuid:
                     type: string
                   companyName:
+                    type: string
+                  companyID:
                     type: string
                   timestampStart:
                     type: string
@@ -353,6 +357,8 @@ paths:
                         uuid:
                           type: string
                         companyName:
+                          type: string
+                        companyID:
                           type: string
                         timestampStart:
                           type: string
@@ -29902,6 +29908,8 @@ definitions:
         type: string
       companyName:
         type: string
+      companyID:
+        type: string
       timestampStart:
         type: string
       timestampEnd:
@@ -29933,6 +29941,8 @@ definitions:
             uuid:
               type: string
             companyName:
+              type: string
+            companyID:
               type: string
             timestampStart:
               type: string
@@ -30018,6 +30028,8 @@ definitions:
               type: string
             companyName:
               type: string
+            companyID:
+              type: string
             timestampStart:
               type: string
             timestampEnd:
@@ -30061,6 +30073,8 @@ definitions:
             type: string
           companyName:
             type: string
+          companyID:
+            type: string
           timestampStart:
             type: string
           timestampEnd:
@@ -30095,6 +30109,8 @@ definitions:
                 uuid:
                   type: string
                 companyName:
+                  type: string
+                companyID:
                   type: string
                 timestampStart:
                   type: string

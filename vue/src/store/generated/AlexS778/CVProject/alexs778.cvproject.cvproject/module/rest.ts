@@ -22,6 +22,7 @@ export interface CvprojectCV {
 export interface CvprojectCompanyWorkedIn {
   uuid?: string;
   companyName?: string;
+  companyID?: string;
   timestampStart?: string;
   timestampEnd?: string;
   comments?: string;

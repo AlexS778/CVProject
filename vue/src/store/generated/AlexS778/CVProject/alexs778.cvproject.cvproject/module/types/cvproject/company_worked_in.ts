@@ -6,6 +6,7 @@ export const protobufPackage = "alexs778.cvproject.cvproject";
 export interface CompanyWorkedIn {
   uuid: string;
   companyName: string;
+  companyID: string;
   timestampStart: string;
   timestampEnd: string;
   comments: string;
@@ -15,6 +16,7 @@ export interface CompanyWorkedIn {
 const baseCompanyWorkedIn: object = {
   uuid: "",
   companyName: "",
+  companyID: "",
   timestampStart: "",
   timestampEnd: "",
   comments: "",
@@ -29,17 +31,20 @@ export const CompanyWorkedIn = {
     if (message.companyName !== "") {
       writer.uint32(18).string(message.companyName);
     }
+    if (message.companyID !== "") {
+      writer.uint32(26).string(message.companyID);
+    }
     if (message.timestampStart !== "") {
-      writer.uint32(26).string(message.timestampStart);
+      writer.uint32(34).string(message.timestampStart);
     }
     if (message.timestampEnd !== "") {
-      writer.uint32(34).string(message.timestampEnd);
+      writer.uint32(42).string(message.timestampEnd);
     }
     if (message.comments !== "") {
-      writer.uint32(42).string(message.comments);
+      writer.uint32(50).string(message.comments);
     }
     if (message.creator !== "") {
-      writer.uint32(50).string(message.creator);
+      writer.uint32(58).string(message.creator);
     }
     return writer;
   },
@@ -58,15 +63,18 @@ export const CompanyWorkedIn = {
           message.companyName = reader.string();
           break;
         case 3:
-          message.timestampStart = reader.string();
+          message.companyID = reader.string();
           break;
         case 4:
-          message.timestampEnd = reader.string();
+          message.timestampStart = reader.string();
           break;
         case 5:
-          message.comments = reader.string();
+          message.timestampEnd = reader.string();
           break;
         case 6:
+          message.comments = reader.string();
+          break;
+        case 7:
           message.creator = reader.string();
           break;
         default:
@@ -88,6 +96,11 @@ export const CompanyWorkedIn = {
       message.companyName = String(object.companyName);
     } else {
       message.companyName = "";
+    }
+    if (object.companyID !== undefined && object.companyID !== null) {
+      message.companyID = String(object.companyID);
+    } else {
+      message.companyID = "";
     }
     if (object.timestampStart !== undefined && object.timestampStart !== null) {
       message.timestampStart = String(object.timestampStart);
@@ -117,6 +130,7 @@ export const CompanyWorkedIn = {
     message.uuid !== undefined && (obj.uuid = message.uuid);
     message.companyName !== undefined &&
       (obj.companyName = message.companyName);
+    message.companyID !== undefined && (obj.companyID = message.companyID);
     message.timestampStart !== undefined &&
       (obj.timestampStart = message.timestampStart);
     message.timestampEnd !== undefined &&
@@ -137,6 +151,11 @@ export const CompanyWorkedIn = {
       message.companyName = object.companyName;
     } else {
       message.companyName = "";
+    }
+    if (object.companyID !== undefined && object.companyID !== null) {
+      message.companyID = object.companyID;
+    } else {
+      message.companyID = "";
     }
     if (object.timestampStart !== undefined && object.timestampStart !== null) {
       message.timestampStart = object.timestampStart;

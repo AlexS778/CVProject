@@ -20,10 +20,17 @@ func (k msgServer) CreateCompanyWorkedIn(goCtx context.Context, msg *types.MsgCr
 		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "index already set")
 	}
 
+	// check if company exist
+	_, found := k.GetCompany(ctx, msg.CompanyID)
+	if !found {
+		return nil, sdkerrors.Wrap(sdkerrors.ErrInvalidRequest, "found no company")
+	}
+
 	var companyWorkedIn = types.CompanyWorkedIn{
 		Creator:        msg.Creator,
 		Uuid:           msg.Uuid,
 		CompanyName:    msg.CompanyName,
+		CompanyID:      msg.CompanyID,
 		TimestampStart: msg.TimestampStart,
 		TimestampEnd:   msg.TimestampEnd,
 		Comments:       msg.Comments,

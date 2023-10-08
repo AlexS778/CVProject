@@ -64,10 +64,11 @@ message MsgCreateCompanyWorkedIn {
   string creator = 1;
   string uuid = 2;
 
-  string companyName = 3;
-  string timestampStart = 4;
-  string timestampEnd = 5;
-  string comments = 6;
+  string companyID = 3;
+  string companyName = 4;
+  string timestampStart = 5;
+  string timestampEnd = 6;
+  string comments = 7;
 }
 message MsgCreateCompanyWorkedInResponse {}
 
@@ -75,10 +76,11 @@ message MsgUpdateCompanyWorkedIn {
   string creator = 1;
   string uuid = 2;
 
-  string companyName = 3;
-  string timestampStart = 4;
-  string timestampEnd = 5;
-  string comments = 6;
+  string companyID = 3;
+  string companyName = 4;
+  string timestampStart = 5;
+  string timestampEnd = 6;
+  string comments = 7;
 }
 message MsgUpdateCompanyWorkedInResponse {}
 

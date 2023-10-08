@@ -1,6 +1,7 @@
 package keeper_test
 
 import (
+	"fmt"
 	"strconv"
 	"testing"
 
@@ -22,10 +23,19 @@ func TestCompanyWorkedInMsgServerCreate(t *testing.T) {
 	wctx := sdk.WrapSDKContext(ctx)
 	creator := "A"
 	for i := 0; i < 5; i++ {
+		currUUID := fmt.Sprintf("Company" + strconv.Itoa(i))
+		_, err := srv.CreateCompany(wctx, &types.MsgCreateCompany{Creator: creator,
+			UUID: currUUID,
+		})
+		require.NoError(t, err)
+		r, _ := k.GetCompany(ctx, currUUID)
+		_ = r
+		wctx = sdk.WrapSDKContext(ctx)
 		expected := &types.MsgCreateCompanyWorkedIn{Creator: creator,
-			Uuid: strconv.Itoa(i),
+			Uuid:      strconv.Itoa(i),
+			CompanyID: currUUID,
 		}
-		_, err := srv.CreateCompanyWorkedIn(wctx, expected)
+		_, err = srv.CreateCompanyWorkedIn(wctx, expected)
 		require.NoError(t, err)
 		rst, found := k.GetCompanyWorkedIn(ctx,
 			expected.Uuid,

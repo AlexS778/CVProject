@@ -20,34 +20,29 @@ var _ = strconv.IntSize
 
 func TestCVQuerySingle(t *testing.T) {
 	keeper, ctx := keepertest.CvprojectKeeper(t)
+	TestCreateCv(t)
 	wctx := sdk.WrapSDKContext(ctx)
-	msgs := createNCV(keeper, ctx, 2)
+	msgs := createNCV(keeper, ctx, 3)
 	for _, tc := range []struct {
 		desc     string
-		request  *types.QueryGetCVRequest
-		response *types.QueryGetCVResponse
+		request  *types.QueryGetCvByCosmosAddressRequest
+		response *types.QueryGetCvByCosmosAddressResponse
 		err      error
 	}{
 		{
-			desc: "First",
-			request: &types.QueryGetCVRequest{
-				Index: msgs[0].Index,
-			},
-			response: &types.QueryGetCVResponse{CV: msgs[0]},
+			desc:     "First",
+			request:  &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: msgs[0].Creator},
+			response: &types.QueryGetCvByCosmosAddressResponse{CV: &types.CvForResponse{Creator: msgs[0].Creator}},
 		},
 		{
-			desc: "Second",
-			request: &types.QueryGetCVRequest{
-				Index: msgs[1].Index,
-			},
-			response: &types.QueryGetCVResponse{CV: msgs[1]},
+			desc:     "Second",
+			request:  &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: msgs[1].Creator},
+			response: &types.QueryGetCvByCosmosAddressResponse{CV: &types.CvForResponse{Creator: msgs[1].Creator}},
 		},
 		{
-			desc: "KeyNotFound",
-			request: &types.QueryGetCVRequest{
-				Index: strconv.Itoa(100000),
-			},
-			err: status.Error(codes.NotFound, "not found"),
+			desc:    "KeyNotFound",
+			request: &types.QueryGetCvByCosmosAddressRequest{CosmosAddress: "invalid"},
+			err:     status.Error(codes.NotFound, "not found"),
 		},
 		{
 			desc: "InvalidRequest",
@@ -55,7 +50,7 @@ func TestCVQuerySingle(t *testing.T) {
 		},
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
-			response, err := keeper.CV(wctx, tc.request)
+			response, err := keeper.GetCvByCosmosAddress(wctx, tc.request)
 			if tc.err != nil {
 				require.ErrorIs(t, err, tc.err)
 			} else {

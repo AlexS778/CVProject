@@ -12,6 +12,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
+	"github.com/AlexS778/CVProject/testutil"
 	"github.com/AlexS778/CVProject/testutil/network"
 	"github.com/AlexS778/CVProject/testutil/nullify"
 	"github.com/AlexS778/CVProject/x/cvproject/client/cli"
@@ -29,7 +30,7 @@ func networkWithCVObjects(t *testing.T, n int) (*network.Network, []types.CV) {
 
 	for i := 0; i < n; i++ {
 		cV := types.CV{
-			Index: strconv.Itoa(i),
+			Creator: testutil.Alice,
 		}
 		nullify.Fill(&cV)
 		state.CVList = append(state.CVList, cV)
@@ -40,7 +41,8 @@ func networkWithCVObjects(t *testing.T, n int) (*network.Network, []types.CV) {
 	return network.New(t, cfg), state.CVList
 }
 
-func TestShowCV(t *testing.T) {
+// TODO: fix tests
+func TestGetCVByCosmosAddress(t *testing.T) {
 	net, objs := networkWithCVObjects(t, 2)
 
 	ctx := net.Validators[0].ClientCtx
@@ -48,23 +50,23 @@ func TestShowCV(t *testing.T) {
 		fmt.Sprintf("--%s=json", tmcli.OutputFlag),
 	}
 	for _, tc := range []struct {
-		desc    string
-		idIndex string
+		desc          string
+		cosmosAddress string
 
 		args []string
 		err  error
 		obj  types.CV
 	}{
 		{
-			desc:    "found",
-			idIndex: objs[0].Index,
+			desc:          "found",
+			cosmosAddress: objs[0].Creator,
 
 			args: common,
 			obj:  objs[0],
 		},
 		{
-			desc:    "not found",
-			idIndex: strconv.Itoa(100000),
+			desc:          "not found",
+			cosmosAddress: "",
 
 			args: common,
 			err:  status.Error(codes.NotFound, "not found"),
@@ -72,17 +74,17 @@ func TestShowCV(t *testing.T) {
 	} {
 		t.Run(tc.desc, func(t *testing.T) {
 			args := []string{
-				tc.idIndex,
+				tc.cosmosAddress,
 			}
 			args = append(args, tc.args...)
-			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdShowCV(), args)
+			out, err := clitestutil.ExecTestCLICmd(ctx, cli.CmdGetCvByCosmosAddress(), args)
 			if tc.err != nil {
 				stat, ok := status.FromError(tc.err)
 				require.True(t, ok)
 				require.ErrorIs(t, stat.Err(), tc.err)
 			} else {
 				require.NoError(t, err)
-				var resp types.QueryGetCVResponse
+				var resp types.QueryGetCvByCosmosAddressResponse
 				require.NoError(t, net.Config.Codec.UnmarshalJSON(out.Bytes(), &resp))
 				require.NotNil(t, resp.CV)
 				require.Equal(t,

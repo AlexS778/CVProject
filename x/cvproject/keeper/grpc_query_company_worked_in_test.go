@@ -1,0 +1,126 @@
+package keeper_test
+
+import (
+	"strconv"
+	"testing"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+	"github.com/cosmos/cosmos-sdk/types/query"
+	"github.com/stretchr/testify/require"
+	"google.golang.org/grpc/codes"
+	"google.golang.org/grpc/status"
+
+	keepertest "github.com/AlexS778/CVProject/testutil/keeper"
+	"github.com/AlexS778/CVProject/testutil/nullify"
+	"github.com/AlexS778/CVProject/x/cvproject/types"
+)
+
+// Prevent strconv unused error
+var _ = strconv.IntSize
+
+func TestCompanyWorkedInQuerySingle(t *testing.T) {
+	keeper, ctx := keepertest.CvprojectKeeper(t)
+	wctx := sdk.WrapSDKContext(ctx)
+	msgs := createNCompanyWorkedIn(keeper, ctx, 2)
+	for _, tc := range []struct {
+		desc     string
+		request  *types.QueryGetCompanyWorkedInRequest
+		response *types.QueryGetCompanyWorkedInResponse
+		err      error
+	}{
+		{
+			desc: "First",
+			request: &types.QueryGetCompanyWorkedInRequest{
+				Uuid: msgs[0].Uuid,
+			},
+			response: &types.QueryGetCompanyWorkedInResponse{CompanyWorkedIn: msgs[0]},
+		},
+		{
+			desc: "Second",
+			request: &types.QueryGetCompanyWorkedInRequest{
+				Uuid: msgs[1].Uuid,
+			},
+			response: &types.QueryGetCompanyWorkedInResponse{CompanyWorkedIn: msgs[1]},
+		},
+		{
+			desc: "KeyNotFound",
+			request: &types.QueryGetCompanyWorkedInRequest{
+				Uuid: strconv.Itoa(100000),
+			},
+			err: status.Error(codes.NotFound, "not found"),
+		},
+		{
+			desc: "InvalidRequest",
+			err:  status.Error(codes.InvalidArgument, "invalid request"),
+		},
+	} {
+		t.Run(tc.desc, func(t *testing.T) {
+			response, err := keeper.CompanyWorkedIn(wctx, tc.request)
+			if tc.err != nil {
+				require.ErrorIs(t, err, tc.err)
+			} else {
+				require.NoError(t, err)
+				require.Equal(t,
+					nullify.Fill(tc.response),
+					nullify.Fill(response),
+				)
+			}
+		})
+	}
+}
+
+func TestCompanyWorkedInQueryPaginated(t *testing.T) {
+	keeper, ctx := keepertest.CvprojectKeeper(t)
+	wctx := sdk.WrapSDKContext(ctx)
+	msgs := createNCompanyWorkedIn(keeper, ctx, 5)
+
+	request := func(next []byte, offset, limit uint64, total bool) *types.QueryAllCompanyWorkedInRequest {
+		return &types.QueryAllCompanyWorkedInRequest{
+			Pagination: &query.PageRequest{
+				Key:        next,
+				Offset:     offset,
+				Limit:      limit,
+				CountTotal: total,
+			},
+		}
+	}
+	t.Run("ByOffset", func(t *testing.T) {
+		step := 2
+		for i := 0; i < len(msgs); i += step {
+			resp, err := keeper.CompanyWorkedInAll(wctx, request(nil, uint64(i), uint64(step), false))
+			require.NoError(t, err)
+			require.LessOrEqual(t, len(resp.CompanyWorkedIn), step)
+			require.Subset(t,
+				nullify.Fill(msgs),
+				nullify.Fill(resp.CompanyWorkedIn),
+			)
+		}
+	})
+	t.Run("ByKey", func(t *testing.T) {
+		step := 2
+		var next []byte
+		for i := 0; i < len(msgs); i += step {
+			resp, err := keeper.CompanyWorkedInAll(wctx, request(next, 0, uint64(step), false))
+			require.NoError(t, err)
+			require.LessOrEqual(t, len(resp.CompanyWorkedIn), step)
+			require.Subset(t,
+				nullify.Fill(msgs),
+				nullify.Fill(resp.CompanyWorkedIn),
+			)
+			next = resp.Pagination.NextKey
+		}
+	})
+	t.Run("Total", func(t *testing.T) {
+		resp, err := keeper.CompanyWorkedInAll(wctx, request(nil, 0, 0, true))
+		require.NoError(t, err)
+		require.Equal(t, len(msgs), int(resp.Pagination.Total))
+		require.ElementsMatch(t,
+			nullify.Fill(msgs),
+			nullify.Fill(resp.CompanyWorkedIn),
+		)
+	})
+	t.Run("InvalidRequest", func(t *testing.T) {
+		_, err := keeper.CompanyWorkedInAll(wctx, nil)
+		require.ErrorIs(t, err, status.Error(codes.InvalidArgument, "invalid request"))
+	})
+}

@@ -5,7 +5,9 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "cvproject/params.proto";
-import "cvproject/system_info.proto";
+import "cvproject/cv.proto";
+import "cvproject/company_worked_in.proto";
+import "cvproject/company.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
@@ -16,10 +18,36 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/AlexS778/CVProject/cvproject/params";
   }
-  // Queries a SystemInfo by index.
-	rpc SystemInfo(QueryGetSystemInfoRequest) returns (QueryGetSystemInfoResponse) {
-		option (google.api.http).get = "/AlexS778/CVProject/cvproject/system_info";
+	// Queries a list of CV items.
+	rpc CVAll(QueryAllCVRequest) returns (QueryAllCVResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/cv";
 	}
+
+// Queries a list of GetCvByCosmosAddress items.
+	rpc GetCvByCosmosAddress(QueryGetCvByCosmosAddressRequest) returns (QueryGetCvByCosmosAddressResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/get_cv_by_cosmos_address/{cosmosAddress}";
+	}
+
+// Queries a CompanyWorkedIn by index.
+	rpc CompanyWorkedIn(QueryGetCompanyWorkedInRequest) returns (QueryGetCompanyWorkedInResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/company_worked_in/{uuid}";
+	}
+
+	// Queries a list of CompanyWorkedIn items.
+	rpc CompanyWorkedInAll(QueryAllCompanyWorkedInRequest) returns (QueryAllCompanyWorkedInResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/company_worked_in";
+	}
+
+// Queries a Company by index.
+	rpc Company(QueryGetCompanyRequest) returns (QueryGetCompanyResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/company/{uUID}";
+	}
+
+	// Queries a list of Company items.
+	rpc CompanyAll(QueryAllCompanyRequest) returns (QueryAllCompanyResponse) {
+		option (google.api.http).get = "/AlexS778/CVProject/cvproject/company";
+	}
+
 // this line is used by starport scaffolding # 2
 }
 
@@ -32,9 +60,61 @@ message QueryParamsResponse {
   Params params = 1 [(gogoproto.nullable) = false];
 }
 
-message QueryGetSystemInfoRequest {}
-
-message QueryGetSystemInfoResponse {
-	SystemInfo SystemInfo = 1 [(gogoproto.nullable) = false];
+message QueryAllCVRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
 }
+
+message QueryAllCVResponse {
+	repeated CV cV = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCvByCosmosAddressRequest {
+  string cosmosAddress = 1;
+}
+
+//message QueryGetCvByCosmosAddressResponse {
+	//CV cV = 1;
+//}
+
+message QueryGetCvByCosmosAddressResponse{
+	CvForResponse cV = 1;
+}
+
+message QueryGetCompanyWorkedInRequest {
+	  string uuid = 1;
+
+}
+
+message QueryGetCompanyWorkedInResponse {
+	CompanyWorkedIn companyWorkedIn = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCompanyWorkedInRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCompanyWorkedInResponse {
+	repeated CompanyWorkedIn companyWorkedIn = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
+message QueryGetCompanyRequest {
+	  string uUID = 1;
+
+}
+
+message QueryGetCompanyResponse {
+	Company company = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllCompanyRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllCompanyResponse {
+	repeated Company company = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
+}
+
 // this line is used by starport scaffolding # 3

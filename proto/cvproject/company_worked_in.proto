@@ -1,0 +1,15 @@
+syntax = "proto3";
+package alexs778.cvproject.cvproject;
+
+option go_package = "github.com/AlexS778/CVProject/x/cvproject/types";
+
+message CompanyWorkedIn {
+  string uuid = 1; 
+  string companyName = 2; 
+  string companyID = 3;
+  string timestampStart = 4; 
+  string timestampEnd = 5; 
+  string comments = 6; 
+  string creator = 7;
+}
+

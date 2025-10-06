@@ -8,5 +8,7 @@ import (
 
 // x/cvproject module sentinel errors
 var (
-	ErrSample = sdkerrors.Register(ModuleName, 1100, "sample error")
+	ErrNotEnoughLen     = sdkerrors.Register(ModuleName, 1100, "Not enough elements in the company array")
+	ErrCVNotFound       = sdkerrors.Register(ModuleName, 1101, "CV wasn't found by that cosmos address")
+	ErrUpdateNotAllowed = sdkerrors.Register(ModuleName, 1102, "This CV is not yours, you cannot update it")
 )

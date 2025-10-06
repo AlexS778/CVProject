@@ -6,7 +6,7 @@ package types
 import (
 	context "context"
 	fmt "fmt"
-	_ "github.com/cosmos/cosmos-sdk/types/query"
+	query "github.com/cosmos/cosmos-sdk/types/query"
 	_ "github.com/gogo/protobuf/gogoproto"
 	grpc1 "github.com/gogo/protobuf/grpc"
 	proto "github.com/gogo/protobuf/proto"
@@ -113,21 +113,22 @@ func (m *QueryParamsResponse) GetParams() Params {
 	return Params{}
 }
 
-type QueryGetSystemInfoRequest struct {
+type QueryAllCVRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
 }
 
-func (m *QueryGetSystemInfoRequest) Reset()         { *m = QueryGetSystemInfoRequest{} }
-func (m *QueryGetSystemInfoRequest) String() string { return proto.CompactTextString(m) }
-func (*QueryGetSystemInfoRequest) ProtoMessage()    {}
-func (*QueryGetSystemInfoRequest) Descriptor() ([]byte, []int) {
+func (m *QueryAllCVRequest) Reset()         { *m = QueryAllCVRequest{} }
+func (m *QueryAllCVRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllCVRequest) ProtoMessage()    {}
+func (*QueryAllCVRequest) Descriptor() ([]byte, []int) {
 	return fileDescriptor_18d3bdc55bbb8c80, []int{2}
 }
-func (m *QueryGetSystemInfoRequest) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllCVRequest) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetSystemInfoRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllCVRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetSystemInfoRequest.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllCVRequest.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -137,34 +138,42 @@ func (m *QueryGetSystemInfoRequest) XXX_Marshal(b []byte, deterministic bool) ([
 		return b[:n], nil
 	}
 }
-func (m *QueryGetSystemInfoRequest) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetSystemInfoRequest.Merge(m, src)
+func (m *QueryAllCVRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllCVRequest.Merge(m, src)
 }
-func (m *QueryGetSystemInfoRequest) XXX_Size() int {
+func (m *QueryAllCVRequest) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetSystemInfoRequest) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetSystemInfoRequest.DiscardUnknown(m)
+func (m *QueryAllCVRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllCVRequest.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetSystemInfoRequest proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllCVRequest proto.InternalMessageInfo
 
-type QueryGetSystemInfoResponse struct {
-	SystemInfo SystemInfo `protobuf:"bytes,1,opt,name=SystemInfo,proto3" json:"SystemInfo"`
+func (m *QueryAllCVRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
 }
 
-func (m *QueryGetSystemInfoResponse) Reset()         { *m = QueryGetSystemInfoResponse{} }
-func (m *QueryGetSystemInfoResponse) String() string { return proto.CompactTextString(m) }
-func (*QueryGetSystemInfoResponse) ProtoMessage()    {}
-func (*QueryGetSystemInfoResponse) Descriptor() ([]byte, []int) {
+type QueryAllCVResponse struct {
+	CV         []CV                `protobuf:"bytes,1,rep,name=cV,proto3" json:"cV"`
+	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllCVResponse) Reset()         { *m = QueryAllCVResponse{} }
+func (m *QueryAllCVResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllCVResponse) ProtoMessage()    {}
+func (*QueryAllCVResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_18d3bdc55bbb8c80, []int{3}
 }
-func (m *QueryGetSystemInfoResponse) XXX_Unmarshal(b []byte) error {
+func (m *QueryAllCVResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *QueryGetSystemInfoResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *QueryAllCVResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_QueryGetSystemInfoResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_QueryAllCVResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -174,62 +183,562 @@ func (m *QueryGetSystemInfoResponse) XXX_Marshal(b []byte, deterministic bool) (
 		return b[:n], nil
 	}
 }
-func (m *QueryGetSystemInfoResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_QueryGetSystemInfoResponse.Merge(m, src)
+func (m *QueryAllCVResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllCVResponse.Merge(m, src)
 }
-func (m *QueryGetSystemInfoResponse) XXX_Size() int {
+func (m *QueryAllCVResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *QueryGetSystemInfoResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_QueryGetSystemInfoResponse.DiscardUnknown(m)
+func (m *QueryAllCVResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllCVResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_QueryGetSystemInfoResponse proto.InternalMessageInfo
+var xxx_messageInfo_QueryAllCVResponse proto.InternalMessageInfo
 
-func (m *QueryGetSystemInfoResponse) GetSystemInfo() SystemInfo {
+func (m *QueryAllCVResponse) GetCV() []CV {
 	if m != nil {
-		return m.SystemInfo
+		return m.CV
 	}
-	return SystemInfo{}
+	return nil
+}
+
+func (m *QueryAllCVResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryGetCvByCosmosAddressRequest struct {
+	CosmosAddress string `protobuf:"bytes,1,opt,name=cosmosAddress,proto3" json:"cosmosAddress,omitempty"`
+}
+
+func (m *QueryGetCvByCosmosAddressRequest) Reset()         { *m = QueryGetCvByCosmosAddressRequest{} }
+func (m *QueryGetCvByCosmosAddressRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetCvByCosmosAddressRequest) ProtoMessage()    {}
+func (*QueryGetCvByCosmosAddressRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{4}
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetCvByCosmosAddressRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetCvByCosmosAddressRequest.Merge(m, src)
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetCvByCosmosAddressRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetCvByCosmosAddressRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetCvByCosmosAddressRequest proto.InternalMessageInfo
+
+func (m *QueryGetCvByCosmosAddressRequest) GetCosmosAddress() string {
+	if m != nil {
+		return m.CosmosAddress
+	}
+	return ""
+}
+
+type QueryGetCvByCosmosAddressResponse struct {
+	CV *CvForResponse `protobuf:"bytes,1,opt,name=cV,proto3" json:"cV,omitempty"`
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) Reset()         { *m = QueryGetCvByCosmosAddressResponse{} }
+func (m *QueryGetCvByCosmosAddressResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetCvByCosmosAddressResponse) ProtoMessage()    {}
+func (*QueryGetCvByCosmosAddressResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{5}
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetCvByCosmosAddressResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetCvByCosmosAddressResponse.Merge(m, src)
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetCvByCosmosAddressResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetCvByCosmosAddressResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetCvByCosmosAddressResponse proto.InternalMessageInfo
+
+func (m *QueryGetCvByCosmosAddressResponse) GetCV() *CvForResponse {
+	if m != nil {
+		return m.CV
+	}
+	return nil
+}
+
+type QueryGetCompanyWorkedInRequest struct {
+	Uuid string `protobuf:"bytes,1,opt,name=uuid,proto3" json:"uuid,omitempty"`
+}
+
+func (m *QueryGetCompanyWorkedInRequest) Reset()         { *m = QueryGetCompanyWorkedInRequest{} }
+func (m *QueryGetCompanyWorkedInRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetCompanyWorkedInRequest) ProtoMessage()    {}
+func (*QueryGetCompanyWorkedInRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{6}
+}
+func (m *QueryGetCompanyWorkedInRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetCompanyWorkedInRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetCompanyWorkedInRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetCompanyWorkedInRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetCompanyWorkedInRequest.Merge(m, src)
+}
+func (m *QueryGetCompanyWorkedInRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetCompanyWorkedInRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetCompanyWorkedInRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetCompanyWorkedInRequest proto.InternalMessageInfo
+
+func (m *QueryGetCompanyWorkedInRequest) GetUuid() string {
+	if m != nil {
+		return m.Uuid
+	}
+	return ""
+}
+
+type QueryGetCompanyWorkedInResponse struct {
+	CompanyWorkedIn CompanyWorkedIn `protobuf:"bytes,1,opt,name=companyWorkedIn,proto3" json:"companyWorkedIn"`
+}
+
+func (m *QueryGetCompanyWorkedInResponse) Reset()         { *m = QueryGetCompanyWorkedInResponse{} }
+func (m *QueryGetCompanyWorkedInResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetCompanyWorkedInResponse) ProtoMessage()    {}
+func (*QueryGetCompanyWorkedInResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{7}
+}
+func (m *QueryGetCompanyWorkedInResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetCompanyWorkedInResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetCompanyWorkedInResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetCompanyWorkedInResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetCompanyWorkedInResponse.Merge(m, src)
+}
+func (m *QueryGetCompanyWorkedInResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetCompanyWorkedInResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetCompanyWorkedInResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetCompanyWorkedInResponse proto.InternalMessageInfo
+
+func (m *QueryGetCompanyWorkedInResponse) GetCompanyWorkedIn() CompanyWorkedIn {
+	if m != nil {
+		return m.CompanyWorkedIn
+	}
+	return CompanyWorkedIn{}
+}
+
+type QueryAllCompanyWorkedInRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllCompanyWorkedInRequest) Reset()         { *m = QueryAllCompanyWorkedInRequest{} }
+func (m *QueryAllCompanyWorkedInRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllCompanyWorkedInRequest) ProtoMessage()    {}
+func (*QueryAllCompanyWorkedInRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{8}
+}
+func (m *QueryAllCompanyWorkedInRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllCompanyWorkedInRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllCompanyWorkedInRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllCompanyWorkedInRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllCompanyWorkedInRequest.Merge(m, src)
+}
+func (m *QueryAllCompanyWorkedInRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllCompanyWorkedInRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllCompanyWorkedInRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllCompanyWorkedInRequest proto.InternalMessageInfo
+
+func (m *QueryAllCompanyWorkedInRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllCompanyWorkedInResponse struct {
+	CompanyWorkedIn []CompanyWorkedIn   `protobuf:"bytes,1,rep,name=companyWorkedIn,proto3" json:"companyWorkedIn"`
+	Pagination      *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllCompanyWorkedInResponse) Reset()         { *m = QueryAllCompanyWorkedInResponse{} }
+func (m *QueryAllCompanyWorkedInResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllCompanyWorkedInResponse) ProtoMessage()    {}
+func (*QueryAllCompanyWorkedInResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{9}
+}
+func (m *QueryAllCompanyWorkedInResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllCompanyWorkedInResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllCompanyWorkedInResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllCompanyWorkedInResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllCompanyWorkedInResponse.Merge(m, src)
+}
+func (m *QueryAllCompanyWorkedInResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllCompanyWorkedInResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllCompanyWorkedInResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllCompanyWorkedInResponse proto.InternalMessageInfo
+
+func (m *QueryAllCompanyWorkedInResponse) GetCompanyWorkedIn() []CompanyWorkedIn {
+	if m != nil {
+		return m.CompanyWorkedIn
+	}
+	return nil
+}
+
+func (m *QueryAllCompanyWorkedInResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryGetCompanyRequest struct {
+	UUID string `protobuf:"bytes,1,opt,name=uUID,proto3" json:"uUID,omitempty"`
+}
+
+func (m *QueryGetCompanyRequest) Reset()         { *m = QueryGetCompanyRequest{} }
+func (m *QueryGetCompanyRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryGetCompanyRequest) ProtoMessage()    {}
+func (*QueryGetCompanyRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{10}
+}
+func (m *QueryGetCompanyRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetCompanyRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetCompanyRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetCompanyRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetCompanyRequest.Merge(m, src)
+}
+func (m *QueryGetCompanyRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetCompanyRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetCompanyRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetCompanyRequest proto.InternalMessageInfo
+
+func (m *QueryGetCompanyRequest) GetUUID() string {
+	if m != nil {
+		return m.UUID
+	}
+	return ""
+}
+
+type QueryGetCompanyResponse struct {
+	Company Company `protobuf:"bytes,1,opt,name=company,proto3" json:"company"`
+}
+
+func (m *QueryGetCompanyResponse) Reset()         { *m = QueryGetCompanyResponse{} }
+func (m *QueryGetCompanyResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryGetCompanyResponse) ProtoMessage()    {}
+func (*QueryGetCompanyResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{11}
+}
+func (m *QueryGetCompanyResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryGetCompanyResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryGetCompanyResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryGetCompanyResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryGetCompanyResponse.Merge(m, src)
+}
+func (m *QueryGetCompanyResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryGetCompanyResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryGetCompanyResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryGetCompanyResponse proto.InternalMessageInfo
+
+func (m *QueryGetCompanyResponse) GetCompany() Company {
+	if m != nil {
+		return m.Company
+	}
+	return Company{}
+}
+
+type QueryAllCompanyRequest struct {
+	Pagination *query.PageRequest `protobuf:"bytes,1,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllCompanyRequest) Reset()         { *m = QueryAllCompanyRequest{} }
+func (m *QueryAllCompanyRequest) String() string { return proto.CompactTextString(m) }
+func (*QueryAllCompanyRequest) ProtoMessage()    {}
+func (*QueryAllCompanyRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{12}
+}
+func (m *QueryAllCompanyRequest) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllCompanyRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllCompanyRequest.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllCompanyRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllCompanyRequest.Merge(m, src)
+}
+func (m *QueryAllCompanyRequest) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllCompanyRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllCompanyRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllCompanyRequest proto.InternalMessageInfo
+
+func (m *QueryAllCompanyRequest) GetPagination() *query.PageRequest {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
+}
+
+type QueryAllCompanyResponse struct {
+	Company    []Company           `protobuf:"bytes,1,rep,name=company,proto3" json:"company"`
+	Pagination *query.PageResponse `protobuf:"bytes,2,opt,name=pagination,proto3" json:"pagination,omitempty"`
+}
+
+func (m *QueryAllCompanyResponse) Reset()         { *m = QueryAllCompanyResponse{} }
+func (m *QueryAllCompanyResponse) String() string { return proto.CompactTextString(m) }
+func (*QueryAllCompanyResponse) ProtoMessage()    {}
+func (*QueryAllCompanyResponse) Descriptor() ([]byte, []int) {
+	return fileDescriptor_18d3bdc55bbb8c80, []int{13}
+}
+func (m *QueryAllCompanyResponse) XXX_Unmarshal(b []byte) error {
+	return m.Unmarshal(b)
+}
+func (m *QueryAllCompanyResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	if deterministic {
+		return xxx_messageInfo_QueryAllCompanyResponse.Marshal(b, m, deterministic)
+	} else {
+		b = b[:cap(b)]
+		n, err := m.MarshalToSizedBuffer(b)
+		if err != nil {
+			return nil, err
+		}
+		return b[:n], nil
+	}
+}
+func (m *QueryAllCompanyResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_QueryAllCompanyResponse.Merge(m, src)
+}
+func (m *QueryAllCompanyResponse) XXX_Size() int {
+	return m.Size()
+}
+func (m *QueryAllCompanyResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_QueryAllCompanyResponse.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_QueryAllCompanyResponse proto.InternalMessageInfo
+
+func (m *QueryAllCompanyResponse) GetCompany() []Company {
+	if m != nil {
+		return m.Company
+	}
+	return nil
+}
+
+func (m *QueryAllCompanyResponse) GetPagination() *query.PageResponse {
+	if m != nil {
+		return m.Pagination
+	}
+	return nil
 }
 
 func init() {
 	proto.RegisterType((*QueryParamsRequest)(nil), "alexs778.cvproject.cvproject.QueryParamsRequest")
 	proto.RegisterType((*QueryParamsResponse)(nil), "alexs778.cvproject.cvproject.QueryParamsResponse")
-	proto.RegisterType((*QueryGetSystemInfoRequest)(nil), "alexs778.cvproject.cvproject.QueryGetSystemInfoRequest")
-	proto.RegisterType((*QueryGetSystemInfoResponse)(nil), "alexs778.cvproject.cvproject.QueryGetSystemInfoResponse")
+	proto.RegisterType((*QueryAllCVRequest)(nil), "alexs778.cvproject.cvproject.QueryAllCVRequest")
+	proto.RegisterType((*QueryAllCVResponse)(nil), "alexs778.cvproject.cvproject.QueryAllCVResponse")
+	proto.RegisterType((*QueryGetCvByCosmosAddressRequest)(nil), "alexs778.cvproject.cvproject.QueryGetCvByCosmosAddressRequest")
+	proto.RegisterType((*QueryGetCvByCosmosAddressResponse)(nil), "alexs778.cvproject.cvproject.QueryGetCvByCosmosAddressResponse")
+	proto.RegisterType((*QueryGetCompanyWorkedInRequest)(nil), "alexs778.cvproject.cvproject.QueryGetCompanyWorkedInRequest")
+	proto.RegisterType((*QueryGetCompanyWorkedInResponse)(nil), "alexs778.cvproject.cvproject.QueryGetCompanyWorkedInResponse")
+	proto.RegisterType((*QueryAllCompanyWorkedInRequest)(nil), "alexs778.cvproject.cvproject.QueryAllCompanyWorkedInRequest")
+	proto.RegisterType((*QueryAllCompanyWorkedInResponse)(nil), "alexs778.cvproject.cvproject.QueryAllCompanyWorkedInResponse")
+	proto.RegisterType((*QueryGetCompanyRequest)(nil), "alexs778.cvproject.cvproject.QueryGetCompanyRequest")
+	proto.RegisterType((*QueryGetCompanyResponse)(nil), "alexs778.cvproject.cvproject.QueryGetCompanyResponse")
+	proto.RegisterType((*QueryAllCompanyRequest)(nil), "alexs778.cvproject.cvproject.QueryAllCompanyRequest")
+	proto.RegisterType((*QueryAllCompanyResponse)(nil), "alexs778.cvproject.cvproject.QueryAllCompanyResponse")
 }
 
 func init() { proto.RegisterFile("cvproject/query.proto", fileDescriptor_18d3bdc55bbb8c80) }
 
 var fileDescriptor_18d3bdc55bbb8c80 = []byte{
-	// 402 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0x12, 0x4d, 0x2e, 0x2b, 0x28,
-	0xca, 0xcf, 0x4a, 0x4d, 0x2e, 0xd1, 0x2f, 0x2c, 0x4d, 0x2d, 0xaa, 0xd4, 0x2b, 0x28, 0xca, 0x2f,
-	0xc9, 0x17, 0x92, 0x49, 0xcc, 0x49, 0xad, 0x28, 0x36, 0x37, 0xb7, 0xd0, 0x83, 0xcb, 0x23, 0x58,
-	0x52, 0x22, 0xe9, 0xf9, 0xe9, 0xf9, 0x60, 0x85, 0xfa, 0x20, 0x16, 0x44, 0x8f, 0x94, 0x4c, 0x7a,
-	0x7e, 0x7e, 0x7a, 0x4e, 0xaa, 0x7e, 0x62, 0x41, 0xa6, 0x7e, 0x62, 0x5e, 0x5e, 0x7e, 0x49, 0x62,
-	0x49, 0x66, 0x7e, 0x5e, 0x31, 0x54, 0x56, 0x2b, 0x39, 0xbf, 0x38, 0x37, 0xbf, 0x58, 0x3f, 0x29,
-	0xb1, 0x38, 0x15, 0x62, 0x95, 0x7e, 0x99, 0x61, 0x52, 0x6a, 0x49, 0xa2, 0xa1, 0x7e, 0x41, 0x62,
-	0x7a, 0x66, 0x1e, 0x58, 0x31, 0x54, 0xad, 0x18, 0xc2, 0x51, 0x05, 0x89, 0x45, 0x89, 0xb9, 0x30,
-	0x33, 0xa4, 0x11, 0xe2, 0xc5, 0x95, 0xc5, 0x25, 0xa9, 0xb9, 0xf1, 0x99, 0x79, 0x69, 0x50, 0xeb,
-	0x95, 0x44, 0xb8, 0x84, 0x02, 0x41, 0xc6, 0x06, 0x80, 0x75, 0x04, 0xa5, 0x16, 0x96, 0xa6, 0x16,
-	0x97, 0x28, 0x45, 0x72, 0x09, 0xa3, 0x88, 0x16, 0x17, 0xe4, 0xe7, 0x15, 0xa7, 0x0a, 0x39, 0x71,
-	0xb1, 0x41, 0x4c, 0x96, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x36, 0x52, 0xd1, 0xc3, 0xe7, 0x61, 0x3d,
-	0x88, 0x6e, 0x27, 0x96, 0x13, 0xf7, 0xe4, 0x19, 0x82, 0xa0, 0x3a, 0x95, 0xa4, 0xb9, 0x24, 0xc1,
-	0x46, 0xbb, 0xa7, 0x96, 0x04, 0x83, 0x5d, 0xe3, 0x99, 0x97, 0x96, 0x0f, 0xb3, 0x37, 0x87, 0x4b,
-	0x0a, 0x9b, 0x24, 0xd4, 0x7a, 0x3f, 0x2e, 0x2e, 0x84, 0x28, 0xd4, 0x09, 0x1a, 0xf8, 0x9d, 0x80,
-	0x50, 0x0f, 0x75, 0x06, 0x92, 0x09, 0x46, 0xb7, 0x98, 0xb8, 0x58, 0xc1, 0xd6, 0x09, 0xcd, 0x66,
-	0xe4, 0x62, 0x83, 0xb8, 0x56, 0xc8, 0x00, 0xbf, 0x81, 0x98, 0x81, 0x25, 0x65, 0x48, 0x82, 0x0e,
-	0x88, 0x4f, 0x94, 0x74, 0x9a, 0x2e, 0x3f, 0x99, 0xcc, 0xa4, 0x26, 0xa4, 0xa2, 0xef, 0x98, 0x93,
-	0x5a, 0x11, 0x6c, 0x6e, 0x6e, 0xa1, 0xef, 0x1c, 0x16, 0x00, 0x8d, 0x24, 0xf4, 0x68, 0x14, 0xda,
-	0xc4, 0x88, 0xec, 0x71, 0x21, 0x73, 0x22, 0xec, 0xc3, 0x16, 0xba, 0x52, 0x16, 0xa4, 0x6b, 0x84,
-	0xba, 0xd7, 0x10, 0xec, 0x5e, 0x6d, 0x21, 0x4d, 0xfc, 0xee, 0x45, 0x4a, 0x5e, 0x4e, 0x9e, 0x27,
-	0x1e, 0xc9, 0x31, 0x5e, 0x78, 0x24, 0xc7, 0xf8, 0xe0, 0x91, 0x1c, 0xe3, 0x84, 0xc7, 0x72, 0x0c,
-	0x17, 0x1e, 0xcb, 0x31, 0xdc, 0x78, 0x2c, 0xc7, 0x10, 0xa5, 0x9f, 0x9e, 0x59, 0x92, 0x51, 0x9a,
-	0xa4, 0x97, 0x9c, 0x9f, 0x8b, 0xcd, 0xb8, 0x0a, 0x24, 0x03, 0x4b, 0x2a, 0x0b, 0x52, 0x8b, 0x93,
-	0xd8, 0xc0, 0x49, 0xd5, 0x18, 0x10, 0x00, 0x00, 0xff, 0xff, 0x34, 0xba, 0x4d, 0xef, 0x76, 0x03,
-	0x00, 0x00,
+	// 840 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x96, 0xdf, 0x4b, 0x1b, 0x4b,
+	0x14, 0xc7, 0x33, 0xf1, 0x17, 0x77, 0xe4, 0x22, 0x77, 0xae, 0x57, 0x25, 0x48, 0x8c, 0x8b, 0xbf,
+	0xb8, 0x57, 0x77, 0x8d, 0x37, 0xd7, 0x08, 0xd7, 0x5a, 0x92, 0x58, 0x35, 0x2f, 0xc5, 0xa6, 0x98,
+	0xd2, 0x96, 0x12, 0x37, 0x9b, 0x61, 0x4d, 0x9b, 0x64, 0xd6, 0xec, 0x26, 0x35, 0x88, 0x50, 0xfa,
+	0x17, 0x14, 0xda, 0x3e, 0x15, 0xfa, 0xdc, 0x42, 0xff, 0x10, 0xdb, 0x87, 0x22, 0xf4, 0xa5, 0x4f,
+	0xa5, 0x68, 0xa1, 0xff, 0x46, 0xd9, 0xd9, 0x93, 0x1f, 0x9b, 0xc4, 0xcd, 0x26, 0xe4, 0x6d, 0x99,
+	0x99, 0xf3, 0x3d, 0x9f, 0xef, 0x39, 0xc3, 0x99, 0xc5, 0x7f, 0x29, 0x65, 0xad, 0xc8, 0x1e, 0x53,
+	0xc5, 0x90, 0x8e, 0x4b, 0xb4, 0x58, 0x11, 0xb5, 0x22, 0x33, 0x18, 0x99, 0x96, 0x73, 0xf4, 0x44,
+	0x0f, 0x87, 0x37, 0xc4, 0xda, 0x7e, 0xfd, 0xcb, 0x37, 0xae, 0x32, 0x95, 0xf1, 0x83, 0x92, 0xf9,
+	0x65, 0xc5, 0xf8, 0xa6, 0x55, 0xc6, 0xd4, 0x1c, 0x95, 0x64, 0x2d, 0x2b, 0xc9, 0x85, 0x02, 0x33,
+	0x64, 0x23, 0xcb, 0x0a, 0x3a, 0xec, 0xfe, 0xad, 0x30, 0x3d, 0xcf, 0x74, 0x29, 0x2d, 0xeb, 0xd4,
+	0x4a, 0x25, 0x95, 0x83, 0x69, 0x6a, 0xc8, 0x41, 0x49, 0x93, 0xd5, 0x6c, 0x81, 0x1f, 0x86, 0xb3,
+	0x13, 0x75, 0x28, 0x4d, 0x2e, 0xca, 0xf9, 0xaa, 0x06, 0xa9, 0xaf, 0x2b, 0x65, 0x58, 0x9b, 0x6d,
+	0x58, 0x63, 0x79, 0x4d, 0x2e, 0x54, 0x52, 0x4f, 0x59, 0xf1, 0x09, 0xcd, 0xa4, 0xb2, 0x55, 0xb9,
+	0xc9, 0x96, 0x23, 0xd6, 0x86, 0x30, 0x8e, 0xc9, 0x1d, 0x93, 0x64, 0x9f, 0x27, 0x49, 0xd0, 0xe3,
+	0x12, 0xd5, 0x0d, 0xe1, 0x3e, 0xfe, 0xd3, 0xb6, 0xaa, 0x6b, 0xac, 0xa0, 0x53, 0x12, 0xc5, 0xc3,
+	0x16, 0xcc, 0x14, 0x0a, 0xa0, 0xa5, 0xd1, 0xb5, 0x39, 0xd1, 0xa9, 0x46, 0xa2, 0x15, 0x1d, 0x1d,
+	0x3c, 0xff, 0x36, 0xe3, 0x49, 0x40, 0xa4, 0xf0, 0x10, 0xff, 0xc1, 0xa5, 0x23, 0xb9, 0x5c, 0x2c,
+	0x09, 0xf9, 0xc8, 0x0e, 0xc6, 0xf5, 0x0a, 0x80, 0xf8, 0x82, 0x68, 0x95, 0x4b, 0x34, 0xcb, 0x25,
+	0x5a, 0x9d, 0x81, 0x72, 0x89, 0xfb, 0xb2, 0x4a, 0x21, 0x36, 0xd1, 0x10, 0x29, 0xbc, 0x46, 0x60,
+	0x07, 0xd4, 0x81, 0x7b, 0x1d, 0x7b, 0x95, 0xe4, 0x14, 0x0a, 0x0c, 0x2c, 0x8d, 0xae, 0x05, 0x9c,
+	0x99, 0x63, 0x49, 0xe0, 0xf5, 0x2a, 0x49, 0xb2, 0x6b, 0xc3, 0xf2, 0x72, 0xac, 0xc5, 0x8e, 0x58,
+	0x56, 0x52, 0x1b, 0xd7, 0x1e, 0x0e, 0x70, 0xac, 0x5d, 0x6a, 0xc4, 0xca, 0xd1, 0x4a, 0x8c, 0x2b,
+	0x44, 0x32, 0x99, 0x22, 0xd5, 0xab, 0x35, 0x27, 0x73, 0xf8, 0x77, 0xa5, 0x71, 0x9d, 0x97, 0xe1,
+	0xb7, 0x84, 0x7d, 0x51, 0x38, 0xc4, 0xb3, 0x0e, 0x4a, 0xe0, 0xf7, 0x7f, 0xf0, 0x6b, 0xf2, 0xfe,
+	0xd3, 0xc1, 0x6f, 0x79, 0x87, 0x15, 0x6b, 0xcc, 0x5e, 0x25, 0x29, 0x84, 0xb0, 0xbf, 0x96, 0xc1,
+	0xba, 0x2a, 0xf7, 0xf8, 0x65, 0x8a, 0x17, 0xaa, 0xa4, 0x04, 0x0f, 0x96, 0x4a, 0xd9, 0x0c, 0x00,
+	0xf2, 0x6f, 0xe1, 0x19, 0xc2, 0x33, 0xd7, 0x86, 0x01, 0xd6, 0x23, 0x3c, 0xa6, 0xd8, 0xb7, 0x80,
+	0x71, 0xa5, 0x03, 0xa3, 0x3d, 0x08, 0x1a, 0xd4, 0xac, 0x25, 0x1c, 0x01, 0xb8, 0xd9, 0xfb, 0xf6,
+	0xe0, 0xfd, 0xba, 0x66, 0x1f, 0xab, 0x66, 0xdb, 0xa5, 0x72, 0x32, 0x3b, 0xd0, 0x2f, 0xb3, 0xfd,
+	0xbb, 0x9a, 0xcb, 0x78, 0xa2, 0xa9, 0x6f, 0x8d, 0x6d, 0x3e, 0x88, 0x6f, 0xd7, 0xda, 0x7c, 0x10,
+	0xdf, 0x16, 0x0e, 0xf1, 0x64, 0xcb, 0x69, 0x30, 0x7c, 0x0b, 0x8f, 0x00, 0x24, 0x54, 0x76, 0xde,
+	0x95, 0x51, 0x30, 0x58, 0x8d, 0x15, 0x0e, 0x81, 0xa7, 0x5e, 0xda, 0x7e, 0x77, 0xef, 0x3d, 0x02,
+	0x13, 0x8d, 0x29, 0xda, 0x99, 0x18, 0xe8, 0xd5, 0x44, 0xdf, 0xba, 0xb3, 0xf6, 0x16, 0xe3, 0x21,
+	0xce, 0x4a, 0xde, 0x20, 0x3c, 0x6c, 0x0d, 0x54, 0xb2, 0xea, 0xcc, 0xd4, 0x3a, 0xcf, 0x7d, 0xc1,
+	0x2e, 0x22, 0x2c, 0x0a, 0x61, 0xf9, 0xf9, 0x97, 0x1f, 0x2f, 0xbd, 0x0b, 0x64, 0x4e, 0x8a, 0xe4,
+	0xe8, 0xc9, 0xdd, 0x70, 0x78, 0x43, 0x8a, 0x25, 0xf7, 0x6b, 0x4f, 0x8f, 0xfd, 0x71, 0x22, 0xaf,
+	0x10, 0x1e, 0x8a, 0x25, 0x23, 0xb9, 0x1c, 0x91, 0x5c, 0xa4, 0x6a, 0x9c, 0xfd, 0xbe, 0x55, 0xf7,
+	0x01, 0x80, 0xb6, 0xc4, 0xd1, 0x04, 0x12, 0x70, 0x46, 0x53, 0xca, 0xe4, 0x27, 0xc2, 0xe3, 0xed,
+	0x26, 0x25, 0xd9, 0x72, 0x91, 0xd4, 0x61, 0x58, 0xfb, 0x6e, 0xf6, 0x1c, 0x0f, 0x1e, 0x6e, 0x73,
+	0x0f, 0x7b, 0x64, 0xc7, 0xd9, 0x83, 0x4a, 0x8d, 0x94, 0x52, 0x4e, 0xa5, 0x2b, 0x29, 0xeb, 0xf2,
+	0xa4, 0x64, 0x4b, 0x47, 0x3a, 0xb5, 0x3d, 0x0b, 0x67, 0xe4, 0x33, 0xc2, 0x63, 0x4d, 0xa3, 0x83,
+	0x6c, 0xba, 0x84, 0x6c, 0x3b, 0x2c, 0x7d, 0x37, 0x7a, 0x8c, 0x06, 0x83, 0x5b, 0xdc, 0xe0, 0x06,
+	0x59, 0xef, 0xd0, 0xa4, 0xe6, 0x1f, 0x16, 0xe9, 0xd4, 0x7c, 0x4f, 0xce, 0xc8, 0x27, 0x84, 0x49,
+	0x93, 0xb6, 0x79, 0xbd, 0x36, 0x5d, 0xde, 0x96, 0xde, 0x3d, 0x5d, 0x3f, 0xd3, 0x85, 0x30, 0xf7,
+	0x14, 0x24, 0x52, 0x97, 0x9e, 0xc8, 0x07, 0x84, 0x47, 0x40, 0x94, 0x84, 0xba, 0xaa, 0x6b, 0x95,
+	0xfc, 0xbf, 0x2e, 0xa3, 0x80, 0x38, 0xc4, 0x89, 0x45, 0xb2, 0xec, 0x8a, 0x58, 0x3a, 0x35, 0x87,
+	0xfc, 0x19, 0x79, 0x87, 0x30, 0x06, 0x25, 0xb3, 0xe6, 0xa1, 0xae, 0xaa, 0xd6, 0x0d, 0x71, 0xeb,
+	0x04, 0x16, 0x56, 0x38, 0xf1, 0x22, 0x99, 0x77, 0x45, 0x1c, 0x8d, 0x9f, 0x5f, 0xfa, 0xd1, 0xc5,
+	0xa5, 0x1f, 0x7d, 0xbf, 0xf4, 0xa3, 0x17, 0x57, 0x7e, 0xcf, 0xc5, 0x95, 0xdf, 0xf3, 0xf5, 0xca,
+	0xef, 0x79, 0x20, 0xa9, 0x59, 0xe3, 0xa8, 0x94, 0x16, 0x15, 0x96, 0x6f, 0x27, 0x75, 0xd2, 0x20,
+	0x66, 0x54, 0x34, 0xaa, 0xa7, 0x87, 0xf9, 0x1f, 0xf1, 0xbf, 0xbf, 0x02, 0x00, 0x00, 0xff, 0xff,
+	0x1a, 0x05, 0x6e, 0xb5, 0x10, 0x0c, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -246,8 +755,18 @@ const _ = grpc.SupportPackageIsVersion4
 type QueryClient interface {
 	// Parameters queries the parameters of the module.
 	Params(ctx context.Context, in *QueryParamsRequest, opts ...grpc.CallOption) (*QueryParamsResponse, error)
-	// Queries a SystemInfo by index.
-	SystemInfo(ctx context.Context, in *QueryGetSystemInfoRequest, opts ...grpc.CallOption) (*QueryGetSystemInfoResponse, error)
+	// Queries a list of CV items.
+	CVAll(ctx context.Context, in *QueryAllCVRequest, opts ...grpc.CallOption) (*QueryAllCVResponse, error)
+	// Queries a list of GetCvByCosmosAddress items.
+	GetCvByCosmosAddress(ctx context.Context, in *QueryGetCvByCosmosAddressRequest, opts ...grpc.CallOption) (*QueryGetCvByCosmosAddressResponse, error)
+	// Queries a CompanyWorkedIn by index.
+	CompanyWorkedIn(ctx context.Context, in *QueryGetCompanyWorkedInRequest, opts ...grpc.CallOption) (*QueryGetCompanyWorkedInResponse, error)
+	// Queries a list of CompanyWorkedIn items.
+	CompanyWorkedInAll(ctx context.Context, in *QueryAllCompanyWorkedInRequest, opts ...grpc.CallOption) (*QueryAllCompanyWorkedInResponse, error)
+	// Queries a Company by index.
+	Company(ctx context.Context, in *QueryGetCompanyRequest, opts ...grpc.CallOption) (*QueryGetCompanyResponse, error)
+	// Queries a list of Company items.
+	CompanyAll(ctx context.Context, in *QueryAllCompanyRequest, opts ...grpc.CallOption) (*QueryAllCompanyResponse, error)
 }
 
 type queryClient struct {
@@ -267,9 +786,54 @@ func (c *queryClient) Params(ctx context.Context, in *QueryParamsRequest, opts .
 	return out, nil
 }
 
-func (c *queryClient) SystemInfo(ctx context.Context, in *QueryGetSystemInfoRequest, opts ...grpc.CallOption) (*QueryGetSystemInfoResponse, error) {
-	out := new(QueryGetSystemInfoResponse)
-	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/SystemInfo", in, out, opts...)
+func (c *queryClient) CVAll(ctx context.Context, in *QueryAllCVRequest, opts ...grpc.CallOption) (*QueryAllCVResponse, error) {
+	out := new(QueryAllCVResponse)
+	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/CVAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) GetCvByCosmosAddress(ctx context.Context, in *QueryGetCvByCosmosAddressRequest, opts ...grpc.CallOption) (*QueryGetCvByCosmosAddressResponse, error) {
+	out := new(QueryGetCvByCosmosAddressResponse)
+	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/GetCvByCosmosAddress", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) CompanyWorkedIn(ctx context.Context, in *QueryGetCompanyWorkedInRequest, opts ...grpc.CallOption) (*QueryGetCompanyWorkedInResponse, error) {
+	out := new(QueryGetCompanyWorkedInResponse)
+	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/CompanyWorkedIn", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) CompanyWorkedInAll(ctx context.Context, in *QueryAllCompanyWorkedInRequest, opts ...grpc.CallOption) (*QueryAllCompanyWorkedInResponse, error) {
+	out := new(QueryAllCompanyWorkedInResponse)
+	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/CompanyWorkedInAll", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) Company(ctx context.Context, in *QueryGetCompanyRequest, opts ...grpc.CallOption) (*QueryGetCompanyResponse, error) {
+	out := new(QueryGetCompanyResponse)
+	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/Company", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *queryClient) CompanyAll(ctx context.Context, in *QueryAllCompanyRequest, opts ...grpc.CallOption) (*QueryAllCompanyResponse, error) {
+	out := new(QueryAllCompanyResponse)
+	err := c.cc.Invoke(ctx, "/alexs778.cvproject.cvproject.Query/CompanyAll", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -280,8 +844,18 @@ func (c *queryClient) SystemInfo(ctx context.Context, in *QueryGetSystemInfoRequ
 type QueryServer interface {
 	// Parameters queries the parameters of the module.
 	Params(context.Context, *QueryParamsRequest) (*QueryParamsResponse, error)
-	// Queries a SystemInfo by index.
-	SystemInfo(context.Context, *QueryGetSystemInfoRequest) (*QueryGetSystemInfoResponse, error)
+	// Queries a list of CV items.
+	CVAll(context.Context, *QueryAllCVRequest) (*QueryAllCVResponse, error)
+	// Queries a list of GetCvByCosmosAddress items.
+	GetCvByCosmosAddress(context.Context, *QueryGetCvByCosmosAddressRequest) (*QueryGetCvByCosmosAddressResponse, error)
+	// Queries a CompanyWorkedIn by index.
+	CompanyWorkedIn(context.Context, *QueryGetCompanyWorkedInRequest) (*QueryGetCompanyWorkedInResponse, error)
+	// Queries a list of CompanyWorkedIn items.
+	CompanyWorkedInAll(context.Context, *QueryAllCompanyWorkedInRequest) (*QueryAllCompanyWorkedInResponse, error)
+	// Queries a Company by index.
+	Company(context.Context, *QueryGetCompanyRequest) (*QueryGetCompanyResponse, error)
+	// Queries a list of Company items.
+	CompanyAll(context.Context, *QueryAllCompanyRequest) (*QueryAllCompanyResponse, error)
 }
 
 // UnimplementedQueryServer can be embedded to have forward compatible implementations.
@@ -291,8 +865,23 @@ type UnimplementedQueryServer struct {
 func (*UnimplementedQueryServer) Params(ctx context.Context, req *QueryParamsRequest) (*QueryParamsResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Params not implemented")
 }
-func (*UnimplementedQueryServer) SystemInfo(ctx context.Context, req *QueryGetSystemInfoRequest) (*QueryGetSystemInfoResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method SystemInfo not implemented")
+func (*UnimplementedQueryServer) CVAll(ctx context.Context, req *QueryAllCVRequest) (*QueryAllCVResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CVAll not implemented")
+}
+func (*UnimplementedQueryServer) GetCvByCosmosAddress(ctx context.Context, req *QueryGetCvByCosmosAddressRequest) (*QueryGetCvByCosmosAddressResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCvByCosmosAddress not implemented")
+}
+func (*UnimplementedQueryServer) CompanyWorkedIn(ctx context.Context, req *QueryGetCompanyWorkedInRequest) (*QueryGetCompanyWorkedInResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompanyWorkedIn not implemented")
+}
+func (*UnimplementedQueryServer) CompanyWorkedInAll(ctx context.Context, req *QueryAllCompanyWorkedInRequest) (*QueryAllCompanyWorkedInResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompanyWorkedInAll not implemented")
+}
+func (*UnimplementedQueryServer) Company(ctx context.Context, req *QueryGetCompanyRequest) (*QueryGetCompanyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Company not implemented")
+}
+func (*UnimplementedQueryServer) CompanyAll(ctx context.Context, req *QueryAllCompanyRequest) (*QueryAllCompanyResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CompanyAll not implemented")
 }
 
 func RegisterQueryServer(s grpc1.Server, srv QueryServer) {
@@ -317,20 +906,110 @@ func _Query_Params_Handler(srv interface{}, ctx context.Context, dec func(interf
 	return interceptor(ctx, in, info, handler)
 }
 
-func _Query_SystemInfo_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(QueryGetSystemInfoRequest)
+func _Query_CVAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllCVRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(QueryServer).SystemInfo(ctx, in)
+		return srv.(QueryServer).CVAll(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/alexs778.cvproject.cvproject.Query/SystemInfo",
+		FullMethod: "/alexs778.cvproject.cvproject.Query/CVAll",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(QueryServer).SystemInfo(ctx, req.(*QueryGetSystemInfoRequest))
+		return srv.(QueryServer).CVAll(ctx, req.(*QueryAllCVRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_GetCvByCosmosAddress_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetCvByCosmosAddressRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).GetCvByCosmosAddress(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/alexs778.cvproject.cvproject.Query/GetCvByCosmosAddress",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).GetCvByCosmosAddress(ctx, req.(*QueryGetCvByCosmosAddressRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_CompanyWorkedIn_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetCompanyWorkedInRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).CompanyWorkedIn(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/alexs778.cvproject.cvproject.Query/CompanyWorkedIn",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).CompanyWorkedIn(ctx, req.(*QueryGetCompanyWorkedInRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_CompanyWorkedInAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllCompanyWorkedInRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).CompanyWorkedInAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/alexs778.cvproject.cvproject.Query/CompanyWorkedInAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).CompanyWorkedInAll(ctx, req.(*QueryAllCompanyWorkedInRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_Company_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryGetCompanyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).Company(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/alexs778.cvproject.cvproject.Query/Company",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).Company(ctx, req.(*QueryGetCompanyRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Query_CompanyAll_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(QueryAllCompanyRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(QueryServer).CompanyAll(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/alexs778.cvproject.cvproject.Query/CompanyAll",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(QueryServer).CompanyAll(ctx, req.(*QueryAllCompanyRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -344,8 +1023,28 @@ var _Query_serviceDesc = grpc.ServiceDesc{
 			Handler:    _Query_Params_Handler,
 		},
 		{
-			MethodName: "SystemInfo",
-			Handler:    _Query_SystemInfo_Handler,
+			MethodName: "CVAll",
+			Handler:    _Query_CVAll_Handler,
+		},
+		{
+			MethodName: "GetCvByCosmosAddress",
+			Handler:    _Query_GetCvByCosmosAddress_Handler,
+		},
+		{
+			MethodName: "CompanyWorkedIn",
+			Handler:    _Query_CompanyWorkedIn_Handler,
+		},
+		{
+			MethodName: "CompanyWorkedInAll",
+			Handler:    _Query_CompanyWorkedInAll_Handler,
+		},
+		{
+			MethodName: "Company",
+			Handler:    _Query_Company_Handler,
+		},
+		{
+			MethodName: "CompanyAll",
+			Handler:    _Query_CompanyAll_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
@@ -408,7 +1107,7 @@ func (m *QueryParamsResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetSystemInfoRequest) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllCVRequest) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -418,20 +1117,32 @@ func (m *QueryGetSystemInfoRequest) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetSystemInfoRequest) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllCVRequest) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetSystemInfoRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllCVRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
 	return len(dAtA) - i, nil
 }
 
-func (m *QueryGetSystemInfoResponse) Marshal() (dAtA []byte, err error) {
+func (m *QueryAllCVResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -441,18 +1152,162 @@ func (m *QueryGetSystemInfoResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *QueryGetSystemInfoResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *QueryAllCVResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *QueryGetSystemInfoResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *QueryAllCVResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.CV) > 0 {
+		for iNdEx := len(m.CV) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.CV[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetCvByCosmosAddressRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetCvByCosmosAddressRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetCvByCosmosAddressRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.CosmosAddress) > 0 {
+		i -= len(m.CosmosAddress)
+		copy(dAtA[i:], m.CosmosAddress)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.CosmosAddress)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.CV != nil {
+		{
+			size, err := m.CV.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetCompanyWorkedInRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetCompanyWorkedInRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetCompanyWorkedInRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.Uuid) > 0 {
+		i -= len(m.Uuid)
+		copy(dAtA[i:], m.Uuid)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.Uuid)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetCompanyWorkedInResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetCompanyWorkedInResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetCompanyWorkedInResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
 	_ = l
 	{
-		size, err := m.SystemInfo.MarshalToSizedBuffer(dAtA[:i])
+		size, err := m.CompanyWorkedIn.MarshalToSizedBuffer(dAtA[:i])
 		if err != nil {
 			return 0, err
 		}
@@ -461,6 +1316,237 @@ func (m *QueryGetSystemInfoResponse) MarshalToSizedBuffer(dAtA []byte) (int, err
 	}
 	i--
 	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllCompanyWorkedInRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllCompanyWorkedInRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllCompanyWorkedInRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllCompanyWorkedInResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllCompanyWorkedInResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllCompanyWorkedInResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.CompanyWorkedIn) > 0 {
+		for iNdEx := len(m.CompanyWorkedIn) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.CompanyWorkedIn[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetCompanyRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetCompanyRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetCompanyRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if len(m.UUID) > 0 {
+		i -= len(m.UUID)
+		copy(dAtA[i:], m.UUID)
+		i = encodeVarintQuery(dAtA, i, uint64(len(m.UUID)))
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryGetCompanyResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryGetCompanyResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryGetCompanyResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	{
+		size, err := m.Company.MarshalToSizedBuffer(dAtA[:i])
+		if err != nil {
+			return 0, err
+		}
+		i -= size
+		i = encodeVarintQuery(dAtA, i, uint64(size))
+	}
+	i--
+	dAtA[i] = 0xa
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllCompanyRequest) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllCompanyRequest) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllCompanyRequest) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0xa
+	}
+	return len(dAtA) - i, nil
+}
+
+func (m *QueryAllCompanyResponse) Marshal() (dAtA []byte, err error) {
+	size := m.Size()
+	dAtA = make([]byte, size)
+	n, err := m.MarshalToSizedBuffer(dAtA[:size])
+	if err != nil {
+		return nil, err
+	}
+	return dAtA[:n], nil
+}
+
+func (m *QueryAllCompanyResponse) MarshalTo(dAtA []byte) (int, error) {
+	size := m.Size()
+	return m.MarshalToSizedBuffer(dAtA[:size])
+}
+
+func (m *QueryAllCompanyResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+	i := len(dAtA)
+	_ = i
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		{
+			size, err := m.Pagination.MarshalToSizedBuffer(dAtA[:i])
+			if err != nil {
+				return 0, err
+			}
+			i -= size
+			i = encodeVarintQuery(dAtA, i, uint64(size))
+		}
+		i--
+		dAtA[i] = 0x12
+	}
+	if len(m.Company) > 0 {
+		for iNdEx := len(m.Company) - 1; iNdEx >= 0; iNdEx-- {
+			{
+				size, err := m.Company[iNdEx].MarshalToSizedBuffer(dAtA[:i])
+				if err != nil {
+					return 0, err
+				}
+				i -= size
+				i = encodeVarintQuery(dAtA, i, uint64(size))
+			}
+			i--
+			dAtA[i] = 0xa
+		}
+	}
 	return len(dAtA) - i, nil
 }
 
@@ -495,23 +1581,173 @@ func (m *QueryParamsResponse) Size() (n int) {
 	return n
 }
 
-func (m *QueryGetSystemInfoRequest) Size() (n int) {
+func (m *QueryAllCVRequest) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
 	return n
 }
 
-func (m *QueryGetSystemInfoResponse) Size() (n int) {
+func (m *QueryAllCVResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
 	var l int
 	_ = l
-	l = m.SystemInfo.Size()
+	if len(m.CV) > 0 {
+		for _, e := range m.CV {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetCvByCosmosAddressRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.CosmosAddress)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetCvByCosmosAddressResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.CV != nil {
+		l = m.CV.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetCompanyWorkedInRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.Uuid)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetCompanyWorkedInResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.CompanyWorkedIn.Size()
 	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllCompanyWorkedInRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllCompanyWorkedInResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.CompanyWorkedIn) > 0 {
+		for _, e := range m.CompanyWorkedIn {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetCompanyRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = len(m.UUID)
+	if l > 0 {
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryGetCompanyResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	l = m.Company.Size()
+	n += 1 + l + sovQuery(uint64(l))
+	return n
+}
+
+func (m *QueryAllCompanyRequest) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
+	return n
+}
+
+func (m *QueryAllCompanyResponse) Size() (n int) {
+	if m == nil {
+		return 0
+	}
+	var l int
+	_ = l
+	if len(m.Company) > 0 {
+		for _, e := range m.Company {
+			l = e.Size()
+			n += 1 + l + sovQuery(uint64(l))
+		}
+	}
+	if m.Pagination != nil {
+		l = m.Pagination.Size()
+		n += 1 + l + sovQuery(uint64(l))
+	}
 	return n
 }
 
@@ -654,7 +1890,7 @@ func (m *QueryParamsResponse) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *QueryGetSystemInfoRequest) Unmarshal(dAtA []byte) error {
+func (m *QueryAllCVRequest) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -677,65 +1913,15 @@ func (m *QueryGetSystemInfoRequest) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetSystemInfoRequest: wiretype end group for non-group")
+			return fmt.Errorf("proto: QueryAllCVRequest: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetSystemInfoRequest: illegal tag %d (wire type %d)", fieldNum, wire)
-		}
-		switch fieldNum {
-		default:
-			iNdEx = preIndex
-			skippy, err := skipQuery(dAtA[iNdEx:])
-			if err != nil {
-				return err
-			}
-			if (skippy < 0) || (iNdEx+skippy) < 0 {
-				return ErrInvalidLengthQuery
-			}
-			if (iNdEx + skippy) > l {
-				return io.ErrUnexpectedEOF
-			}
-			iNdEx += skippy
-		}
-	}
-
-	if iNdEx > l {
-		return io.ErrUnexpectedEOF
-	}
-	return nil
-}
-func (m *QueryGetSystemInfoResponse) Unmarshal(dAtA []byte) error {
-	l := len(dAtA)
-	iNdEx := 0
-	for iNdEx < l {
-		preIndex := iNdEx
-		var wire uint64
-		for shift := uint(0); ; shift += 7 {
-			if shift >= 64 {
-				return ErrIntOverflowQuery
-			}
-			if iNdEx >= l {
-				return io.ErrUnexpectedEOF
-			}
-			b := dAtA[iNdEx]
-			iNdEx++
-			wire |= uint64(b&0x7F) << shift
-			if b < 0x80 {
-				break
-			}
-		}
-		fieldNum := int32(wire >> 3)
-		wireType := int(wire & 0x7)
-		if wireType == 4 {
-			return fmt.Errorf("proto: QueryGetSystemInfoResponse: wiretype end group for non-group")
-		}
-		if fieldNum <= 0 {
-			return fmt.Errorf("proto: QueryGetSystemInfoResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: QueryAllCVRequest: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field SystemInfo", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
 			}
 			var msglen int
 			for shift := uint(0); ; shift += 7 {
@@ -762,7 +1948,1040 @@ func (m *QueryGetSystemInfoResponse) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			if err := m.SystemInfo.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllCVResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllCVResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllCVResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CV", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CV = append(m.CV, CV{})
+			if err := m.CV[len(m.CV)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetCvByCosmosAddressRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetCvByCosmosAddressRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetCvByCosmosAddressRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CosmosAddress", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CosmosAddress = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetCvByCosmosAddressResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetCvByCosmosAddressResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetCvByCosmosAddressResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CV", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.CV == nil {
+				m.CV = &CvForResponse{}
+			}
+			if err := m.CV.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetCompanyWorkedInRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetCompanyWorkedInRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetCompanyWorkedInRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Uuid", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Uuid = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetCompanyWorkedInResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetCompanyWorkedInResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetCompanyWorkedInResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CompanyWorkedIn", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.CompanyWorkedIn.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllCompanyWorkedInRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllCompanyWorkedInRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllCompanyWorkedInRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllCompanyWorkedInResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllCompanyWorkedInResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllCompanyWorkedInResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field CompanyWorkedIn", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.CompanyWorkedIn = append(m.CompanyWorkedIn, CompanyWorkedIn{})
+			if err := m.CompanyWorkedIn[len(m.CompanyWorkedIn)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetCompanyRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetCompanyRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetCompanyRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field UUID", wireType)
+			}
+			var stringLen uint64
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				stringLen |= uint64(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			intStringLen := int(stringLen)
+			if intStringLen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + intStringLen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.UUID = string(dAtA[iNdEx:postIndex])
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryGetCompanyResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryGetCompanyResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryGetCompanyResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Company", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if err := m.Company.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllCompanyRequest) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllCompanyRequest: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllCompanyRequest: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageRequest{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		default:
+			iNdEx = preIndex
+			skippy, err := skipQuery(dAtA[iNdEx:])
+			if err != nil {
+				return err
+			}
+			if (skippy < 0) || (iNdEx+skippy) < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if (iNdEx + skippy) > l {
+				return io.ErrUnexpectedEOF
+			}
+			iNdEx += skippy
+		}
+	}
+
+	if iNdEx > l {
+		return io.ErrUnexpectedEOF
+	}
+	return nil
+}
+func (m *QueryAllCompanyResponse) Unmarshal(dAtA []byte) error {
+	l := len(dAtA)
+	iNdEx := 0
+	for iNdEx < l {
+		preIndex := iNdEx
+		var wire uint64
+		for shift := uint(0); ; shift += 7 {
+			if shift >= 64 {
+				return ErrIntOverflowQuery
+			}
+			if iNdEx >= l {
+				return io.ErrUnexpectedEOF
+			}
+			b := dAtA[iNdEx]
+			iNdEx++
+			wire |= uint64(b&0x7F) << shift
+			if b < 0x80 {
+				break
+			}
+		}
+		fieldNum := int32(wire >> 3)
+		wireType := int(wire & 0x7)
+		if wireType == 4 {
+			return fmt.Errorf("proto: QueryAllCompanyResponse: wiretype end group for non-group")
+		}
+		if fieldNum <= 0 {
+			return fmt.Errorf("proto: QueryAllCompanyResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+		}
+		switch fieldNum {
+		case 1:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Company", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			m.Company = append(m.Company, Company{})
+			if err := m.Company[len(m.Company)-1].Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
+				return err
+			}
+			iNdEx = postIndex
+		case 2:
+			if wireType != 2 {
+				return fmt.Errorf("proto: wrong wireType = %d for field Pagination", wireType)
+			}
+			var msglen int
+			for shift := uint(0); ; shift += 7 {
+				if shift >= 64 {
+					return ErrIntOverflowQuery
+				}
+				if iNdEx >= l {
+					return io.ErrUnexpectedEOF
+				}
+				b := dAtA[iNdEx]
+				iNdEx++
+				msglen |= int(b&0x7F) << shift
+				if b < 0x80 {
+					break
+				}
+			}
+			if msglen < 0 {
+				return ErrInvalidLengthQuery
+			}
+			postIndex := iNdEx + msglen
+			if postIndex < 0 {
+				return ErrInvalidLengthQuery
+			}
+			if postIndex > l {
+				return io.ErrUnexpectedEOF
+			}
+			if m.Pagination == nil {
+				m.Pagination = &query.PageResponse{}
+			}
+			if err := m.Pagination.Unmarshal(dAtA[iNdEx:postIndex]); err != nil {
 				return err
 			}
 			iNdEx = postIndex
